@@ -4,22 +4,31 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start:server": "babel-node ./server/server.js",
     "test": "jest"
   },
+  "jest": {
+    "preset": "react-native"
+  },
   "dependencies": {
+    "express": "^4.14.0",
+    "parse-dashboard": "^1.0.22",
+    "parse-react": "^0.5.2",
+    "parse-server": "^2.3.2",
     "react": "15.4.2",
-    "react-native": "0.40.0"
+    "react-native": "0.40.0",
+    "react-native-code-push": "^1.16.1-beta",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.1",
     "babel-jest": "18.0.0",
     "babel-preset-react-native": "1.9.1",
     "eslint": "^3.13.0",
     "eslint-plugin-react": "^6.8.0",
+    "flow-bin": "^0.37.4",
     "jest": "18.1.0",
     "react-test-renderer": "15.4.2"
-  },
-  "jest": {
-    "preset": "react-native"
   }
 }
