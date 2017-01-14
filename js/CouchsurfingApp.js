@@ -2,10 +2,10 @@
 import React, { Component } from 'react';
 import {
   View,
-  Text,
   StyleSheet
 } from 'react-native';
 import Header from './components/Header';
+import Navigator from './CSNavigator';
 
 class CouchsurfingApp extends Component {
   render() {
@@ -16,7 +16,7 @@ class CouchsurfingApp extends Component {
           leftItem={{text: 'Back'}}
           rightItem={{icons: [require('./components/img/settings.png')]}}
         />
-        <Text>Hello</Text>
+        <Navigator/>
       </View>
     );
   }
