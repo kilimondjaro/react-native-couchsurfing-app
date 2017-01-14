@@ -12,7 +12,7 @@ class Root extends Component {
   constructor() {
     super();
     this.state = {
-      isLoading: true,
+      isLoading: false,
       store: configureStore(() => this.setState({isLoading: false})),
     };
   }

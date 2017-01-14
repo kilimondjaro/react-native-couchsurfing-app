@@ -13,11 +13,12 @@ const logger = createLogger({
   duration: true,
 });
 
-var createStore = applyMiddleware(thunk, logger)(createStore);
+const createCustomStore = applyMiddleware(thunk, logger)(createStore);
 
 function configureStore(onComplete: ?() => void) {
-  const store = autoRehydrate()(createStore)(compbineReducers);
-  persistStore(store, { storage: AsyncStorage }, onComplete);
+  const store = createCustomStore(compbineReducers);
+  // const store = autoRehydrate()(createCustomStore)(compbineReducers);
+  // persistStore(store, { storage: AsyncStorage }, onComplete);  
   if (isDebuggingInChrome) {
     window.store = store;
   }
