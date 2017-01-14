@@ -44,8 +44,8 @@ class ItemWrapperIOS extends Component {
       <TouchableOpacity onPress={onPress}>
         <Text style={styles.itemText}>{text}</Text>
       </TouchableOpacity>)
-      : icons ? icons.map(icon => (
-      <TouchableOpacity onPress={onPress}>
+      : icons ? icons.map((icon, i) => (
+      <TouchableOpacity key={i} onPress={onPress}>
         <Image source={icon}/>
       </TouchableOpacity>)) : null;
     return (
