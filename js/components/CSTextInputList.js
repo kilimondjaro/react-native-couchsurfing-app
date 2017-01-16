@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#CCCCCC',
     borderTopWidth: 1,
-    borderTopColor: '#CCCCCC'
+    borderTopColor: '#CCCCCC',
+    backgroundColor: 'white'
   },
   separator: {
     marginLeft: 20,
