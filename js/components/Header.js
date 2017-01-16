@@ -11,7 +11,7 @@ import {
 
 export type Item = {
   text?: string;
-  icons?: Array<Object>;
+  icon?: Object;
   onPress?: () => void;
 };
 
@@ -27,30 +27,35 @@ class HeaderAndroid extends Component {
 
 }
 
-class ItemWrapperIOS extends Component {
+class ItemsWrapperIOS extends Component {
   props: {
-    item: Item;
+    items?: Array<Item>;
   };
 
   render() {
-    if (!this.props.item) {
+    if (!this.props.items) {
       return null;
     }
 
-    const {text, icons, onPress} = this.props.item;
-
-    const itemElement = text
-      ? (
-      <TouchableOpacity onPress={onPress}>
-        <Text style={styles.itemText}>{text}</Text>
-      </TouchableOpacity>)
-      : icons ? icons.map((icon, i) => (
-      <TouchableOpacity key={i} onPress={onPress}>
-        <Image source={icon}/>
-      </TouchableOpacity>)) : null;
     return (
       <View style={styles.itemWrapper}>
-        {itemElement}
+        {this.props.items.map((itemElement, i) => {
+          const {text, icon, onPress} = itemElement;
+
+          if (!text && !icon) {
+            return null;
+          }
+
+          return (
+            <TouchableOpacity key={i} onPress={onPress}>
+              {
+                text
+                  ? (<Text style={styles.itemText}>{text}</Text>)
+                  : (<Image source={icon}/>)
+              }
+            </TouchableOpacity>
+          );
+        })}
       </View>
     );
   }
@@ -68,16 +73,16 @@ class HeaderIOS extends Component {
       : null;
 
     return (
-      <View style={styles.header}>
+      <View style={[styles.header, this.props.style]}>
         <View style={styles.leftItem}>
-          <ItemWrapperIOS
-            item={leftItem}
+          <ItemsWrapperIOS
+            items={leftItem}
           />
         </View>
         { titleElement }
         <View style={styles.rightItem}>
-          <ItemWrapperIOS
-            item={rightItem}
+          <ItemsWrapperIOS
+            items={rightItem}
           />
         </View>
       </View>
