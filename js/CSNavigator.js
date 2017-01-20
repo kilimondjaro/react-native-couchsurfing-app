@@ -5,6 +5,8 @@ import {
   StyleSheet
 } from 'react-native';
 import TabsView from './tabs/TabsView';
+import EnterScreen from './login/EnterScreen';
+import LoginScreen from './login/LoginScreen';
 
 class CSNavigator extends Component {
   render(){
@@ -15,15 +17,31 @@ class CSNavigator extends Component {
             if (Platform.OS === 'android') {
               return Navigator.SceneConfigs.FloatFromBottomAndroid;
             }
-            return Navigator.SceneConfigs.FloatFromBottom;
+            return Navigator.SceneConfigs.PushFromRight;
           }}
-          initialRoute={{}}
+          initialRoute={{enter: true}}
           renderScene={this.renderScene}
         />
     );
   }
 
-  renderScene() {
+  renderScene(route, navigator) {
+    if (route.enter) {
+      return (
+        <EnterScreen
+          navigator={navigator}
+        />
+      );
+    }
+
+    if (route.login) {
+      return (
+        <LoginScreen
+          navigator={navigator}
+        />
+      );
+    }
+
     return <TabsView navigator={navigator} />;
   }
 }
