@@ -17,8 +17,8 @@ export type Item = {
 
 export type Props = {
   title?: string;
-  leftItem?: Item;
-  rightItem?: Item;
+  leftItem?: Array<Item>;
+  rightItem?: Array<Item>;
   style?: any;
   children?: any;
 };

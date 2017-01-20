@@ -7,6 +7,11 @@ import {
 } from 'react-native';
 
 class CSTextInput extends Component {
+  props: {
+    placeholder?: string,
+    value?: string
+  };
+
   constructor(props) {
     super(props);
 
@@ -39,7 +44,7 @@ class CSTextInput extends Component {
       : null;
 
     const textStyle = this.state.onFocus
-      ? {color: 'blue'}
+      ? {color: '#0070b1'}
       : null;
 
     const inputStyle = !this.inputIsEmpty()

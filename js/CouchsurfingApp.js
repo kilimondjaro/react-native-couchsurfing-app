@@ -11,11 +11,6 @@ class CouchsurfingApp extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header
-          title="App"
-          leftItem={{text: 'Back'}}
-          rightItem={{icons: [require('./components/img/settings.png')]}}
-        />
         <Navigator/>
       </View>
     );
