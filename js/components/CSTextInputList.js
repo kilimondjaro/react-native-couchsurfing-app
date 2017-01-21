@@ -1,3 +1,4 @@
+// @flow
 import React, {Component} from 'react';
 import {
   View,
@@ -5,12 +6,19 @@ import {
   ListView
 } from 'react-native';
 
+type Props = {
+  style?: any;
+  children?: any;
+};
+
 class CSTextInputList extends Component {
-  props: {
-    style: any
+  props: Props;
+  state: {
+    length: number;
+    dataSource: ListView.DataSource;
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     const dataSource = this.getDataSource(props);
@@ -20,11 +28,11 @@ class CSTextInputList extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     this.setState(this.getDataSource(nextProps));
   }
 
-  getDataSource(props) {
+  getDataSource(props: Props) {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     const childrenArray = [].concat(props.children);
     return {

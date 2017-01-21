@@ -1,3 +1,4 @@
+// @flow
 import React, {Component} from 'react';
 import {
   View,
@@ -15,12 +16,24 @@ import CSDatePickerIOS from '../components/CSDatePickerIOS';
 
 const gender = ['Male', 'Female', 'Other'];
 
+type Props = {
+  navigator: Navigator;
+};
+
 class LoginScreen extends Component {
-  props: {
-    navigator: Navigator
+  props: Props;
+  state: {
+    firtname: string;
+    lastname: string;
+    email: string;
+    password: string;
+    gender: string;
+    birthday: Date;
+    selectedIndex: number;
+    datePickerIsVisible: bool;
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -35,7 +48,7 @@ class LoginScreen extends Component {
     };
   }
 
-  onChangeText(text, field) {
+  onChangeText(text: string, field: string) {
     this.setState({[field]: text});
   }
 

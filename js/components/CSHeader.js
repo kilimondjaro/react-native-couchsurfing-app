@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   title: {
-    fontSize: 20
+    fontSize: 16
   },
   itemText: {
     fontSize: 15

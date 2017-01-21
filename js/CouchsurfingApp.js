@@ -4,7 +4,6 @@ import {
   View,
   StyleSheet
 } from 'react-native';
-import Header from './components/Header';
 import Navigator from './CSNavigator';
 
 class CouchsurfingApp extends Component {

@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import {
   Navigator,
@@ -9,6 +10,7 @@ import EnterScreen from './login/EnterScreen';
 import LoginScreen from './login/LoginScreen';
 import SignUpScreen from './login/SignUpScreen';
 import SignUpAdressScreen from './login/SignUpAdressScreen';
+import SignUpSearchScreen from './login/SignUpSearchScreen';
 
 class CSNavigator extends Component {
   render(){
@@ -55,6 +57,14 @@ class CSNavigator extends Component {
     if (route.signupAdress) {
       return (
         <SignUpAdressScreen
+          navigator={navigator}
+        />
+      );
+    }
+
+    if (route.signupSearch) {
+      return (
+        <SignUpSearchScreen
           navigator={navigator}
         />
       );
