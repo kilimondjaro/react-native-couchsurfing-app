@@ -26,6 +26,7 @@ class CSButton extends Component {
 
     return (
         <TouchableOpacity
+          disabled={!this.props.active}
           style={[styles.container, this.props.style]}
           accessibilityTraits="button"
           onPress={this.props.onPress}
