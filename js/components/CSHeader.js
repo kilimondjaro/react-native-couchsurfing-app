@@ -90,7 +90,7 @@ class HeaderIOS extends Component {
   }
 }
 
-const Header = Platform.OS === 'ios' ? HeaderIOS : HeaderAndroid;
+const CSHeader = Platform.OS === 'ios' ? HeaderIOS : HeaderAndroid;
 
 var STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : 25;
 var HEADER_HEIGHT = Platform.OS === 'ios' ? 44 + STATUS_BAR_HEIGHT : 56 + STATUS_BAR_HEIGHT;
@@ -130,4 +130,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Header;
+export default CSHeader;
