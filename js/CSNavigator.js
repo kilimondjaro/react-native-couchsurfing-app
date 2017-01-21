@@ -7,6 +7,8 @@ import {
 import TabsView from './tabs/TabsView';
 import EnterScreen from './login/EnterScreen';
 import LoginScreen from './login/LoginScreen';
+import SignUpScreen from './login/SignUpScreen';
+import SignUpAdressScreen from './login/SignUpAdressScreen';
 
 class CSNavigator extends Component {
   render(){
@@ -37,6 +39,22 @@ class CSNavigator extends Component {
     if (route.login) {
       return (
         <LoginScreen
+          navigator={navigator}
+        />
+      );
+    }
+
+    if (route.signup) {
+      return (
+        <SignUpScreen
+          navigator={navigator}
+        />
+      );
+    }
+
+    if (route.signupAdress) {
+      return (
+        <SignUpAdressScreen
           navigator={navigator}
         />
       );

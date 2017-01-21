@@ -6,6 +6,10 @@ import {
 } from 'react-native';
 
 class CSTextInputList extends Component {
+  props: {
+    style: any
+  };
+
   constructor(props) {
     super(props);
 
@@ -31,7 +35,7 @@ class CSTextInputList extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, this.props.style]}>
         <ListView
           scrollEnabled={false}
           dataSource={this.state.dataSource}
