@@ -1,3 +1,4 @@
+// @flow
 import React, {Component} from 'react';
 import {
   View,
@@ -6,13 +7,22 @@ import {
   TextInput
 } from 'react-native';
 
+type Props = {
+  placeholder?: string;
+  value: string;
+}
+
 class CSTextInput extends Component {
-  props: {
-    placeholder?: string,
-    value?: string
+  props: Props;
+  state: {
+    onFocus: bool;
   };
 
-  constructor(props) {
+  static defaultProps = {
+    value: ''
+  };
+
+  constructor(props: Props) {
     super(props);
 
     this.state = {

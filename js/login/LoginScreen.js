@@ -1,3 +1,4 @@
+// @flow
 import React, {Component} from 'react';
 import {
   View,
@@ -9,12 +10,19 @@ import CSTextInput from '../components/CSTextInput';
 import CSButton from '../components/CSButton';
 import CSHeader from '../components/CSHeader';
 
+type Props = {
+  navigator: Navigator;
+};
+
 class LoginScreen extends Component {
-  props: {
-    navigator: Navigator
+  props: Props;
+  state: {
+    username: string;
+    password: string;
+    buttonActive: bool;
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -31,7 +39,7 @@ class LoginScreen extends Component {
     return false;
   }
 
-  onChangeText(text, field) {
+  onChangeText(text: string, field: string) {
     this.setState({[field]: text});
   }
 

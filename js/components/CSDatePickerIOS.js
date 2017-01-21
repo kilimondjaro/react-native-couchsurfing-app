@@ -1,3 +1,4 @@
+// @flow
 import React, {Component} from 'react';
 import {
   Animated,
@@ -5,15 +6,21 @@ import {
   StyleSheet
 } from 'react-native';
 
+type Props = {
+  visible: bool;
+  height?: number;
+  date: Date;
+  onDateChange: (date: Date) => void;
+};
+
 class CSDatePickerIOS extends Component {
-  props: {
-    visible: bool,
-    height?: number,
-    date: Date,
-    onDateChange: () => Date
+  props: Props;
+  state: {
+    height: number;
+    visible: bool;
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -22,7 +29,7 @@ class CSDatePickerIOS extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     if (nextProps.visible) {
       Animated.timing(
          this.state.height,

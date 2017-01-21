@@ -1,6 +1,7 @@
 import {googleKey} from './config';
 
 export function getLocations(place) {
+  // eslint-disable-next-line
   return fetch(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${place}&key=${googleKey}`)
   .then((response) => response.json())
       .then((responseJson) => {
