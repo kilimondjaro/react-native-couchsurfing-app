@@ -7,7 +7,7 @@ import {
 import CSTextInputList from '../components/CSTextInputList';
 import CSTextInput from '../components/CSTextInput';
 import CSButton from '../components/CSButton';
-import Header from '../components/Header';
+import CSHeader from '../components/Header';
 
 class LoginScreen extends Component {
   props: {
@@ -39,7 +39,7 @@ class LoginScreen extends Component {
     const isButtonActive = this._isButtonActive();
     return (
       <View style={styles.container}>
-        <Header
+        <CSHeader
           leftItem={[{
             icon: require('../components/img/back.png'),
             onPress: () => this.props.navigator.pop()
@@ -64,6 +64,7 @@ class LoginScreen extends Component {
             style={styles.button}
             text="Log in"
             active={isButtonActive}
+            onPress={() => this.props.navigator.push({tabs: true})}
           />
       </View>
     );

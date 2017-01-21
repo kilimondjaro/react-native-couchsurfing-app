@@ -21,7 +21,7 @@ class EnterScreen extends Component {
             color="white"
           />
           <Button
-            onPress={() => null}
+            onPress={() => this.props.navigator.push({signup: true})}
             title="Sign Up"
             color="white"
           />
