@@ -2,7 +2,9 @@
 
 export type Action =
   { type: 'SWITCH_TAB', tab: 'dashboard' | 'hosting' | 'search' | 'messages' | 'account'}
-  | {type: 'LOADED_LOCATIONS', locations: Array<{decription: string, id: string}> }
+  | {type: 'LOADED_LOCATIONS', locations: Array<{description: string, id: string}> }
+  | {type: 'SIGNUP_UPDATE', data: any}
+  | {type: 'SIGNUP_RESET'}
   ;
 
 

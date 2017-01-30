@@ -15,7 +15,7 @@ type Props = {
 class CSTextInput extends Component {
   props: Props;
   state: {
-    onFocus: bool;
+    onFocus: boolean;
   };
 
   static defaultProps = {
@@ -69,6 +69,8 @@ class CSTextInput extends Component {
           : null
         }
         <TextInput
+          spellCheck={false}
+          autoCorrect={false}
           style={[styles.textInput, inputStyle]}
           {...this.props}
           onFocus={() => this.onFocus()}

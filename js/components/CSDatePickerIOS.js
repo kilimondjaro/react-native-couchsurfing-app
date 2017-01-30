@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 type Props = {
-  visible: bool;
+  visible: boolean;
   height?: number;
   date: Date;
   onDateChange: (date: Date) => void;
@@ -17,7 +17,7 @@ class CSDatePickerIOS extends Component {
   props: Props;
   state: {
     height: number;
-    visible: bool;
+    visible: boolean;
   };
 
   constructor(props: Props) {
