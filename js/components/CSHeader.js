@@ -27,7 +27,7 @@ class HeaderAndroid extends Component {
 
 }
 
-class ItemsWrapperIOS extends Component {
+export class ItemsWrapperIOS extends Component {
   props: {
     items?: Array<Item>;
   };
@@ -90,7 +90,7 @@ class HeaderIOS extends Component {
   }
 }
 
-const CSHeader = Platform.OS === 'ios' ? HeaderIOS : HeaderAndroid;
+export const CSHeader = Platform.OS === 'ios' ? HeaderIOS : HeaderAndroid;
 
 var STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 20 : 25;
 var HEADER_HEIGHT = Platform.OS === 'ios' ? 44 + STATUS_BAR_HEIGHT : 56 + STATUS_BAR_HEIGHT;
@@ -129,5 +129,3 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   }
 });
-
-export default CSHeader;

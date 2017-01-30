@@ -9,6 +9,7 @@ import {
 type Props = {
   style?: any;
   children?: any;
+  separatorStyle?: any;
 };
 
 class CSTextInputList extends Component {
@@ -42,17 +43,20 @@ class CSTextInputList extends Component {
   }
 
   render() {
+    const {separatorStyle} = this.props || null;
+    const separator = (id) => Number(id) < this.state.length - 1
+      ? (<View key={id} style={[styles.separator, separatorStyle]} />)
+      : null
+
+
     return (
-      <View style={[styles.container, this.props.style]}>
+      <View style={[this.state.length ? styles.container : null, this.props.style]}>
         <ListView
+          enableEmptySections
           scrollEnabled={false}
           dataSource={this.state.dataSource}
           renderRow={(rowData, _, id) => (<View key={id}>{rowData}</View>)}
-          renderSeparator={(_, id) =>
-            parseInt(id, 10) < this.state.length - 1
-              ? (<View key={id} style={styles.separator} />)
-              : null
-          }
+          renderSeparator={(_, id) => separator(id)}
         />
       </View>
     );

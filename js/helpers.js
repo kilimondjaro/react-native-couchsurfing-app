@@ -14,6 +14,7 @@ export function getLocations(place) {
             id: loc.id
           }));
         }
+        return [];
       })
       .catch((error) => {
         console.error(error);
