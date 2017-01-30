@@ -2,6 +2,7 @@
 import React, {Component} from 'react';
 import {
   View,
+  TouchableOpacity,
   StyleSheet,
   Navigator,
   Text,
@@ -11,6 +12,7 @@ import {connect} from 'react-redux';
 import {loadLocations} from '../redux/actions/location';
 import CSSearchBar from '../components/CSSearchBar';
 import CSTextInputList from '../components/CSTextInputList';
+import {signupUpdate} from '../redux/actions/signup';
 
 type Props = {
   navigator: Navigator;
@@ -59,10 +61,21 @@ class SignUpSearchScreen extends Component {
         >
           {
             this.props.locations.map((location, i) => (
-              <View key={i} style={{height: 50, flex: 1, padding: 15, alignItems: 'center', justifyContent: 'flex-start', flexDirection: 'row'}}>
+              <TouchableOpacity
+                key={i}
+                style={styles.searchItem}
+                onPress={() => {
+                  this.props.dispatch(
+                    signupUpdate({
+                      location: this.props.locations[i]
+                    })
+                  );
+                  this.props.navigator.pop();
+                }}
+              >
                 <Image style={{height: 20, width: 20}} source={require('./img/geopoint.png')}/>
                 <Text style={{fontSize: 16, marginLeft: 10}}>{location.description}</Text>
-              </View>
+              </TouchableOpacity>
             ))
           }
         </CSTextInputList>
@@ -73,7 +86,15 @@ class SignUpSearchScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-
+    flex: 1
+  },
+  searchItem: {
+    height: 50,
+    flex: 1,
+    padding: 15,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'row'
   }
 });
 
@@ -82,11 +103,5 @@ const mapStateToProps = function(state) {
     locations: state.location.locations
   };
 };
-//
-// const mapDispatchToProps = function(dispatch) {
-//   return {
-//     loadLocations: () => loadLocations(dispatch)
-//   };
-// };
 
 export default connect(mapStateToProps)(SignUpSearchScreen);

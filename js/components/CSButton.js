@@ -12,7 +12,7 @@ class CSButton extends Component {
     text: string,
     type?: 'round' | 'squared',
     style?: Object,
-    active: bool,
+    active: boolean,
     onPress: () => void
   };
 
