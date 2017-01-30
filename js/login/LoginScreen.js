@@ -8,7 +8,7 @@ import {
 import CSTextInputList from '../components/CSTextInputList';
 import CSTextInput from '../components/CSTextInput';
 import CSButton from '../components/CSButton';
-import CSHeader from '../components/CSHeader';
+import {CSHeader} from '../components/CSHeader';
 
 type Props = {
   navigator: Navigator;

@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import CSTextInputList from '../components/CSTextInputList';
 import CSTextInput from '../components/CSTextInput';
-import CSHeader from '../components/CSHeader';
+import {CSHeader} from '../components/CSHeader';
 import CSDatePickerIOS from '../components/CSDatePickerIOS';
 
 const gender = ['Male', 'Female', 'Other'];
