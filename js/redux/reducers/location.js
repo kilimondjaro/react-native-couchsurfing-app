@@ -5,7 +5,7 @@ const initialState = {
 };
 
 export type State = {
-  locations: Array<{decription: string, id: string}>;
+  locations: Array<{description: string, id: string}>;
 };
 
 export default function(state: State = initialState, action: Action) : State {

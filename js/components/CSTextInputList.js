@@ -46,7 +46,7 @@ class CSTextInputList extends Component {
     const {separatorStyle} = this.props || null;
     const separator = (id) => Number(id) < this.state.length - 1
       ? (<View key={id} style={[styles.separator, separatorStyle]} />)
-      : null
+      : null;
 
 
     return (

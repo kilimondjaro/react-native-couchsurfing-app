@@ -19,7 +19,7 @@ class LoginScreen extends Component {
   state: {
     username: string;
     password: string;
-    buttonActive: bool;
+    buttonActive: boolean;
   };
 
   constructor(props: Props) {
