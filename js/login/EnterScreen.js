@@ -52,9 +52,3 @@ const styles = StyleSheet.create({
 });
 
 export default connect()(EnterScreen);
-//
-// <Header
-//           title="App"
-//           leftItem={{text: 'Back'}}
-//           rightItem={{icons: [require('./components/img/settings.png')]}}
-//         />
