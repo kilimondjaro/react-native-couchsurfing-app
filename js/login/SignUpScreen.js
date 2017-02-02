@@ -9,47 +9,47 @@ import {
   TouchableOpacity,
   Text
 } from 'react-native';
+import {connect} from 'react-redux';
 import CSTextInputList from '../components/CSTextInputList';
 import CSTextInput from '../components/CSTextInput';
 import {CSHeader} from '../components/CSHeader';
 import CSDatePickerIOS from '../components/CSDatePickerIOS';
+import {signupUpdate} from '../redux/actions/signup';
 
-const gender = ['Male', 'Female', 'Other'];
+const genderTypes = ['Male', 'Female', 'Other'];
 
 type Props = {
   navigator: Navigator;
-};
-
-class LoginScreen extends Component {
-  props: Props;
-  state: {
+  signupData: {
     firtname: string;
     lastname: string;
     email: string;
     password: string;
     gender: string;
     birthday: Date;
-    selectedIndex: number;
-    datePickerIsVisible: bool;
+  };
+  dispatch: (action: any) => void;
+};
+
+class LoginScreen extends Component {
+  props: Props;
+  state: {
+    datePickerIsVisible: boolean;
+    showBirthday: boolean;
   };
 
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      firtname: '',
-      lastname: '',
-      email: '',
-      password: '',
-      gender: '',
-      birthday: new Date(),
-      selectedIndex: 0,
       datePickerIsVisible: false,
+      showBirthday: false
     };
   }
 
-  onChangeText(text: string, field: string) {
-    this.setState({[field]: text});
+  onChangeField(data: string | Date, field: string) {
+    this.props.dispatch(signupUpdate({[field]: data}));
+    this.setState({[field]: data});
   }
 
   _onScroll() {
@@ -60,9 +60,19 @@ class LoginScreen extends Component {
 
   _onDatepicker() {
     this.setState({datePickerIsVisible: true});
+    this.setState({showBirthday: true});
   }
 
   render() {
+    const {
+      firtname,
+      lastname,
+      email,
+      password,
+      gender,
+      birthday
+    } = this.props.signupData;
+
     return (
       <View style={styles.container}>
         <CSHeader
@@ -72,7 +82,9 @@ class LoginScreen extends Component {
           }]}
           rightItem={[{
             text: 'Next',
-            onPress: () => this.props.navigator.push({signupAdress: true})
+            onPress: () => {
+              this.props.navigator.push({signupAdress: true});
+            }
           }]}
           style={styles.header}
           title="sign up"
@@ -84,13 +96,13 @@ class LoginScreen extends Component {
           <CSTextInputList>
             <CSTextInput
               placeholder="First name"
-              onChangeText={(text) => this.onChangeText(text, 'firtname')}
-              value={this.state.firtname}
+              onChangeText={(text) => this.onChangeField(text, 'firtname')}
+              value={firtname}
             />
             <CSTextInput
               placeholder="Last name"
-              onChangeText={(text) => this.onChangeText(text, 'lastname')}
-              value={this.state.lastname}
+              onChangeText={(text) => this.onChangeField(text, 'lastname')}
+              value={lastname}
             />
           </CSTextInputList>
           <CSTextInputList
@@ -98,13 +110,13 @@ class LoginScreen extends Component {
           >
             <CSTextInput
               placeholder="Email"
-              onChangeText={(text) => this.onChangeText(text, 'email')}
-              value={this.state.email}
+              onChangeText={(text) => this.onChangeField(text, 'email')}
+              value={email}
             />
             <CSTextInput
               placeholder="Password"
-              onChangeText={(text) => this.onChangeText(text, 'password')}
-              value={this.state.password}
+              onChangeText={(text) => this.onChangeField(text, 'password')}
+              value={password}
               secureTextEntry
             />
           </CSTextInputList>
@@ -113,10 +125,11 @@ class LoginScreen extends Component {
           >
             <SegmentedControlIOS
               style={styles.segment}
-              values={gender}
-              selectedIndex={this.state.selectedIndex}
+              values={genderTypes}
+              selectedIndex={genderTypes.indexOf(gender)}
               onChange={(event) => {
-                this.setState({selectedIndex: event.nativeEvent.selectedSegmentIndex});
+                const index = event.nativeEvent.selectedSegmentIndex;
+                this.onChangeField(genderTypes[index], 'gender');
               }}
             />
           </CSTextInputList>
@@ -128,13 +141,18 @@ class LoginScreen extends Component {
               onPress={() => this._onDatepicker()}
             >
               <Text style={{fontSize: 18}}>Birthday</Text>
+              <Text style={{fontSize: 18}}>
+                {
+                  this.state.showBirthday ? birthday.toDateString() : null
+                }
+              </Text>
             </TouchableOpacity>
           </CSTextInputList>
         </ScrollView>
         <CSDatePickerIOS
           visible={this.state.datePickerIsVisible}
-          date={this.state.birthday}
-          onDateChange={(date) => this.setState({birthday: date})}
+          date={birthday}
+          onDateChange={(date) => this.onChangeField(date, 'birthday')}
         />
       </View>
     );
@@ -166,6 +184,9 @@ const styles = StyleSheet.create({
     borderTopColor: '#CCCCCC',
   },
   segment: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 10,
     marginBottom: 10,
     marginLeft: 20,
@@ -173,4 +194,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default connect(
+  (state) => ({signupData: state.signup})
+)(LoginScreen);

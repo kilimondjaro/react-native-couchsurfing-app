@@ -4,13 +4,22 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  Navigator
 } from 'react-native';
+import {connect} from 'react-redux';
 import {CSHeader} from '../components/CSHeader';
 import CSTextInputList from '../components/CSTextInputList';
 import CSButton from '../components/CSButton';
 
+type Props = {
+  navigator: Navigator;
+  location: string;
+};
+
+
 class SignUpAdressScreen extends Component {
+  props: Props;
   render() {
     return (
       <View style={styles.container}>
@@ -27,13 +36,14 @@ class SignUpAdressScreen extends Component {
             onPress={() => this.props.navigator.push({signupSearch: true})}
           >
             <Text style={{fontSize: 16}}>City or Address</Text>
+            <Text style={{fontSize: 16}}>{this.props.location}</Text>
           </TouchableOpacity>
         </CSTextInputList>
         <CSButton
           style={styles.button}
           text="Create Account"
-          active={false}
-          onPress={() => null}
+          active={this.props.location} //TODO Find how is correct
+          onPress={() => this.props.navigator.push({tabs: true})}
         />
       </View>
     );
@@ -50,6 +60,9 @@ const styles = StyleSheet.create({
     margin: 20
   },
   segment: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 10,
     marginBottom: 10,
     marginLeft: 20,
@@ -57,4 +70,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SignUpAdressScreen;
+export default connect(
+  (state) => ({location: state.signup.location.description})
+)(SignUpAdressScreen);
