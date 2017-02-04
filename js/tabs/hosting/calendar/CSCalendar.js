@@ -1,48 +1,25 @@
+// @flow
 import React, { Component } from 'react';
 import {
   View,
+  Text,
   ScrollView
 } from 'react-native';
+import {connect} from 'react-redux';
 import CalendarCell from './CalendarCell';
+import CalendarRow from './CalendarRow';
 import {CSHeader} from '../../../components/CSHeader';
 
+const monthArray = ['янв', 'февр.', 'март',
+  'апр.', 'май', 'июнь', 'июль', 'авг.', 'сент.', 'окт.', 'нояб.', 'дек.'];
+
 class CSCalendar extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-    this._calculateDates();
-  }
-
-  _calculateDates() {
-    const currentDate = new Date();
-    const curMonth = currentDate.getMonth();
-    const curYear = currentDate.getFullYear();
-    const dates = [];
-
-    for (let i = curMonth; i < curMonth + 12; i++) {
-      const days = new Date(curYear, i + 1, 0).getDate();
-      const month = [];
-
-      for (let d = 1; d <= days; d++) {
-        month.push({
-          dayOfWeek: new Date(curYear, i, d).getDay(),
-          date: d
-        });
-      }
-      dates.push(month);
-    }
-
-    console.log(dates);
-  }
-
   render() {
     return (
       <View style={styles.container}>
         <CSHeader
           style={styles.header}
-          title="sign up"
+          title="hosting"
         />
         <View style={styles.daysHeader}>
             {
@@ -50,13 +27,37 @@ class CSCalendar extends Component {
                 <CalendarCell
                   key={i}
                   disabled
+                  labelStyle={{fontSize: 12}}
                   label={day}
                 />
               ))
             }
         </View>
-        <ScrollView>
-
+        <ScrollView
+          style={styles.scrollView}
+        >
+          {
+            this.props.calendar.dates.map((month, monthNum) => (
+                <View key={month.month} style={{marginBottom: 30}}>
+                  <View style={styles.monthHeader}>
+                    <Text
+                      style={styles.monthHeaderText}>
+                      {monthArray[month.month].toUpperCase()}
+                    </Text>
+                  </View>
+                  {
+                    month.dates.map((week, wKey) => (
+                      <View key={week[wKey]} style={{flex: 1, flexDirection: 'column'}}>
+                        <CalendarRow
+                          month={monthNum}
+                          week={week}
+                        />
+                      </View>
+                    ))
+                  }
+                </View>
+            ))
+          }
         </ScrollView>
       </View>
     );
@@ -66,12 +67,28 @@ class CSCalendar extends Component {
 const styles = {
   container: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: '#f8f8f8'
+  },
+  header: {
+    backgroundColor: 'white'
   },
   daysHeader: {
     flexDirection: 'row',
     height: 40
+  },
+  monthHeader: {
+    marginBottom: 30,
+    alignItems:'center'
+  },
+  monthHeaderText: {
+    fontSize: 15,
+    color: '#eb6648',
+    fontWeight: 'bold'
+  },
+  scrollView: {
+    flex: 1
   }
 };
 
-export default CSCalendar;
+export default connect(state => ({calendar: state.calendar}))(CSCalendar);
