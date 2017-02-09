@@ -7,6 +7,7 @@ import {
 import {connect} from 'react-redux';
 import type {Tab} from '../redux/reducers/navigation';
 import {switchTab} from '../redux/actions';
+import CSCalendar from './hosting/calendar/CSCalendar';
 
 class TabsView extends Component {
   props: {
@@ -33,18 +34,19 @@ class TabsView extends Component {
         tintColor="#eb6648"
       >
         <TabBarIOS.Item
-         icon={require('./img/hosting.png')}
-         selected={this.props.tab === 'hosting'}
-         onPress={() => this.onTabPress('hosting')}>
-         <View style={{backgroundColor: 'green'}} />
-       </TabBarIOS.Item>
-       <TabBarIOS.Item
-        icon={require('./img/search.png')}
-        selected={this.props.tab === 'search'}
-        onPress={() => this.onTabPress('search')}>
+          icon={require('./img/hosting.png')}
+          selected={this.props.tab === 'hosting'}
+          onPress={() => this.onTabPress('hosting')}
+        >
+          <CSCalendar />
+        </TabBarIOS.Item>
+        <TabBarIOS.Item
+          icon={require('./img/search.png')}
+          selected={this.props.tab === 'search'}
+          onPress={() => this.onTabPress('search')}>
         <View style={{backgroundColor: 'blue'}} />
       </TabBarIOS.Item>
-      </TabBarIOS>
+    </TabBarIOS>
     );
   }
 }

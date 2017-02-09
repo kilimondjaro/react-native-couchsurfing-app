@@ -5,6 +5,7 @@ export type Action =
   | {type: 'LOADED_LOCATIONS', locations: Array<{description: string, id: string}> }
   | {type: 'SIGNUP_UPDATE', data: any}
   | {type: 'SIGNUP_RESET'}
+  | {type: 'CALENDAR_UPDATE', data: {firstMonth: number, dates: Array<Array<number>>}}
   ;
 
 
