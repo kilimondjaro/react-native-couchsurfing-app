@@ -22,7 +22,7 @@ class CSNavigator extends Component {
             }
             return Navigator.SceneConfigs.PushFromRight;
           }}
-          initialRoute={{enter: true}}
+          initialRoute={{}}
           renderScene={this.renderScene}
         />
     );
