@@ -70,6 +70,7 @@ class AcceptingStatusBar extends Component {
     return (
       <View>
         <TouchableOpacity
+          disabled={loading}
           onPress={() => this.setState({showList: !showList})}
           activeOpacity={0.6}
           style={[styles.container, this.props.style]}
