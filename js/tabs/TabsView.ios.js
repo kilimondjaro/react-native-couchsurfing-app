@@ -7,7 +7,7 @@ import {
 import {connect} from 'react-redux';
 import type {Tab} from '../redux/reducers/navigation';
 import {switchTab} from '../redux/actions';
-import CSCalendar from './hosting/calendar/CSCalendar';
+import HostingScreen from './hosting/HostingScreen';
 
 class TabsView extends Component {
   props: {
@@ -38,7 +38,7 @@ class TabsView extends Component {
           selected={this.props.tab === 'hosting'}
           onPress={() => this.onTabPress('hosting')}
         >
-          <CSCalendar />
+          <HostingScreen />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           icon={require('./img/search.png')}
