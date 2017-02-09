@@ -8,7 +8,6 @@ import {
 import {connect} from 'react-redux';
 import CalendarCell from './CalendarCell';
 import CalendarRow from './CalendarRow';
-import {CSHeader} from '../../../components/CSHeader';
 
 const monthArray = ['янв', 'февр.', 'март',
   'апр.', 'май', 'июнь', 'июль', 'авг.', 'сент.', 'окт.', 'нояб.', 'дек.'];
@@ -17,10 +16,6 @@ class CSCalendar extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <CSHeader
-          style={styles.header}
-          title="hosting"
-        />
         <View style={styles.daysHeader}>
             {
               ['П', 'В', 'С', 'Ч', 'П', 'С', 'В'].map((day, i) => (
@@ -67,11 +62,7 @@ class CSCalendar extends Component {
 const styles = {
   container: {
     flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#f8f8f8'
-  },
-  header: {
-    backgroundColor: 'white'
+    justifyContent: 'center'
   },
   daysHeader: {
     flexDirection: 'row',
