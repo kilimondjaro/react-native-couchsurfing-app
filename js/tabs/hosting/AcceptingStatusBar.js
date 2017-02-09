@@ -5,9 +5,12 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  TouchableHighlight
+  TouchableHighlight,
+  ActivityIndicator
 } from 'react-native';
 import {connect} from 'react-redux';
+import {updateStatus} from '../../redux/actions';
+import type {Dispatch} from '../../redux/actions/types';
 
 const statusMap = {
   accepting: {
@@ -33,30 +36,34 @@ type Props = {
     status: string;
   },
   style?: any;
+  dispatch: Dispatch;
 };
 
 class AcceptingStatusBar extends Component {
   props: Props;
   state: {
     showList: boolean;
+    loading: boolean;
   };
-
-  static defaultProps = {
-    hosting: {
-      status: 'accepting'
-    }
-  }
 
   constructor(props) {
     super(props);
 
     this.state = {
-      showList: false
+      showList: false,
+      loading: false
     };
   }
 
+  onStatusCellPress(status: string) {
+    this.setState({loading: true, showList: false});
+    this.props.dispatch(updateStatus(status)).then(() => {
+      this.setState({loading: false});
+    });
+  }
+
   render() {
-    const {showList} = this.state;
+    const {showList, loading} = this.state;
     const {status} = this.props.hosting;
     const {label, color} = statusMap[status];
 
@@ -68,7 +75,11 @@ class AcceptingStatusBar extends Component {
           style={[styles.container, this.props.style]}
         >
           <Text style={[styles.barLabel,  {color}]}>{label}</Text>
-          <Image source={require('./img/dropdown.png')}/>
+          {
+            loading
+              ? (<ActivityIndicator animating />)
+              : (<Image source={require('./img/dropdown.png')}/>)
+          }
         </TouchableOpacity>
         {
           showList ?
@@ -77,7 +88,7 @@ class AcceptingStatusBar extends Component {
                 key={i}
                 style={styles.listCell}
                 underlayColor="#d9d9d9"
-                onPress={() => null}
+                onPress={() => this.onStatusCellPress(curStatus)}
               >
                 <View style={styles.listCellContent}>
                   <Text style={styles.listLabel}>{statusMap[curStatus].label}</Text>
@@ -127,4 +138,8 @@ const styles = {
   }
 };
 
-export default connect()(AcceptingStatusBar);
+export default connect(
+  (state) => ({
+    hosting: state.hosting
+  })
+)(AcceptingStatusBar);
