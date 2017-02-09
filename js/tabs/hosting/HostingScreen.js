@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import {
   View
 } from 'react-native';
-import {connect} from 'react-redux';
 import CSCalendar from './calendar/CSCalendar';
 import AcceptingStatusBar from './AcceptingStatusBar';
 import {CSHeader} from '../../components/CSHeader';
