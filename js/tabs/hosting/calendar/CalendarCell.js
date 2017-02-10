@@ -11,7 +11,7 @@ type Props = {
   disabled: boolean;
   labelStyle?: any;
   width?: number;
-  available?: boolean;
+  reserved?: boolean;
   onPress?: () => void;
 }
 
@@ -23,23 +23,30 @@ class CalendarCell extends Component {
     disabled: false
   }
 
+  shouldComponentUpdate(nextProps: Props) {
+    if (this.props.reserved === nextProps.reserved) {
+      return false;
+    }
+    return true;
+  }
+
   render() {
-    const {label, disabled, onPress, available} = this.props;
+    const {label, disabled, onPress, reserved} = this.props;
 
     const labelStyle = disabled
       ? { color: '#c7c7c7' }
       : null;
 
-    const cellStyle = !available && !disabled
+    const cellStyle = reserved && !disabled
       ? { backgroundColor: '#eaeaea' }
       : null;
 
     const strikeLineStyle = {
       marginLeft: this.props.width / 4,
-      width: this.props.width / 2,
+      width: this.props.width / 2
     };
 
-    const strikeLine = !disabled && !available
+    const strikeLine = !disabled && reserved
       ? (<View
         position="absolute"
         style={[styles.strikeLine, strikeLineStyle]}

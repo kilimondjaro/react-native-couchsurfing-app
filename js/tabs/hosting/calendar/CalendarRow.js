@@ -4,7 +4,9 @@ import {
   View,
   Dimensions
 } from 'react-native';
+import {connect} from 'react-redux';
 import CalendarCell from './CalendarCell';
+import {toggleDay} from '../../../redux/actions';
 
 class CalendarRow extends Component {
   getCellWidth() {
@@ -12,8 +14,7 @@ class CalendarRow extends Component {
     return width / 7;
   }
 
-  getSeparatorMargin() {
-    const {week} = this.props;
+  getSeparatorMargin(week) {
     const cellWidth = this.getCellWidth();
 
     if (!week.includes(null)) {
@@ -30,7 +31,8 @@ class CalendarRow extends Component {
   }
 
   render() {
-    const separatorStyle = this.getSeparatorMargin();
+    const {week, month, reservedDates} = this.props;
+    const separatorStyle = this.getSeparatorMargin(week);
 
     return (
       <View style={styles.container}>
@@ -39,16 +41,22 @@ class CalendarRow extends Component {
           {
             this.props.week.map((day, i) => {
 
-              const todayStyle = this.props.month === 0
+              const todayStyle = month === 0
                 && new Date().getDate() === day
                 ? { color: '#eb684b'} : null;
+
+              const reserved = day !== null ?
+                reservedDates[month][day] || false
+                : false;
 
               return (
                 <CalendarCell
                   width={this.getCellWidth()}
                   key={i}
+                  reserved={reserved}
                   disabled={day === null ? true : false}
                   label={day}
+                  onPress={() => this.props.dispatch(toggleDay({month, day}))}
                   labelStyle={todayStyle}
                 />
               );
@@ -74,4 +82,6 @@ const styles = {
   }
 };
 
-export default CalendarRow;
+export default connect(
+  state => ({reservedDates: state.hosting.reservedDates})
+)(CalendarRow);
