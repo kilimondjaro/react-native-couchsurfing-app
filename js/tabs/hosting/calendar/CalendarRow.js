@@ -41,9 +41,13 @@ class CalendarRow extends Component {
           {
             this.props.week.map((day, i) => {
 
+              const curDay = new Date().getDate();
               const todayStyle = month === 0
-                && new Date().getDate() === day
+                && curDay === day
                 ? { color: '#eb684b'} : null;
+
+              const disabled = day === null || (day < curDay && month === 0)
+                ? true : false;
 
               const reserved = day !== null ?
                 reservedDates[month][day] || false
@@ -54,7 +58,7 @@ class CalendarRow extends Component {
                   width={this.getCellWidth()}
                   key={i}
                   reserved={reserved}
-                  disabled={day === null ? true : false}
+                  disabled={disabled}
                   label={day}
                   onPress={() => this.props.dispatch(toggleDay({month, day}))}
                   labelStyle={todayStyle}
