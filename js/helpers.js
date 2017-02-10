@@ -54,7 +54,11 @@ export function getCalendarDates() {
   for (let i = 0; i < 12; i++) {
     const m = (i + curMonth) % 12;
     const daysInMonth = months[m];
-    dates.push({dates: [], month: m});
+    dates.push({
+      dates: [],
+      month: m,
+      year: m !== (i + curMonth) ? curYear + 1 : curYear
+    });
 
     let dayOfWeek, date;
 
