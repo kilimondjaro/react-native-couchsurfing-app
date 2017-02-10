@@ -1,6 +1,11 @@
 // @flow
 import type { ThunkAction } from './types';
 
+type Date = {
+  month: number;
+  day: number;
+}
+
 module.exports = {
   updateStatus: (status: string) : ThunkAction => {
     return (dispatch) => {
@@ -11,6 +16,11 @@ module.exports = {
           resolve();
         }, 1000);
       });
+    };
+  },
+  toggleDay: (date: Date) : ThunkAction => {
+    return (dispatch) => {
+      dispatch({type: 'TOGGLE_DAY', month: date.month, day: date.day});
     };
   }
 };
