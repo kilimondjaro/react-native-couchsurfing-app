@@ -6,6 +6,8 @@ export type Action =
   | {type: 'SIGNUP_UPDATE', data: any}
   | {type: 'SIGNUP_RESET'}
   | {type: 'CALENDAR_UPDATE', data: {firstMonth: number, dates: Array<Array<number>>}}
+  | {type: 'UPDATED_STATUS', status: string}
+  | {type: 'TOGGLE_DAY', year: number, month: number, day: number}
   ;
 
 

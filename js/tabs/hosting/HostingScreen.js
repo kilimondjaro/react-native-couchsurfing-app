@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import CSCalendar from './calendar/CSCalendar';
 import AcceptingStatusBar from './AcceptingStatusBar';
 import {CSHeader} from '../../components/CSHeader';
-
+import {toggleDay} from '../../redux/actions';
 
 class HostingScreen extends Component {
   render() {
@@ -18,7 +18,11 @@ class HostingScreen extends Component {
           title="hosting"
         />
         <AcceptingStatusBar style={styles.acceptingStatusBar} />
-        <CSCalendar />
+        <CSCalendar
+          selectedDates={this.props.reservedDates}
+          type="hosting"
+          onPress={(year, month, day) => this.props.dispatch(toggleDay({year, month, day}))}
+        />
       </View>
     );
   }
@@ -37,4 +41,6 @@ const styles = {
   }
 };
 
-export default HostingScreen;
+export default connect(
+  state => ({reservedDates: state.hosting.reservedDates})
+)(HostingScreen);
