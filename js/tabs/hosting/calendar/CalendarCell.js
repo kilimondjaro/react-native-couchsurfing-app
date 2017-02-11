@@ -10,7 +10,8 @@ type Props = {
   label: string;
   disabled: boolean;
   labelStyle?: any;
-  width?: number;
+  width: number;
+  type: string;
   reserved?: boolean;
   onPress?: () => void;
 }
@@ -31,22 +32,30 @@ class CalendarCell extends Component {
   }
 
   render() {
-    const {label, disabled, onPress, reserved} = this.props;
+    const {label, disabled, onPress, reserved, type} = this.props;
 
     const labelStyle = disabled
       ? { color: '#c7c7c7' }
       : null;
 
     const cellStyle = reserved && !disabled
-      ? { backgroundColor: '#eaeaea' }
+      ? type === 'hosting'
+        ? { backgroundColor: '#eaeaea' }
+        : null
       : null;
+
+    const touchableHighlightStyle = reserved && !disabled
+    ? type === 'search'
+      ? { backgroundColor: '#2f81b7' }
+      : null
+    : null;
 
     const strikeLineStyle = {
       marginLeft: this.props.width / 4,
       width: this.props.width / 2
     };
 
-    const strikeLine = !disabled && reserved
+    const strikeLine = !disabled && reserved && type === 'hosting'
       ? (<View
         position="absolute"
         style={[styles.strikeLine, strikeLineStyle]}
@@ -59,7 +68,7 @@ class CalendarCell extends Component {
           strikeLine
         }
         <TouchableHighlight
-          style={styles.cell}
+          style={[styles.cell, touchableHighlightStyle]}
           underlayColor="gray"
           onPress={onPress}
           disabled={disabled}

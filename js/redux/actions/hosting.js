@@ -4,6 +4,7 @@ import type { ThunkAction } from './types';
 type Date = {
   month: number;
   day: number;
+  year: number;
 }
 
 module.exports = {
@@ -20,7 +21,7 @@ module.exports = {
   },
   toggleDay: (date: Date) : ThunkAction => {
     return (dispatch) => {
-      dispatch({type: 'TOGGLE_DAY', month: date.month, day: date.day});
+      dispatch({type: 'TOGGLE_DAY', year: date.year, month: date.month, day: date.day});
     };
   }
 };

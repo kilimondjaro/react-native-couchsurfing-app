@@ -4,17 +4,27 @@ import {
   View,
   Dimensions
 } from 'react-native';
-import {connect} from 'react-redux';
 import CalendarCell from './CalendarCell';
-import {toggleDay} from '../../../redux/actions';
+
+type Props  = {
+  selectedDates: any;
+  month: number;
+  monthNum: number;
+  year: number;
+  type: string;
+  week: Array<?number>;
+  onPress: (year: number, month: number, day: number) => void;
+}
 
 class CalendarRow extends Component {
+  props: Props;
+
   getCellWidth() {
     var {width} = Dimensions.get('window');
     return width / 7;
   }
 
-  getSeparatorMargin(week) {
+  getSeparatorMargin(week: Array<?number>) {
     const cellWidth = this.getCellWidth();
 
     if (!week.includes(null)) {
@@ -31,7 +41,7 @@ class CalendarRow extends Component {
   }
 
   render() {
-    const {week, month, reservedDates} = this.props;
+    const {week, month, monthNum, year, selectedDates, type} = this.props;
     const separatorStyle = this.getSeparatorMargin(week);
 
     return (
@@ -42,15 +52,15 @@ class CalendarRow extends Component {
             this.props.week.map((day, i) => {
 
               const curDay = new Date().getDate();
-              const todayStyle = month === 0
+              const todayStyle = monthNum === 0
                 && curDay === day
                 ? { color: '#eb684b'} : null;
 
-              const disabled = day === null || (day < curDay && month === 0)
+              const disabled = day === null || (day < curDay && monthNum === 0)
                 ? true : false;
 
               const reserved = day !== null ?
-                reservedDates[month][day] || false
+                selectedDates[month][day] || false
                 : false;
 
               return (
@@ -59,9 +69,10 @@ class CalendarRow extends Component {
                   key={i}
                   reserved={reserved}
                   disabled={disabled}
-                  label={day}
-                  onPress={() => this.props.dispatch(toggleDay({month, day}))}
+                  label={day ? day.toString() : ''}
+                  onPress={() => this.props.onPress(year, month, day)}
                   labelStyle={todayStyle}
+                  type={type}
                 />
               );
             })
@@ -86,6 +97,4 @@ const styles = {
   }
 };
 
-export default connect(
-  state => ({reservedDates: state.hosting.reservedDates})
-)(CalendarRow);
+export default CalendarRow;
