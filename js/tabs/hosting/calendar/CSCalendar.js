@@ -6,7 +6,6 @@ import {
   ScrollView
 } from 'react-native';
 import {connect} from 'react-redux';
-import CalendarCell from './CalendarCell';
 import CalendarRow from './CalendarRow';
 
 const monthArray = ['янв', 'февр.', 'март',
