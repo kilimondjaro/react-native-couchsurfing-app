@@ -4,7 +4,7 @@ import {
   View
 } from 'react-native';
 import {connect} from 'react-redux';
-import CSCalendar from './calendar/CSCalendar';
+import CSCalendar from '../../components/CSCalendar';
 import AcceptingStatusBar from './AcceptingStatusBar';
 import {CSHeader} from '../../components/CSHeader';
 import {toggleDay} from '../../redux/actions';
