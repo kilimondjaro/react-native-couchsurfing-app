@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {
   TabBarIOS,
-  View,
   Navigator
 } from 'react-native';
 import {connect} from 'react-redux';
 import type {Tab} from '../redux/reducers/navigation';
 import {switchTab} from '../redux/actions';
 import HostingScreen from './hosting/HostingScreen';
+import SearchScreen from './search/SearchScreen';
 
 class TabsView extends Component {
   props: {
@@ -44,7 +44,7 @@ class TabsView extends Component {
           icon={require('./img/search.png')}
           selected={this.props.tab === 'search'}
           onPress={() => this.onTabPress('search')}>
-        <View style={{backgroundColor: 'blue'}} />
+        <SearchScreen />
       </TabBarIOS.Item>
     </TabBarIOS>
     );
