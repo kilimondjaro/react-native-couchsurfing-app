@@ -49,7 +49,7 @@ class CSCalendar extends Component {
                   <View style={styles.monthHeader}>
                     <Text
                       style={styles.monthHeaderText}>
-                      {monthArray[month.month].toUpperCase()}
+                      {`${monthArray[month.month].toUpperCase()} ${month.year}`}
                     </Text>
                   </View>
                   {
