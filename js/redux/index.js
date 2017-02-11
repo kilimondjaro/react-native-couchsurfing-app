@@ -13,7 +13,7 @@ const logger = createLogger({
   duration: true,
 });
 
-const createCustomStore = applyMiddleware(thunk)(createStore);
+const createCustomStore = applyMiddleware(thunk, logger)(createStore);
 
 function configureStore(onComplete: ?() => void) {
   const store = createCustomStore(combineReducers);

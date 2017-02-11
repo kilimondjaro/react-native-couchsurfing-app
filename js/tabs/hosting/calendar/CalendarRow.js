@@ -6,14 +6,25 @@ import {
 } from 'react-native';
 import CalendarCell from './CalendarCell';
 
+type Props  = {
+  selectedDates: any;
+  month: number;
+  monthNum: number;
+  year: number;
+  type: string;
+  week: Array<?number>;
+  onPress: (year: number, month: number, day: number) => void;
+}
+
 class CalendarRow extends Component {
+  props: Props;
+
   getCellWidth() {
     var {width} = Dimensions.get('window');
     return width / 7;
   }
 
-  getSeparatorMargin() {
-    const {week} = this.props;
+  getSeparatorMargin(week: Array<?number>) {
     const cellWidth = this.getCellWidth();
 
     if (!week.includes(null)) {
@@ -30,7 +41,8 @@ class CalendarRow extends Component {
   }
 
   render() {
-    const separatorStyle = this.getSeparatorMargin();
+    const {week, month, monthNum, year, selectedDates, type} = this.props;
+    const separatorStyle = this.getSeparatorMargin(week);
 
     return (
       <View style={styles.container}>
@@ -39,17 +51,28 @@ class CalendarRow extends Component {
           {
             this.props.week.map((day, i) => {
 
-              const todayStyle = this.props.month === 0
-                && new Date().getDate() === day
+              const curDay = new Date().getDate();
+              const todayStyle = monthNum === 0
+                && curDay === day
                 ? { color: '#eb684b'} : null;
+
+              const disabled = day === null || (day < curDay && monthNum === 0)
+                ? true : false;
+
+              const reserved = day !== null ?
+                selectedDates[month][day] || false
+                : false;
 
               return (
                 <CalendarCell
                   width={this.getCellWidth()}
                   key={i}
-                  disabled={day === null ? true : false}
-                  label={day}
+                  reserved={reserved}
+                  disabled={disabled}
+                  label={day ? day.toString() : ''}
+                  onPress={() => this.props.onPress(year, month, day)}
                   labelStyle={todayStyle}
+                  type={type}
                 />
               );
             })

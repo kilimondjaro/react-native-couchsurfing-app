@@ -6,25 +6,36 @@ import {
   ScrollView
 } from 'react-native';
 import {connect} from 'react-redux';
-import CalendarCell from './CalendarCell';
 import CalendarRow from './CalendarRow';
 
 const monthArray = ['янв', 'февр.', 'март',
   'апр.', 'май', 'июнь', 'июль', 'авг.', 'сент.', 'окт.', 'нояб.', 'дек.'];
 
+type Props = {
+  dates: Array<{
+    month: number;
+    year: number;
+    dates: Array<Array<?number>>;
+  }>;
+  type: string;
+  selectedDates: any;
+  onPress: (year: number, month: number, day: number) => void;
+}
+
 class CSCalendar extends Component {
+  props: Props;
+
   render() {
+    const {dates} = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.daysHeader}>
             {
               ['П', 'В', 'С', 'Ч', 'П', 'С', 'В'].map((day, i) => (
-                <CalendarCell
-                  key={i}
-                  disabled
-                  labelStyle={{fontSize: 12}}
-                  label={day}
-                />
+                <View key={i} style={styles.headerCell}>
+                  <Text style={styles.headerCellText}>{day}</Text>
+                </View>
               ))
             }
         </View>
@@ -32,7 +43,7 @@ class CSCalendar extends Component {
           style={styles.scrollView}
         >
           {
-            this.props.calendar.dates.map((month, monthNum) => (
+            dates.map((month, monthNum) => (
                 <View key={month.month} style={{marginBottom: 30}}>
                   <View style={styles.monthHeader}>
                     <Text
@@ -42,9 +53,12 @@ class CSCalendar extends Component {
                   </View>
                   {
                     month.dates.map((week, wKey) => (
-                      <View key={week[wKey]} style={{flex: 1, flexDirection: 'column'}}>
+                      <View key={wKey} style={{flex: 1, flexDirection: 'column'}}>
                         <CalendarRow
-                          month={monthNum}
+                          {...this.props}
+                          monthNum={monthNum}
+                          month={month.month}
+                          year={month.year}
                           week={week}
                         />
                       </View>
@@ -68,6 +82,15 @@ const styles = {
     flexDirection: 'row',
     height: 40
   },
+  headerCell: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  headerCellText: {
+    fontSize: 12,
+    color: '#c7c7c7'
+  },
   monthHeader: {
     marginBottom: 30,
     alignItems:'center'
@@ -82,4 +105,4 @@ const styles = {
   }
 };
 
-export default connect(state => ({calendar: state.calendar}))(CSCalendar);
+export default connect(state => ({dates: state.calendar.dates}))(CSCalendar);
