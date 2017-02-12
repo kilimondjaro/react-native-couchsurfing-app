@@ -7,6 +7,8 @@ import {
 
 type Props = {
   children?: any;
+  active?: string;
+  onPress?: (value: string) => void;
   style: any;
 }
 
@@ -14,7 +16,7 @@ class CSSegmentControl extends Component {
   props: Props;
 
   render() {
-    const {children, style} = this.props;
+    const {children, style, active, onPress} = this.props;
 
     const separatorStyle = style.height
       ? {height: style.height - style.padding || 0 * 2}
@@ -27,12 +29,18 @@ class CSSegmentControl extends Component {
             if (i < children.length - 1) {
               return (
                 <View style={{flex: 1, flexDirection: 'row'}} key={i}>
-                  {child}
+                  {
+                    React.cloneElement(child, {active, onPress})
+                  }
                   <View style={[styles.separator, separatorStyle]} />
                 </View>
               );
             }
-            return (<View style={{flex: 1}} key={i}>{child}</View>);
+            return (
+              <View style={{flex: 1}} key={i}>
+                {React.cloneElement(child, {active, onPress})}
+              </View>
+            );
           }) : null
         }
       </View>
@@ -40,7 +48,7 @@ class CSSegmentControl extends Component {
   }
 }
 
-const CONTAINER_HIGHT = 70;
+const CONTAINER_HIGHT = 60;
 const CONTAINER_PADDING = 5;
 
 const styles = StyleSheet.create({
