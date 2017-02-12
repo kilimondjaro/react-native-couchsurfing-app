@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  TouchableHighlight
+  TouchableHighlight,
+  StyleSheet
 } from 'react-native';
 
 type Props = {
@@ -84,7 +85,7 @@ class CalendarCell extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center'
@@ -108,6 +109,6 @@ const styles = {
       { rotate: '135deg' }
     ]
   }
-};
+});
 
 export default CalendarCell;

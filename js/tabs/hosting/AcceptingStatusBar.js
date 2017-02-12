@@ -6,7 +6,8 @@ import {
   Image,
   TouchableOpacity,
   TouchableHighlight,
-  ActivityIndicator
+  ActivityIndicator,
+  StyleSheet
 } from 'react-native';
 import {connect} from 'react-redux';
 import {updateStatus} from '../../redux/actions';
@@ -107,7 +108,7 @@ class AcceptingStatusBar extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     height: 50,
     flexDirection: 'row',
@@ -137,7 +138,7 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
   }
-};
+});
 
 export default connect(
   (state) => ({
