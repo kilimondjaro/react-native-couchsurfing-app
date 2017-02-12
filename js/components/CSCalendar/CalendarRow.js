@@ -2,7 +2,8 @@
 import React, { Component } from 'react';
 import {
   View,
-  Dimensions
+  Dimensions,
+  StyleSheet
 } from 'react-native';
 import CalendarCell from './CalendarCell';
 
@@ -83,7 +84,7 @@ class CalendarRow extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet({
   container: {
     flex: 1
   },
@@ -95,6 +96,6 @@ const styles = {
     height: 1,
     backgroundColor: '#CCCCCC'
   }
-};
+});
 
 export default CalendarRow;

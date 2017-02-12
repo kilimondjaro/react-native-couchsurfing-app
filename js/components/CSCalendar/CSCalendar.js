@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  ScrollView
+  ScrollView,
+  StyleSheet
 } from 'react-native';
 import {connect} from 'react-redux';
 import CalendarRow from './CalendarRow';
@@ -73,7 +74,7 @@ class CSCalendar extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center'
@@ -103,6 +104,6 @@ const styles = {
   scrollView: {
     flex: 1
   }
-};
+});
 
 export default connect(state => ({dates: state.calendar.dates}))(CSCalendar);
