@@ -84,7 +84,7 @@ class CalendarRow extends Component {
   }
 }
 
-const styles = StyleSheet({
+const styles = StyleSheet.create({
   container: {
     flex: 1
   },
