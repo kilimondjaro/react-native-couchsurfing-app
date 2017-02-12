@@ -1,7 +1,8 @@
 // @flow
 import React, {Component} from 'react';
 import {
-  View
+  View,
+  StyleSheet
 } from 'react-native';
 import {connect} from 'react-redux';
 import CSCalendar from '../../components/CSCalendar';
@@ -28,7 +29,7 @@ class HostingScreen extends Component {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f8f8'
@@ -39,7 +40,7 @@ const styles = {
   acceptingStatusBar: {
     margin: 10
   }
-};
+});
 
 export default connect(
   state => ({reservedDates: state.hosting.reservedDates})
