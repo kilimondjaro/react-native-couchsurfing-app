@@ -54,6 +54,7 @@ class CSTextInputList extends Component {
         <ListView
           enableEmptySections
           scrollEnabled={false}
+          keyboardShouldPersistTaps="handled"
           dataSource={this.state.dataSource}
           renderRow={(rowData, _, id) => (<View key={id}>{rowData}</View>)}
           renderSeparator={(_, id) => separator(id)}
