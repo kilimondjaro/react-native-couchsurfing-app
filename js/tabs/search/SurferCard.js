@@ -4,46 +4,117 @@ import {
   View,
   Text,
   Image,
-  StyleSheet,
-  Dimensions
+  StyleSheet
 } from 'react-native';
 
+type Props = {
+  user: {
+    name: string;
+    location: string;
+    status: string;
+    references: number;
+    speaks: string;
+    active: string;
+    responseRate: number;
+    verified: boolean;
+  }
+};
+
+const statusMap = {
+  accepting: {
+    label: 'Accepting Guests',
+    textColor: 'white',
+    areaColor: '#43b667'
+  },
+  maybe: {
+    label: 'Maybe Accepting Guests',
+    textColor: 'white',
+    areaColor: '#273c53'
+  },
+  not: {
+    label: 'Not Accepting Guests',
+    textColor: 'black',
+    areaColor: '#bfcad1'
+  },
+  meetUp: {
+    label: 'Want to Meet Up',
+    textColor: 'black',
+    areaColor: '#bfcad1'
+  }
+};
+
 class SurferCard extends Component {
+  props: Props;
+  static defaultProps = {
+    user: {
+      name: 'Kirill Babich',
+      status: 'accepting',
+      location: 'Moscow, Russia',
+      references: 8,
+      speaks: 'English',
+      responseRate: 100,
+      active: 'Today',
+      verified: true
+    }
+  }
 
   render() {
-    const {width} = Dimensions.get('window');
-    console.log(width);
+    const {
+      name,
+      location,
+      status,
+      references,
+      speaks,
+      active,
+      responseRate,
+      verified
+    } = this.props.user;
+
+    const statusAreaStyle = {backgroundColor: statusMap[status].areaColor};
+    const statusTextColor = {color: statusMap[status].textColor};
+
     return (
       <View style={styles.container}>
         <Image
-
           style={styles.image}
+          // TODO add prop for image
           source={require('./img/me.jpg')}
         >
           <View style={styles.statusArea}>
-            <View style={styles.status}>
-              <Text style={styles.statusText}>Accepting Guests</Text>
+            <View style={[styles.status, statusAreaStyle]}>
+              <Text style={[styles.statusText, statusTextColor]}>{statusMap[status].label}</Text>
             </View>
           </View>
           <View style={styles.nameArea}>
-            <Text style={styles.nameText}>Kirill Babich</Text>
-            <Text style={styles.locationText}>Moscow, Russia</Text>
+            <View style={styles.nameLine}>
+              <Text style={styles.nameText}>{name}</Text>
+              {
+                verified
+                  ?  (
+                    <Image
+                      style={styles.verifiedIcon}
+                      source={require('./img/verified.png')}
+                    />
+                  ) : null
+              }
+            </View>
+            <Text style={styles.locationText}>{location}</Text>
           </View>
         </Image>
         <View style={styles.footer}>
           <View style={styles.footerBlock}>
             <View style={styles.leftFooterBlock}>
               <Image source={require('./img/quote.png')}/>
-              <Text style={styles.leftFooterBlockText}>24 References</Text>
+              <Text style={styles.leftFooterBlockText}>{`${references} References`}</Text>
             </View>
             <View style={styles.leftFooterBlock}>
               <Image source={require('./img/reference.png')}/>
-              <Text style={styles.leftFooterBlockText}>Speaks English</Text>
+              <Text style={styles.leftFooterBlockText}>{`Speaks ${speaks}`}</Text>
             </View>
           </View>
           <View style={styles.footerBlock}>
-            <Text style={styles.rightFooterBlockText}>Response rate: 100%</Text>
-            <Text style={styles.rightFooterBlockText}>Active Today</Text>
+            <Text style={styles.rightFooterBlockText}>{`Response rate: ${responseRate}%`}</Text>
+            <Text style={styles.rightFooterBlockText}>{`Active ${active}`}</Text>
           </View>
         </View>
       </View>
@@ -72,9 +143,16 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     padding: 10
   },
+  nameLine: {
+    flexDirection: 'row'
+  },
   nameText: {
     color: 'white',
     fontSize: 20
+  },
+  verifiedIcon: {
+    marginTop: 3,
+    marginLeft: 5
   },
   locationText: {
     color: 'white',
@@ -104,7 +182,7 @@ const styles = StyleSheet.create({
   },
   status: {
     height: 30,
-    width: 150,
+    padding: 5,
     backgroundColor: '#5eb573',
     alignItems: 'center',
     justifyContent: 'center'
