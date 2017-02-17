@@ -75,6 +75,10 @@ export function getCalendarDates() {
       }
     }
 
+    if (dayOfWeek !== 0) {
+      dates[i].dates.push(week);
+    }
+
     firstDay = dayOfWeek;
   }
 
