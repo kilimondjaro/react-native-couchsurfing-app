@@ -16,6 +16,7 @@ import GuestsCountPicker from './GuestsCountPicker';
 import ModeSegment from './ModeSegment';
 import CSTextInputList from '../../components/CSTextInputList';
 import CSSearchBar from '../../components/CSSearchBar';
+import DistanceSlider from './DistanceSlider';
 
 function SettingsBlock(props) {
   return (
@@ -155,6 +156,12 @@ class FilterScreen extends Component {
                 <CheckCell onPress={() => null} text="Mayber Accepting Guests"/>
                 <CheckCell onPress={() => null} text="Wants to Meet Up"/>
               </CSTextInputList>
+            </SettingsBlock>
+            <SettingsBlock title="distance">
+              <DistanceSlider
+                value={5}
+                onChange={(value) => null}
+              />
             </SettingsBlock>
             <View style={{height: 100}} />
           </ScrollView>
