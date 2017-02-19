@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    height: 50
+    justifyContent: 'space-around'
   },
   separator: {
     height: 1,

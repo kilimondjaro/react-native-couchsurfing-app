@@ -41,6 +41,7 @@ class CSCalendar extends Component {
             }
         </View>
         <ScrollView
+          automaticallyAdjustContentInsets={false}
           style={styles.scrollView}
         >
           {
@@ -81,7 +82,8 @@ const styles = StyleSheet.create({
   },
   daysHeader: {
     flexDirection: 'row',
-    height: 40
+    paddingTop: 10,
+    paddingBottom: 10,
   },
   headerCell: {
     flex: 1,
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
     color: '#c7c7c7'
   },
   monthHeader: {
-    marginBottom: 30,
+    marginBottom: 25,
     alignItems:'center'
   },
   monthHeaderText: {
@@ -102,6 +104,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   scrollView: {
+    marginTop: 25,
     flex: 1
   }
 });

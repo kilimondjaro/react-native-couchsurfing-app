@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   acceptingStatusBar: {
-    margin: 10
+    margin: 5,
+    marginBottom: 0
   }
 });
 
