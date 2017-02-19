@@ -32,19 +32,24 @@ class TabsView extends Component {
     return (
       <TabBarIOS
         tintColor="#eb6648"
+        style={{overflow: 'hidden'}}
       >
         <TabBarIOS.Item
           icon={require('./img/hosting.png')}
           selected={this.props.tab === 'hosting'}
           onPress={() => this.onTabPress('hosting')}
         >
-          <HostingScreen />
+          <HostingScreen
+            navigator={this.props.navigator}
+          />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           icon={require('./img/search.png')}
           selected={this.props.tab === 'search'}
           onPress={() => this.onTabPress('search')}>
-        <SearchScreen />
+        <SearchScreen
+          navigator={this.props.navigator}
+        />
       </TabBarIOS.Item>
     </TabBarIOS>
     );

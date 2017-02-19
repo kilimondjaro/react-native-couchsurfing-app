@@ -4,30 +4,20 @@ import {
   View,
   TouchableOpacity,
   Text,
+  ScrollView,
+  RefreshControl,
   Image,
-  StyleSheet
+  StyleSheet,
+  Navigator
 } from 'react-native';
 import {connect} from 'react-redux';
 import CSTextInputList from '../../components/CSTextInputList';
 import CSSearchBar from '../../components/CSSearchBar';
 import {loadLocations} from '../../redux/actions/location';
 import CSSegmentControl from '../../components/CSSegmentControl';
-
-function SearchModeSegment(props) {
-  const {icon, text, value, onPress, active} = props;
-  const isActive = active === value;
-  return (
-    <TouchableOpacity
-      onPress={() => onPress(value)}
-      activeOpacity={0.8}
-      style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
-    >
-      <Image sourse={icon} />
-      <Text style={isActive ? {color: 'blue'} : null}>{text}</Text>
-    </TouchableOpacity>
-  );
-}
-
+import SurferCard from './SurferCard';
+import SearchModeSegment from './ModeSegment';
+import CalendarSegment from './CalendarSegment';
 
 type State = {
   onSearchFocus: boolean;
@@ -37,6 +27,7 @@ type State = {
 
 type Props = {
   locations: Array<{description: string, id: string}>;
+  navigator: Navigator;
 };
 
 class SearchScreen extends Component {
@@ -47,7 +38,8 @@ class SearchScreen extends Component {
     this.state = {
       onSearchFocus: false,
       searchMode: 'host',
-      searchText: ''
+      searchText: '',
+      refreshing: false
     };
   }
 
@@ -83,8 +75,36 @@ class SearchScreen extends Component {
         />
         {
           !onSearchFocus ? (
-            <View style={styles.tipView}>
-              <Text style={styles.tipText}>Search for hosts, travelers, events, and members</Text>
+            <View>
+              <CSSegmentControl
+                onPress={(value) => this.setState({searchMode: value})}
+                active={searchMode}
+                style={{margin: 5, marginBottom: 0}}
+              >
+                <CalendarSegment title="Arrives" date=""/>
+                <CalendarSegment title="Departs" date=""/>
+              </CSSegmentControl>
+              <View style={{padding: 10, height: 40, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={{color: '#68696c'}}>123 hosts found</Text>
+                <TouchableOpacity
+                  onPress={() => this.props.navigator.push({searchFilter: true})}
+                >
+                  <Text style={{color: '#006faf', fontSize: 15}}>More Filters</Text>
+                </TouchableOpacity>
+              </View>
+              <ScrollView
+                refreshControl={
+                  <RefreshControl
+                    refreshing={this.state.refreshing}
+                    onRefresh={() => {
+                      this.setState({refreshing: true});
+                      setTimeout(() => this.setState({refreshing: false}), 1000);
+                    }}
+                  />
+                }
+              >
+                {[1,2,3,4,5].map(i => (<SurferCard key={i} style={{marginBottom: 20}}/>))}
+              </ScrollView>
             </View>
           )
           : (

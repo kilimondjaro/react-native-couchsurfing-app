@@ -15,6 +15,7 @@ type Props = {
   leftItem?: Array<Item>;
   rightItem?: Array<Item>;
   value: string;
+  editable: boolean;
   placeholder?: string;
   marginTop?: number; // Manual fix for changing status bar size bug
   onChange: (value: string) => void;
@@ -34,12 +35,14 @@ class CSSearchBar extends Component {
       onChange,
       onFocus,
       onBlur,
-      marginTop
+      marginTop,
+      editable
     } = this.props;
 
     return (
       <View style={styles.container}>
         <ScrollView
+          scrollEnabled={false}
           contentContainerStyle={{marginTop: marginTop}}
         >
           <View style={styles.header}>
@@ -64,6 +67,7 @@ class CSSearchBar extends Component {
                 placeholder={placeholder || ''}
                 autoCorrect={false}
                 value={value}
+                editable={this.props.editable}
                 onChangeText={onChange}
                 onFocus={onFocus}
                 onBlur={onBlur}

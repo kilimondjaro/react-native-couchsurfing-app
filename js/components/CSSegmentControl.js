@@ -18,9 +18,9 @@ class CSSegmentControl extends Component {
   render() {
     const {children, style, active, onPress} = this.props;
 
-    const separatorStyle = style.height
-      ? {height: style.height - style.padding || 0 * 2}
-      : null;
+    const separatorStyle = style && style.height &&
+      {height: style.height - style.padding || 0 * 2};
+
 
     return (
       <View style={[styles.container, style]}>
