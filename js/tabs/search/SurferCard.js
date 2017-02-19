@@ -7,19 +7,6 @@ import {
   StyleSheet
 } from 'react-native';
 
-type Props = {
-  user: {
-    name: string;
-    location: string;
-    status: string;
-    references: number;
-    speaks: string;
-    active: string;
-    responseRate: number;
-    verified: boolean;
-  }
-};
-
 const statusMap = {
   accepting: {
     label: 'Accepting Guests',
@@ -41,6 +28,20 @@ const statusMap = {
     textColor: 'black',
     areaColor: '#bfcad1'
   }
+};
+
+type Props = {
+  user: {
+    name: string;
+    location: string;
+    status: string;
+    references: number;
+    speaks: string;
+    active: string;
+    responseRate: number;
+    verified: boolean;
+  },
+  style?: any;
 };
 
 class SurferCard extends Component {
@@ -74,7 +75,7 @@ class SurferCard extends Component {
     const statusTextColor = {color: statusMap[status].textColor};
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, this.props.style]}>
         <Image
           style={styles.image}
           // TODO add prop for image
@@ -183,6 +184,7 @@ const styles = StyleSheet.create({
   status: {
     height: 30,
     padding: 5,
+    opacity: 0.85,
     backgroundColor: '#5eb573',
     alignItems: 'center',
     justifyContent: 'center'
