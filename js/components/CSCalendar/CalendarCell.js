@@ -4,7 +4,8 @@ import {
   View,
   Text,
   TouchableHighlight,
-  StyleSheet
+  StyleSheet,
+  Dimensions
 } from 'react-native';
 
 type Props = {
@@ -85,16 +86,21 @@ class CalendarCell extends Component {
   }
 }
 
+const {width} = Dimensions.get('window');
+const CELL_SIZE = Math.floor(width / 7);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    height: CELL_SIZE,
+    width: CELL_SIZE
   },
   cell: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 35,
+    borderRadius: CELL_SIZE / 2,
     margin: 5
   },
   label: {
@@ -102,7 +108,7 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   strikeLine: {
-    marginTop: 25,
+    marginTop: CELL_SIZE / 2,
     height: 1.5,
     backgroundColor: '#6d6e71',
     transform: [
