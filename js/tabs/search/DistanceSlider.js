@@ -69,7 +69,9 @@ class DistanceSlider extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    padding: 10
+    padding: 10,
+    borderBottomWidth: 1,
+    borderColor: '#bfcad2'
   },
   labelsContainer: {
     flexDirection: 'row',

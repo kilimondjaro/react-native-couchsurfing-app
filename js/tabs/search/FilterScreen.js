@@ -133,6 +133,18 @@ class FilterScreen extends Component {
                 />
               </CSTextInputList>
             </SettingsBlock>
+            <SettingsBlock title="preferences">
+              <CSTextInputList
+                separatorStyle={{marginLeft: 0}}
+              >
+                <CheckCell onPress={() => null} text="Kids at Home"/>
+                <CheckCell onPress={() => null} text="Kids-Friendly"/>
+                <CheckCell onPress={() => null} text="Pet-free"/>
+                <CheckCell onPress={() => null} text="Pet-Friendly"/>
+                <CheckCell onPress={() => null} text="Allow Smoking"/>
+                <CheckCell onPress={() => null} text="Wheelchair Acce"/>
+              </CSTextInputList>
+            </SettingsBlock>
             <SettingsBlock title="availlability">
               <CSTextInputList
                 separatorStyle={{marginLeft: 0}}
@@ -147,6 +159,16 @@ class FilterScreen extends Component {
                 value={5}
                 onChange={(value) => null}
               />
+            </SettingsBlock>
+            <SettingsBlock title="sort by">
+              <CSSegmentControl
+                onPress={(value) => null}
+                active="bestMatch"
+              >
+                <ModeSegment value="bestMatch" text="Best Match" icon={null}/>
+                <ModeSegment value="experience" text="Experience" icon={null}/>
+                <ModeSegment value="lastLogin" text="Last Login" icon={null}/>
+              </CSSegmentControl>
             </SettingsBlock>
             <View style={{height: 100}} />
           </ScrollView>
