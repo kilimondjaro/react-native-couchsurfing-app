@@ -17,6 +17,8 @@ import ModeSegment from './ModeSegment';
 import CSTextInputList from '../../components/CSTextInputList';
 import CSSearchBar from '../../components/CSSearchBar';
 import DistanceSlider from './DistanceSlider';
+import RangeCell from './RangeCell';
+import CheckCell from './CheckCell';
 
 function SettingsBlock(props) {
   return (
@@ -26,39 +28,6 @@ function SettingsBlock(props) {
     </View>
   );
 }
-
-function CheckCell(props) {
-  const sourse = props.checked
-    ? require('./img/checked.png')
-    : require('./img/plus.png');
-
-  return (
-    <TouchableHighlight
-      underlayColor="#d9d9d9"
-      onPress={props.onPress}
-    >
-      <View
-        style={checkCellStyle.container}
-      >
-        <Text style={checkCellStyle.text}>{props.text}</Text>
-        <Image source={sourse} />
-      </View>
-    </TouchableHighlight>
-  );
-}
-
-const checkCellStyle = StyleSheet.create({
-  container: {
-    height: 40,
-    padding: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  text: {
-    color: '#000030'
-  }
-});
 
 class FilterScreen extends Component {
   constructor(props) {
@@ -71,7 +40,9 @@ class FilterScreen extends Component {
         departs: ''
       },
       guestsCount: 1,
-      hasReferences: false
+      hasReferences: false,
+      rangeCell: 'Any',
+      maultipleRangeCell: []
     };
   }
 
@@ -126,7 +97,7 @@ class FilterScreen extends Component {
             </SettingsBlock>
             <SettingsBlock title="accommodation">
               <CSSegmentControl
-                onPress={(value) => this.onCalendarSegmentPress(value)}
+                onPress={(value) => null}
                 active="arrives"
               >
                 <ModeSegment value="private" text="Private" icon={null}/>
@@ -144,8 +115,22 @@ class FilterScreen extends Component {
                   text="Has References"
                 />
                 <CheckCell onPress={() => null} text="Verified Member"/>
-                <CheckCell onPress={() => null} text="Gender"/>
-                <CheckCell onPress={() => null} text="Wheelchair Accessible"/>
+                <RangeCell
+                  values={['Male', 'Female', 'Other']}
+                  selected={[]}
+                  onPress={(value) => {
+                    this.setState({})
+                  }}
+                  text="Gender"
+                />
+                <CheckCell onPress={() => null} text="Languages Spoken"/>
+                <RangeCell
+                  multipleChoice={false}
+                  values={['Any', '18-24', '25-34', '35-44', '45-54', '55+']}
+                  selected={this.state.rangeCell}
+                  onPress={(value) => this.setState({rangeCell: value})}
+                  text="Age Range"
+                />
               </CSTextInputList>
             </SettingsBlock>
             <SettingsBlock title="availlability">
