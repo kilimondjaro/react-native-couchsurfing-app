@@ -8,6 +8,7 @@ export type Action =
   | {type: 'CALENDAR_UPDATE', data: {firstMonth: number, dates: Array<Array<number>>}}
   | {type: 'UPDATED_STATUS', status: string}
   | {type: 'TOGGLE_DAY', year: number, month: number, day: number}
+  | {type: 'ADD_DATE', date: {year: number, month: number, day: number}}
   ;
 
 

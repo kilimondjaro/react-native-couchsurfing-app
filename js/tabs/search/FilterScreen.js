@@ -3,12 +3,11 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
-  Image,
   ScrollView,
   TouchableOpacity,
-  TouchableHighlight,
   StyleSheet
 } from 'react-native';
+import {connect} from 'react-redux';
 import CalendarSegment from './CalendarSegment';
 import CSSegmentControl from '../../components/CSSegmentControl';
 import CSCalendar from '../../components/CSCalendar';
@@ -19,6 +18,8 @@ import CSSearchBar from '../../components/CSSearchBar';
 import DistanceSlider from './DistanceSlider';
 import RangeCell from './RangeCell';
 import CheckCell from './CheckCell';
+import {addDate} from '../../redux/actions/filter';
+import {monthNames} from '../../helpers';
 
 function SettingsBlock(props) {
   return (
@@ -50,20 +51,57 @@ class FilterScreen extends Component {
     this.setState({showCalendar: true});
   }
 
-  render() {
+  getCalendarDates() {
+    const {arrives, departs} = this.props.filters.dates;
+    const calendarDates = {};
+    for (let i = 0; i < 12; i++) {
+      calendarDates[i] = {};
+    }
 
+    if (arrives) {
+      calendarDates[arrives.month][arrives.day] = true;
+    }
+    if (departs) {
+      for (let i = arrives.month; i <= departs.month; i++) {
+        var start = 1;
+        var end = 31;
+        if (i === arrives.month) {
+          start = arrives.day;
+        }
+        if (i === departs.month) {
+          end = departs.day;
+        }
+        for (let j = start; j <= end; j++) {
+          calendarDates[i][j] = true;
+        }
+      }
+    }
+    return calendarDates;
+  }
+
+  getDateString(date) {
+    return date && `${monthNames[date.month]} ${date.day}`;
+  }
+
+  render() {
     var calendar;
     if (this.state.showCalendar) {
       calendar = (
         <View style={{height: 360}}>
           <CSCalendar
-            selectedDates={[[],[],[],[],[],[],[],[],[],[],[],[]]}
+            selectedDates={this.getCalendarDates()}
             type="search"
-            onPress={(year, month, day) => null}
+            onPress={(year, month, day) => this.props.dispatch(addDate({
+              year, month, day
+            }))}
           />
         </View>
       );
     }
+
+    const {
+      dates
+    } = this.props.filters;
 
     return (
       <View style={{flex: 1, backgroundColor: '#f8f8f8'}}>
@@ -85,8 +123,8 @@ class FilterScreen extends Component {
               active="arrives"
               style={{margin: 5, marginBottom: 0}}
             >
-              <CalendarSegment value="arrives" title="Arrives" date={this.state.dates.arrives}/>
-              <CalendarSegment value="departs" title="Departs" date={this.state.dates.departs}/>
+              <CalendarSegment value="arrives" title="Arrives" date={this.getDateString(dates.arrives)}/>
+              <CalendarSegment value="departs" title="Departs" date={this.getDateString(dates.departs)}/>
             </CSSegmentControl>
             {calendar}
             <SettingsBlock title="# of travelers">
@@ -194,4 +232,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FilterScreen;
+export default connect(
+  (state) => ({filters: state.filter})
+)(FilterScreen);
