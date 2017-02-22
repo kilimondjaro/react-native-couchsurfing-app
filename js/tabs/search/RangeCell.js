@@ -10,8 +10,8 @@ import CheckCell from './CheckCell';
 
 type Props = {
   text: string;
-  values: Array<string>;
-  selected: Array<string>;
+  values: Array<{label: string, value: string}> | Array<string>;
+  selected: {[name: string]: boolean} | string;
   multipleChoice: boolean;
   onPress: (value: string) => void;
 }
@@ -51,7 +51,10 @@ class RangeCell extends Component {
 
     if (!pressed) {
       valueText = multipleChoice
-        ? selected.join(', ') || 'Any'
+        ? values.reduce((res, cur) => selected[cur.value]
+            ? res.concat([cur.label])
+            : res.concat([]), [])
+          .join(', ') || 'Any'
         : selected;
     }
 
@@ -69,13 +72,13 @@ class RangeCell extends Component {
           </View>
         </TouchableHighlight>
         {
-          pressed ? values.map(val => (
+          pressed ? values.map((val, i) => (
             <CheckCell
-              key={val}
+              key={i}
               style={{backgroundColor: '#f8f8f8'}}
-              checked={multipleChoice ? selected.includes(val) : selected === val}
-              onPress={() => this.onCheckCellPress(val)}
-              text={val}
+              checked={multipleChoice ? selected[val.value] : selected === val}
+              onPress={() => this.onCheckCellPress(multipleChoice ? val.value : val)}
+              text={multipleChoice ? val.label : val}
             />
           )) : null
         }

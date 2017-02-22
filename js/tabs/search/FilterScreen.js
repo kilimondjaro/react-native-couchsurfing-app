@@ -18,7 +18,7 @@ import CSSearchBar from '../../components/CSSearchBar';
 import DistanceSlider from './DistanceSlider';
 import RangeCell from './RangeCell';
 import CheckCell from './CheckCell';
-import {addDate} from '../../redux/actions/filter';
+import {addDate, toggleFilter} from '../../redux/actions/filter';
 import {monthNames} from '../../helpers';
 
 function SettingsBlock(props) {
@@ -99,9 +99,10 @@ class FilterScreen extends Component {
       );
     }
 
+    const {filters, dispatch} = this.props;
     const {
       dates
-    } = this.props.filters;
+    } = filters;
 
     return (
       <View style={{flex: 1, backgroundColor: '#f8f8f8'}}>
@@ -112,7 +113,6 @@ class FilterScreen extends Component {
           <CSSearchBar
             placeholder="Search"
             editable={false}
-            rightItem={[{text: 'Cancel'}]}
             value={'Search line'} // Take from redux
           />
         </TouchableOpacity>
@@ -129,14 +129,14 @@ class FilterScreen extends Component {
             {calendar}
             <SettingsBlock title="# of travelers">
               <GuestsCountPicker
-                value={this.state.guestsCount}
-                onPress={(value) => this.setState({guestsCount: value})}
+                value={filters.numberOfTravelers}
+                onPress={(value) => dispatch(toggleFilter({name: 'numberOfTravelers', value}))}
               />
             </SettingsBlock>
             <SettingsBlock title="accommodation">
               <CSSegmentControl
-                onPress={(value) => null}
-                active="arrives"
+                onPress={(value) => dispatch(toggleFilter({name: 'accommodation', value}))}
+                active={filters.accommodation}
               >
                 <ModeSegment value="private" text="Private" icon={null}/>
                 <ModeSegment value="public" text="Public" icon={null}/>
@@ -148,25 +148,35 @@ class FilterScreen extends Component {
                 separatorStyle={{marginLeft: 0}}
               >
                 <CheckCell
-                  checked={this.state.hasReferences}
-                  onPress={() => this.setState({hasReferences: !this.state.hasReferences})}
+                  checked={filters.hasReferences}
+                  onPress={() => dispatch(toggleFilter({name: 'hasReferences'}))}
                   text="Has References"
                 />
-                <CheckCell onPress={() => null} text="Verified Member"/>
+                <CheckCell
+                  checked={filters.verifiedMember}
+                  onPress={() => dispatch(toggleFilter({name: 'verifiedMember'}))}
+                  text="Verified Member"
+                />
                 <RangeCell
-                  values={['Male', 'Female', 'Other']}
-                  selected={[]}
-                  onPress={(value) => {
-                    this.setState({})
-                  }}
+                  values={[
+                    {label: 'Male', value: 'male'},
+                    {label: 'Female', value: 'female'},
+                    {label: 'Other', value: 'other'}
+                  ]}
+                  selected={filters.gender}
+                  onPress={(value) => dispatch(toggleFilter({name: 'gender', value}))}
                   text="Gender"
                 />
-                <CheckCell onPress={() => null} text="Languages Spoken"/>
+                <CheckCell
+                  checked={filters.languageSpoken}
+                  onPress={() => dispatch(toggleFilter({name: 'languageSpoken'}))}
+                  text="Languages Spoken"
+                />
                 <RangeCell
                   multipleChoice={false}
                   values={['Any', '18-24', '25-34', '35-44', '45-54', '55+']}
-                  selected={this.state.rangeCell}
-                  onPress={(value) => this.setState({rangeCell: value})}
+                  selected={filters.ageRange}
+                  onPress={(value) => dispatch(toggleFilter({name: 'ageRange', value}))}
                   text="Age Range"
                 />
               </CSTextInputList>
@@ -175,33 +185,62 @@ class FilterScreen extends Component {
               <CSTextInputList
                 separatorStyle={{marginLeft: 0}}
               >
-                <CheckCell onPress={() => null} text="Kids at Home"/>
-                <CheckCell onPress={() => null} text="Kids-Friendly"/>
-                <CheckCell onPress={() => null} text="Pet-free"/>
-                <CheckCell onPress={() => null} text="Pet-Friendly"/>
-                <CheckCell onPress={() => null} text="Allow Smoking"/>
-                <CheckCell onPress={() => null} text="Wheelchair Acce"/>
+                <CheckCell
+                  checked={filters.kidsAtHome}
+                  onPress={() => dispatch(toggleFilter({name: 'kidsAtHome'}))}
+                  text="Kids at Home"
+                />
+                <CheckCell
+                  checked={filters.kidsFriendly}
+                  onPress={() => dispatch(toggleFilter({name: 'kidsFriendly'}))}
+                  text="Kids-Friendly"
+                />
+                <CheckCell
+                  checked={filters.petFree}
+                  onPress={() => dispatch(toggleFilter({name: 'petFree'}))}
+                  text="Pet-free"/>
+                <CheckCell
+                  checked={filters.petFriendly}
+                  onPress={() => dispatch(toggleFilter({name: 'petFriendly'}))}
+                  text="Pet-Friendly"/>
+                <CheckCell
+                  checked={filters.allowsSmoking}
+                  onPress={() => dispatch(toggleFilter({name: 'allowsSmoking'}))}
+                  text="Allow Smoking"/>
+                <CheckCell
+                  checked={filters.wheelchairAccessible}
+                  onPress={() => dispatch(toggleFilter({name: 'wheelchairAccessible'}))}
+                  text="Wheelchair Acce"/>
               </CSTextInputList>
             </SettingsBlock>
             <SettingsBlock title="availlability">
               <CSTextInputList
                 separatorStyle={{marginLeft: 0}}
               >
-                <CheckCell onPress={() => null} text="Accepting Guests"/>
-                <CheckCell onPress={() => null} text="Mayber Accepting Guests"/>
-                <CheckCell onPress={() => null} text="Wants to Meet Up"/>
+                <CheckCell
+                  checked={filters.acceptingGuests}
+                  onPress={() => dispatch(toggleFilter({name: 'acceptingGuests'}))}
+                  text="Accepting Guests"/>
+                <CheckCell
+                  checked={filters.maybeAcceptingGuests}
+                  onPress={() => dispatch(toggleFilter({name: 'maybeAcceptingGuests'}))}
+                  text="Mayber Accepting Guests"/>
+                <CheckCell
+                  checked={filters.wantsToMeetUp}
+                  onPress={() => dispatch(toggleFilter({name: 'wantsToMeetUp'}))}
+                  text="Wants to Meet Up"/>
               </CSTextInputList>
             </SettingsBlock>
             <SettingsBlock title="distance">
               <DistanceSlider
-                value={5}
-                onChange={(value) => null}
+                value={filters.distance}
+                onChange={(value) => dispatch(toggleFilter({name: 'distance', value}))}
               />
             </SettingsBlock>
             <SettingsBlock title="sort by">
               <CSSegmentControl
-                onPress={(value) => null}
-                active="bestMatch"
+                onPress={(value) => dispatch(toggleFilter({name: 'sortBy', value}))}
+                active={filters.sortBy}
               >
                 <ModeSegment value="bestMatch" text="Best Match" icon={null}/>
                 <ModeSegment value="experience" text="Experience" icon={null}/>

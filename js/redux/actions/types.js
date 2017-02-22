@@ -9,6 +9,7 @@ export type Action =
   | {type: 'UPDATED_STATUS', status: string}
   | {type: 'TOGGLE_DAY', year: number, month: number, day: number}
   | {type: 'ADD_DATE', date: {year: number, month: number, day: number}}
+  | {type: 'TOGGLE_FILTER', filter: any}
   ;
 
 

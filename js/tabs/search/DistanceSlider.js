@@ -32,7 +32,7 @@ class DistanceSlider extends Component {
 
   onSlidingComplete(value: number) {
     this.setState({sliderValue: distanceArr[value]});
-    this.props.onChange(value);
+    this.props.onChange(distanceArr[value]);
   }
 
   render() {
@@ -44,7 +44,7 @@ class DistanceSlider extends Component {
           minimumTrackTintColor={'#bdc8d0'}
           maximumTrackTintColor={'#bdc8d0'}
           step={1}
-          value={distanceArr.indexOf(5)}
+          value={distanceArr.indexOf(this.props.value)}
           onSlidingComplete={(value) => this.onSlidingComplete(value)}
         />
         <View style={styles.labelsContainer}>

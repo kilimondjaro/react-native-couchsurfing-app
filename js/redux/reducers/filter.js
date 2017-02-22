@@ -6,12 +6,20 @@ const initialState = {
     departs: null
   },
   numberOfTravelers: 1,
-  accommodation: [],
+  accommodation: {
+    private: false,
+    public: false,
+    shared: false
+  },
   hasReferences: false,
   verifiedMember: false,
-  gender: [],
-  languageSpoken: [],
-  ageRange: '',
+  gender: {
+    male: false,
+    female: false,
+    other: false
+  },
+  languageSpoken: {},
+  ageRange: 'Any',
   kidsAtHome: false,
   kidsFriendly: false,
   petFree: false,
@@ -41,6 +49,16 @@ export default function filter(state = initialState, action) {
         return {...state, dates: {arrives: state.dates.arrives, departs: action.date}};
       }
       return {...state, dates: {arrives: action.date, departs: null}};
+    }
+    case 'TOGGLE_FILTER': {
+      const {name, value} = action.filter;
+      if (typeof state[name] === 'boolean') {
+        return {...state, [name]: !state[name]};
+      }
+      if (typeof state[name] === 'object') {
+        return {...state, [name]: Object.assign({}, state[name], {[value]: !state[name][value]})};
+      }
+      return {...state, [name]: value};
     }
     default:
       return state;
