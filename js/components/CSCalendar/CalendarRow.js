@@ -64,8 +64,7 @@ class CalendarRow extends Component {
                 && curDay === day
                 ? { color: '#eb684b'} : null;
 
-              const disabled = day === null || (day < curDay && monthNum === 0)
-                ? true : false;
+              const disabled = day === null || (day < curDay && monthNum === 0);
 
               const reserved = day !== null ?
                 selectedDates[month][day] || false
