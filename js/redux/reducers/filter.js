@@ -1,4 +1,41 @@
+type Date = {
+  year: number;
+  month: number;
+  day: number;
+}
 
+export type Filters = {
+  dates: {
+    arrives: ?Date,
+    departs: ?Date
+  };
+  numberOfTravelers: number;
+  accommodation: {
+    private: boolean;
+    public: boolean;
+    shared: boolean;
+  };
+  hasReferences: boolean;
+  verifiedMember: boolean;
+  gender: {
+    male: boolean;
+    female: boolean;
+    other: boolean;
+  };
+  languageSpoken: any;
+  ageRange: string;
+  kidsAtHome: boolean;
+  kidsFriendly: boolean;
+  petFree: boolean;
+  petFriendly: boolean;
+  allowsSmoking: boolean;
+  wheelchairAccessible: boolean;
+  acceptingGuests: boolean;
+  maybeAcceptingGuests: boolean;
+  wantsToMeetUp: boolean;
+  distance: number;
+  sortBy: string;
+}
 
 const initialState = {
   dates: {

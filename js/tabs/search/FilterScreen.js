@@ -5,7 +5,8 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  Navigator
 } from 'react-native';
 import {connect} from 'react-redux';
 import CalendarSegment from './CalendarSegment';
@@ -19,6 +20,8 @@ import DistanceSlider from './DistanceSlider';
 import RangeCell from './RangeCell';
 import CheckCell from './CheckCell';
 import {addDate, toggleFilter} from '../../redux/actions/filter';
+import type {Dispatch} from '../../redux/actions/types';
+import type {Filters} from '../../redux/reducers/filter';
 import {monthNames} from '../../helpers';
 
 function SettingsBlock(props) {
@@ -30,21 +33,32 @@ function SettingsBlock(props) {
   );
 }
 
+type Props = {
+  filters: Filters;
+  dispatch: Dispatch;
+  navigator: Navigator;
+};
+
+type State = {
+  showCalendar: boolean;
+}
+
 class FilterScreen extends Component {
+  props: Props;
+  state: State;
+
   constructor(props) {
     super(props);
 
     this.state = {
-      showCalendar: false,
-      dates: {
-        arrives: '',
-        departs: ''
-      },
-      guestsCount: 1,
-      hasReferences: false,
-      rangeCell: 'Any',
-      maultipleRangeCell: []
+      showCalendar: false
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.filters.dates.departs) {
+      this.setState({showCalendar: false});
+    }
   }
 
   onCalendarSegmentPress(value) {
