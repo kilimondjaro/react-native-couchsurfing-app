@@ -13,12 +13,14 @@ type Props = {
   text: string;
   value: string;
   onPress: (value: string) => void;
-  active: boolean;
+  active: boolean | {[x: string]: boolean};
 }
 
 export default function ModeSegment(props: Props) {
   const {icon, text, value, onPress, active} = props;
-  const isActive = active === value;
+  const isActive = typeof active === 'object'
+    ? active[value]
+    : active === value;
 
   return (
     <TouchableOpacity
@@ -26,7 +28,7 @@ export default function ModeSegment(props: Props) {
       activeOpacity={0.8}
       style={styles.container}
     >
-      <Image source={props.icon} />
+      <Image source={icon} />
       <Text style={isActive ? {color: '#2f81b7'} : null}>{text}</Text>
     </TouchableOpacity>
   );
