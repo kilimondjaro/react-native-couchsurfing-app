@@ -71,7 +71,7 @@ class CSCalendar extends Component {
                     <View key={wKey} style={{flex: 1, flexDirection: 'column'}}>
                       <CalendarRow
                         {...this.props}
-                        monthNum={monthNum}
+                        monthNum={Number(monthNum)}
                         month={month.month}
                         year={month.year}
                         week={week}
