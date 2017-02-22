@@ -24,9 +24,11 @@ export default function calendar(state: State = initialState, action: Action) : 
     case 'UPDATED_STATUS':
       return {...state, status: action.status};
     case 'TOGGLE_DAY': {
-      const dates = Object.assign({}, state.reservedDates);
-      const value = dates[action.month][action.day] || false;
-      dates[action.month][action.day] = !value;
+      const value = state.reservedDates[action.month][action.day] || false;
+      // TODO Replace it with some library function
+      const dates = Object.assign({}, state.reservedDates,
+        {[action.month]: Object.assign({},
+          state.reservedDates[action.month], {[action.day]: !value})});
       return {
         ...state,
         reservedDates: dates
