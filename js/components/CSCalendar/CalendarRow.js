@@ -5,7 +5,6 @@ import {
   Dimensions,
   StyleSheet
 } from 'react-native';
-import deepEqual from 'deep-equal';
 import CalendarCell from './CalendarCell';
 
 type Props  = {
