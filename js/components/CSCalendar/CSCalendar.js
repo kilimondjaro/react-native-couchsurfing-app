@@ -56,6 +56,8 @@ class CSCalendar extends Component {
             }
         </View>
         <ListView
+          showsVerticalScrollIndicator={false}
+          initialListSize={2}
           dataSource={this.state.dataSource}
           renderRow={(month, _, monthNum) => {
             return (
