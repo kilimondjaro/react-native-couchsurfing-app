@@ -18,6 +18,7 @@ import CSSegmentControl from '../../components/CSSegmentControl';
 import SurferCard from './SurferCard';
 import SearchModeSegment from './ModeSegment';
 import CalendarSegment from './CalendarSegment';
+import {getDateString} from '../../helpers';
 
 type State = {
   onSearchFocus: boolean;
@@ -25,8 +26,15 @@ type State = {
   searchText: string;
 };
 
+type Date = {
+  year: number;
+  month: number;
+  day: number;
+}
+
 type Props = {
   locations: Array<{description: string, id: string}>;
+  dates: {arrives: ?Date, departs: ?Date};
   navigator: Navigator;
 };
 
@@ -81,8 +89,8 @@ class SearchScreen extends Component {
                 active={searchMode}
                 style={{margin: 5, marginBottom: 0}}
               >
-                <CalendarSegment title="Arrives" date=""/>
-                <CalendarSegment title="Departs" date=""/>
+                <CalendarSegment title="Arrives" date={getDateString(this.props.dates.arrives)}/>
+                <CalendarSegment title="Departs" date={getDateString(this.props.dates.departs)}/>
               </CSSegmentControl>
               <View style={{padding: 10, height: 40, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center'}}>
                 <Text style={{color: '#68696c'}}>123 hosts found</Text>
@@ -176,7 +184,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = function(state) {
   return {
-    locations: state.location.locations
+    locations: state.location.locations,
+    dates: state.filter.dates
   };
 };
 
