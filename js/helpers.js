@@ -86,3 +86,13 @@ export function getCalendarDates() {
 }
 
 export const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+type Date = {
+  year: number;
+  month: number;
+  day: number;
+}
+
+export function getDateString(date: Date) {
+  return date && `${monthNames[date.month]} ${date.day}`;
+}

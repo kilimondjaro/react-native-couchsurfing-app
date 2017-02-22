@@ -22,7 +22,7 @@ import CheckCell from './CheckCell';
 import {addDate, toggleFilter} from '../../redux/actions/filter';
 import type {Dispatch} from '../../redux/actions/types';
 import type {Filters} from '../../redux/reducers/filter';
-import {monthNames} from '../../helpers';
+import {getDateString} from '../../helpers';
 
 function SettingsBlock(props) {
   return (
@@ -93,10 +93,6 @@ class FilterScreen extends Component {
     return calendarDates;
   }
 
-  getDateString(date) {
-    return date && `${monthNames[date.month]} ${date.day}`;
-  }
-
   render() {
     var calendar;
     if (this.state.showCalendar) {
@@ -137,8 +133,8 @@ class FilterScreen extends Component {
               active="arrives"
               style={{margin: 5, marginBottom: 0}}
             >
-              <CalendarSegment value="arrives" title="Arrives" date={this.getDateString(dates.arrives)}/>
-              <CalendarSegment value="departs" title="Departs" date={this.getDateString(dates.departs)}/>
+              <CalendarSegment value="arrives" title="Arrives" date={getDateString(dates.arrives)}/>
+              <CalendarSegment value="departs" title="Departs" date={getDateString(dates.departs)}/>
             </CSSegmentControl>
             {calendar}
             <SettingsBlock title="# of travelers">
