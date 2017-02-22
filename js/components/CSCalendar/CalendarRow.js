@@ -5,6 +5,7 @@ import {
   Dimensions,
   StyleSheet
 } from 'react-native';
+import deepEqual from 'deep-equal';
 import CalendarCell from './CalendarCell';
 
 type Props  = {
@@ -19,6 +20,13 @@ type Props  = {
 
 class CalendarRow extends Component {
   props: Props;
+
+  shouldComponentUpdate(nextProps: Props) {
+    if (this.props.selectedDates[this.props.month] === nextProps.selectedDates[nextProps.month]) {
+      return false;
+    }
+    return true;
+  }
 
   getCellWidth() {
     var {width} = Dimensions.get('window');
