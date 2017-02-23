@@ -10,7 +10,7 @@ import {calendarUpdate} from './redux/actions';
 import Navigator from './CSNavigator';
 
 class CouchsurfingApp extends Component {
-  componentDidMount() {
+  componentWillMount() {
     const {dispatch} = this.props;
 
     const curMonth = new Date().getMonth();
