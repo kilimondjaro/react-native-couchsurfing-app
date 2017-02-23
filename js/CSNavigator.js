@@ -77,6 +77,7 @@ class CSNavigator extends Component {
       return (
         <FilterScreen
           navigator={navigator}
+          data={route.data}
         />
       );
     }
