@@ -37,6 +37,9 @@ type Props = {
   filters: Filters;
   dispatch: Dispatch;
   navigator: Navigator;
+  data: {
+    showCalendar: boolean;
+  }
 };
 
 type State = {
@@ -51,7 +54,7 @@ class FilterScreen extends Component {
     super(props);
 
     this.state = {
-      showCalendar: false
+      showCalendar: props.data.showCalendar
     };
   }
 

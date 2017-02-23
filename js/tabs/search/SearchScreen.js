@@ -85,8 +85,9 @@ class SearchScreen extends Component {
           !onSearchFocus ? (
             <View>
               <CSSegmentControl
-                onPress={(value) => this.setState({searchMode: value})}
-                active={searchMode}
+                onPress={() => this.props.navigator.push({searchFilter: true, data: {
+                  showCalendar: true
+                }})}
                 style={{margin: 5, marginBottom: 0}}
               >
                 <CalendarSegment title="Arrives" date={getDateString(this.props.dates.arrives)}/>
@@ -95,7 +96,9 @@ class SearchScreen extends Component {
               <View style={{padding: 10, height: 40, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center'}}>
                 <Text style={{color: '#68696c'}}>123 hosts found</Text>
                 <TouchableOpacity
-                  onPress={() => this.props.navigator.push({searchFilter: true})}
+                  onPress={() => this.props.navigator.push({searchFilter: true, data: {
+                    showCalendar: false
+                  }})}
                 >
                   <Text style={{color: '#006faf', fontSize: 15}}>More Filters</Text>
                 </TouchableOpacity>
