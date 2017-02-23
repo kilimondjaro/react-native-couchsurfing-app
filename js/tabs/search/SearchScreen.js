@@ -83,7 +83,7 @@ class SearchScreen extends Component {
         />
         {
           !onSearchFocus ? (
-            <View>
+            <View style={{flex: 1}}>
               <CSSegmentControl
                 onPress={() => this.props.navigator.push({searchFilter: true, data: {
                   showCalendar: true
@@ -106,6 +106,7 @@ class SearchScreen extends Component {
               <ScrollView
                 refreshControl={
                   <RefreshControl
+                    title="Pull to refresh..."
                     refreshing={this.state.refreshing}
                     onRefresh={() => {
                       this.setState({refreshing: true});
