@@ -20,6 +20,13 @@ type Props  = {
 class CalendarRow extends Component {
   props: Props;
 
+  shouldComponentUpdate(nextProps: Props) {
+    if (this.props.selectedDates[this.props.month] === nextProps.selectedDates[nextProps.month]) {
+      return false;
+    }
+    return true;
+  }
+
   getCellWidth() {
     var {width} = Dimensions.get('window');
     return width / 7;
@@ -57,8 +64,7 @@ class CalendarRow extends Component {
                 && curDay === day
                 ? { color: '#eb684b'} : null;
 
-              const disabled = day === null || (day < curDay && monthNum === 0)
-                ? true : false;
+              const disabled = day === null || (day < curDay && monthNum === 0);
 
               const reserved = day !== null ?
                 selectedDates[month][day] || false

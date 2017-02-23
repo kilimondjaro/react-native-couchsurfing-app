@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  ScrollView,
+  ListView,
   StyleSheet
 } from 'react-native';
 import {connect} from 'react-redux';
@@ -12,23 +12,43 @@ import CalendarRow from './CalendarRow';
 const monthArray = ['янв', 'февр.', 'март',
   'апр.', 'май', 'июнь', 'июль', 'авг.', 'сент.', 'окт.', 'нояб.', 'дек.'];
 
-type Props = {
-  dates: Array<{
+
+type Date = Array<{
     month: number;
     year: number;
     dates: Array<Array<?number>>;
-  }>;
+}>;
+
+type Props = {
+  dates: Date;
   type: string;
   selectedDates: any;
   onPress: (year: number, month: number, day: number) => void;
 }
 
+type State = {
+  dataSource: Date;
+};
+
 class CSCalendar extends Component {
   props: Props;
+  state: State;
+
+  constructor(props) {
+    super(props);
+
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {
+      dataSource: ds.cloneWithRows(props.dates)
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.setState({dataSource: ds.cloneWithRows(nextProps.dates)});
+  }
 
   render() {
-    const {dates} = this.props;
-
     return (
       <View style={styles.container}>
         <View style={styles.daysHeader}>
@@ -40,36 +60,36 @@ class CSCalendar extends Component {
               ))
             }
         </View>
-        <ScrollView
-          automaticallyAdjustContentInsets={false}
-          style={styles.scrollView}
-        >
-          {
-            dates.map((month, monthNum) => (
-                <View key={month.month} style={{marginBottom: 30}}>
-                  <View style={styles.monthHeader}>
-                    <Text
-                      style={styles.monthHeaderText}>
-                      {`${monthArray[month.month].toUpperCase()} ${month.year}`}
-                    </Text>
-                  </View>
-                  {
-                    month.dates.map((week, wKey) => (
-                      <View key={wKey} style={{flex: 1, flexDirection: 'column'}}>
-                        <CalendarRow
-                          {...this.props}
-                          monthNum={monthNum}
-                          month={month.month}
-                          year={month.year}
-                          week={week}
-                        />
-                      </View>
-                    ))
-                  }
+        <ListView
+          showsVerticalScrollIndicator={false}
+          initialListSize={2}
+          dataSource={this.state.dataSource}
+          renderRow={(month, _, monthNum) => {
+            return (
+              <View key={month.month} style={{marginBottom: 30}}>
+                <View style={styles.monthHeader}>
+                  <Text
+                    style={styles.monthHeaderText}>
+                    {`${monthArray[month.month].toUpperCase()} ${month.year}`}
+                  </Text>
                 </View>
-            ))
-          }
-        </ScrollView>
+                {
+                  month.dates.map((week, wKey) => (
+                    <View key={wKey} style={{flex: 1, flexDirection: 'column'}}>
+                      <CalendarRow
+                        {...this.props}
+                        monthNum={Number(monthNum)}
+                        month={month.month}
+                        year={month.year}
+                        week={week}
+                      />
+                    </View>
+                  ))
+                }
+              </View>
+            );
+          }}
+        />
       </View>
     );
   }
