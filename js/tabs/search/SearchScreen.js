@@ -189,7 +189,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = function(state) {
   return {
     locations: state.location.locations,
-    dates: state.filter.dates
+    dates: state.filter.dates,
+    search: state.search
   };
 };
 

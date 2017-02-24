@@ -10,6 +10,7 @@ export type Action =
   | {type: 'TOGGLE_DAY', year: number, month: number, day: number}
   | {type: 'ADD_DATE', date: {year: number, month: number, day: number}}
   | {type: 'TOGGLE_FILTER', filter: any}
+  | {type: 'FINDED_HOSTS', hosts: Array<any>}
   ;
 
 
