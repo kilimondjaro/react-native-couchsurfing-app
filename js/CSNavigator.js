@@ -11,6 +11,7 @@ import SignUpScreen from './login/SignUpScreen';
 import SignUpAdressScreen from './login/SignUpAdressScreen';
 import SignUpSearchScreen from './login/SignUpSearchScreen';
 import HostsFilterScreen from './tabs/search/HostsFilterScreen';
+import TravelersFilterScreen from './tabs/search/TravelersFilterScreen';
 
 class CSNavigator extends Component {
   render(){
@@ -73,9 +74,18 @@ class CSNavigator extends Component {
       );
     }
 
-    if (route.searchFilter) {
+    if (route.hostsFilter) {
       return (
         <HostsFilterScreen
+          navigator={navigator}
+          data={route.data}
+        />
+      );
+    }
+
+    if (route.travelersFilter) {
+      return (
+        <TravelersFilterScreen
           navigator={navigator}
           data={route.data}
         />
