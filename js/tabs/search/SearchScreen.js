@@ -4,8 +4,6 @@ import {
   View,
   TouchableOpacity,
   Text,
-  ScrollView,
-  RefreshControl,
   Image,
   StyleSheet,
   Navigator
@@ -15,10 +13,8 @@ import CSTextInputList from '../../components/CSTextInputList';
 import CSSearchBar from '../../components/CSSearchBar';
 import {loadLocations} from '../../redux/actions/location';
 import CSSegmentControl from '../../components/CSSegmentControl';
-import SurferCard from './SurferCard';
 import SearchModeSegment from './ModeSegment';
-import CalendarSegment from './CalendarSegment';
-import {getDateString} from '../../helpers';
+import HostsSearchScreen from './HostsSearchScreen';
 
 type State = {
   onSearchFocus: boolean;
@@ -83,41 +79,10 @@ class SearchScreen extends Component {
         />
         {
           !onSearchFocus ? (
-            <View style={{flex: 1}}>
-              <CSSegmentControl
-                onPress={() => this.props.navigator.push({searchFilter: true, data: {
-                  showCalendar: true
-                }})}
-                style={{margin: 5, marginBottom: 0}}
-              >
-                <CalendarSegment title="Arrives" date={getDateString(this.props.dates.arrives)}/>
-                <CalendarSegment title="Departs" date={getDateString(this.props.dates.departs)}/>
-              </CSSegmentControl>
-              <View style={{padding: 10, height: 40, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center'}}>
-                <Text style={{color: '#68696c'}}>123 hosts found</Text>
-                <TouchableOpacity
-                  onPress={() => this.props.navigator.push({searchFilter: true, data: {
-                    showCalendar: false
-                  }})}
-                >
-                  <Text style={{color: '#006faf', fontSize: 15}}>More Filters</Text>
-                </TouchableOpacity>
-              </View>
-              <ScrollView
-                refreshControl={
-                  <RefreshControl
-                    title="Pull to refresh..."
-                    refreshing={this.state.refreshing}
-                    onRefresh={() => {
-                      this.setState({refreshing: true});
-                      setTimeout(() => this.setState({refreshing: false}), 1000);
-                    }}
-                  />
-                }
-              >
-                {[1,2,3,4,5].map(i => (<SurferCard key={i} style={{marginBottom: 20}}/>))}
-              </ScrollView>
-            </View>
+            <HostsSearchScreen
+              dates={this.props.dates}
+              navigator={this.props.navigator}
+            />
           )
           : (
             <View style={{flex: 1}}>

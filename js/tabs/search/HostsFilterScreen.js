@@ -46,7 +46,7 @@ type State = {
   showCalendar: boolean;
 }
 
-class FilterScreen extends Component {
+class HostsFilterScreen extends Component {
   props: Props;
   state: State;
 
@@ -223,7 +223,7 @@ class FilterScreen extends Component {
                 <CheckCell
                   checked={filters.wheelchairAccessible}
                   onPress={() => dispatch(toggleFilter({name: 'wheelchairAccessible'}))}
-                  text="Wheelchair Acce"/>
+                  text="Wheelchair Accessible"/>
               </CSTextInputList>
             </SettingsBlock>
             <SettingsBlock title="availlability">
@@ -286,4 +286,4 @@ const styles = StyleSheet.create({
 
 export default connect(
   (state) => ({filters: state.filter})
-)(FilterScreen);
+)(HostsFilterScreen);

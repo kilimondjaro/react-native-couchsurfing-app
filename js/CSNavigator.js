@@ -10,7 +10,7 @@ import LoginScreen from './login/LoginScreen';
 import SignUpScreen from './login/SignUpScreen';
 import SignUpAdressScreen from './login/SignUpAdressScreen';
 import SignUpSearchScreen from './login/SignUpSearchScreen';
-import FilterScreen from './tabs/search/FilterScreen';
+import HostsFilterScreen from './tabs/search/HostsFilterScreen';
 
 class CSNavigator extends Component {
   render(){
@@ -75,7 +75,7 @@ class CSNavigator extends Component {
 
     if (route.searchFilter) {
       return (
-        <FilterScreen
+        <HostsFilterScreen
           navigator={navigator}
           data={route.data}
         />
