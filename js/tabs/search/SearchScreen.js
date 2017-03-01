@@ -15,6 +15,7 @@ import {loadLocations} from '../../redux/actions/location';
 import CSSegmentControl from '../../components/CSSegmentControl';
 import SearchModeSegment from './ModeSegment';
 import HostsSearchScreen from './HostsSearchScreen';
+import TravelersSearchScreen from './TravelersSearchScreen';
 
 type State = {
   onSearchFocus: boolean;
@@ -66,6 +67,25 @@ class SearchScreen extends Component {
       ? [{text: 'Cancel', onPress: () => this.setState({onSearchFocus: false})}]
       : null;
 
+
+    var searchScreen;
+    if (searchMode === 'host') {
+      searchScreen = (
+        <HostsSearchScreen
+          dates={this.props.dates}
+          navigator={this.props.navigator}
+        />
+      );
+    }
+    else if (searchMode === 'traveler') {
+      searchScreen = (
+        <TravelersSearchScreen
+          dates={this.props.dates}
+          navigator={this.props.navigator}
+        />
+      );
+    }
+
     return (
       <View style={styles.container}>
         <CSSearchBar
@@ -78,12 +98,7 @@ class SearchScreen extends Component {
           onBlur={() => this.setState({onSearchFocus: false})}
         />
         {
-          !onSearchFocus ? (
-            <HostsSearchScreen
-              dates={this.props.dates}
-              navigator={this.props.navigator}
-            />
-          )
+          !onSearchFocus ? searchScreen
           : (
             <View style={{flex: 1}}>
               <CSSegmentControl

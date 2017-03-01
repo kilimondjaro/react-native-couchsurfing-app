@@ -8,10 +8,10 @@ import {
 } from 'react-native';
 import CalendarSegment from './CalendarSegment';
 import CSSegmentControl from '../../components/CSSegmentControl';
-import SurferCard from './SurferCard';
+import TravelerCard from './TravelerCard';
 import {getDateString} from '../../helpers';
 
-class HostsSearchScreen extends Component {
+class TravelersSearchScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -22,21 +22,10 @@ class HostsSearchScreen extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <CSSegmentControl
-          onPress={() => this.props.navigator.push({searchFilter: true, data: {
-            showCalendar: true
-          }})}
-          style={{margin: 5, marginBottom: 0}}
-        >
-          <CalendarSegment title="Arrives" date={getDateString(this.props.dates.arrives)}/>
-          <CalendarSegment title="Departs" date={getDateString(this.props.dates.departs)}/>
-        </CSSegmentControl>
         <View style={{padding: 10, height: 40, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center'}}>
           <Text style={{color: '#68696c'}}>123 hosts found</Text>
           <TouchableOpacity
-            onPress={() => this.props.navigator.push({hostsFilter: true, data: {
-              showCalendar: false
-            }})}
+            onPress={() => this.props.navigator.push({travelersFilter: true})}
           >
             <Text style={{color: '#006faf', fontSize: 15}}>More Filters</Text>
           </TouchableOpacity>
@@ -53,11 +42,11 @@ class HostsSearchScreen extends Component {
             />
           }
         >
-          {[1,2,3,4,5].map(i => (<SurferCard key={i} style={{marginBottom: 20}}/>))}
+          {[1,2,3,4,5].map(i => (<TravelerCard key={i} style={{marginBottom: 20}}/>))}
         </ScrollView>
       </View>
     );
   }
 }
 
-export default HostsSearchScreen;
+export default TravelersSearchScreen;
