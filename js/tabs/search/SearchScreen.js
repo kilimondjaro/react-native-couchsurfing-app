@@ -16,6 +16,7 @@ import CSSegmentControl from '../../components/CSSegmentControl';
 import SearchModeSegment from './ModeSegment';
 import HostsSearchScreen from './HostsSearchScreen';
 import TravelersSearchScreen from './TravelersSearchScreen';
+import MembersSearchScreen from './MembersSearchScreen';
 
 type State = {
   onSearchFocus: boolean;
@@ -80,6 +81,14 @@ class SearchScreen extends Component {
     else if (searchMode === 'traveler') {
       searchScreen = (
         <TravelersSearchScreen
+          dates={this.props.dates}
+          navigator={this.props.navigator}
+        />
+      );
+    }
+    else if (searchMode === 'member') {
+      searchScreen = (
+        <MembersSearchScreen
           dates={this.props.dates}
           navigator={this.props.navigator}
         />
