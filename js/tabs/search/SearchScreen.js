@@ -44,7 +44,7 @@ class SearchScreen extends Component {
 
     this.state = {
       onSearchFocus: false,
-      searchMode: 'event',
+      searchMode: 'host',
       searchText: '',
       refreshing: false
     };
@@ -107,7 +107,7 @@ class SearchScreen extends Component {
     return (
       <View style={styles.container}>
         <CSSearchBar
-          placeholder="Search"
+          placeholder={searchMode === 'member' ? 'Name, Username or Keyword' : 'Search Location'}
           rightItem={cancelButton}
           marginTop={-20}
           value={this.state.searchText}

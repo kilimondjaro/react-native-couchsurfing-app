@@ -37,7 +37,7 @@ export default function CheckCell(props: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 40,
+    height: 45,
     padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',

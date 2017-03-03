@@ -28,8 +28,8 @@ export default function ModeSegment(props: Props) {
       activeOpacity={0.8}
       style={styles.container}
     >
-      <Image source={icon} />
-      <Text style={isActive ? {color: '#2f81b7'} : null}>{text}</Text>
+      <Image style={isActive ? {tintColor: '#2f81b7'} : null} source={icon} />
+      <Text style={isActive ? {color: '#2f81b7'} : {color: '#bfcad2'}}>{text}</Text>
     </TouchableOpacity>
   );
 }

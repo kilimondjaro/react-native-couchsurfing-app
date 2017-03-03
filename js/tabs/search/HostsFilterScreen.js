@@ -151,7 +151,7 @@ class HostsFilterScreen extends Component {
                 onPress={(value) => dispatch(toggleFilter({name: 'accommodation', value}))}
                 active={filters.accommodation}
               >
-                <ModeSegment value="private" text="Private" icon={null}/>
+                <ModeSegment icon={require('./img/private.png')} value="private" text="Private"/>
                 <ModeSegment value="public" text="Public" icon={null}/>
                 <ModeSegment value="shared" text="Shared" icon={null}/>
               </CSSegmentControl>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
+  Image,
   TouchableOpacity,
   ScrollView,
   RefreshControl
@@ -38,7 +39,10 @@ class HostsSearchScreen extends Component {
               showCalendar: false
             }})}
           >
-            <Text style={{color: '#006faf', fontSize: 15}}>More Filters</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Image source={require('./img/moreFilters.png')}/>
+              <Text style={{marginLeft: 10, color: '#006faf', fontSize: 15}}>More Filters</Text>
+            </View>
           </TouchableOpacity>
         </View>
         <ScrollView
