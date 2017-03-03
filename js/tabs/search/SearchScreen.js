@@ -17,6 +17,7 @@ import SearchModeSegment from './ModeSegment';
 import HostsSearchScreen from './HostsSearchScreen';
 import TravelersSearchScreen from './TravelersSearchScreen';
 import MembersSearchScreen from './MembersSearchScreen';
+import EventsSearchScreen from './EventsSearchScreen';
 
 type State = {
   onSearchFocus: boolean;
@@ -43,7 +44,7 @@ class SearchScreen extends Component {
 
     this.state = {
       onSearchFocus: false,
-      searchMode: 'host',
+      searchMode: 'event',
       searchText: '',
       refreshing: false
     };
@@ -89,6 +90,14 @@ class SearchScreen extends Component {
     else if (searchMode === 'member') {
       searchScreen = (
         <MembersSearchScreen
+          dates={this.props.dates}
+          navigator={this.props.navigator}
+        />
+      );
+    }
+    else {
+      searchScreen = (
+        <EventsSearchScreen
           dates={this.props.dates}
           navigator={this.props.navigator}
         />
