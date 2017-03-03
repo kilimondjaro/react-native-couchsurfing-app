@@ -1,6 +1,6 @@
 // @flow
 import type { Action, ThunkAction } from './types';
-import {getLocations} from '../../helpers';
+import {getLocations, getLocationByCoords} from '../../helpers';
 
 export function loadLocations(search: string) : ThunkAction {
   return (dispatch) => {
@@ -12,9 +12,29 @@ export function loadLocations(search: string) : ThunkAction {
   };
 }
 
+export function loadLocationByCoordinates(): ThunkAction {
+  return (dispatch) => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        getLocationByCoords(position.coords)
+          .then(res => dispatch(_loadedLocation(res)));
+      },
+      (error) => console.log(error),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
+  };
+}
+
 function _loadedLocations(locations) : Action {
   return {
     type: 'LOADED_LOCATIONS',
-    locations: locations
+    locations
+  };
+}
+
+function _loadedLocation(location) : Action {
+  return {
+    type: 'LOADED_LOCATION',
+    location
   };
 }

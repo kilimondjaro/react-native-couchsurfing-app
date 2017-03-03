@@ -11,7 +11,7 @@ import {
 import {connect} from 'react-redux';
 import CSTextInputList from '../../components/CSTextInputList';
 import CSSearchBar from '../../components/CSSearchBar';
-import {loadLocations} from '../../redux/actions/location';
+import {loadLocations, loadLocationByCoordinates} from '../../redux/actions/location';
 import CSSegmentControl from '../../components/CSSegmentControl';
 import SearchModeSegment from './ModeSegment';
 import HostsSearchScreen from './HostsSearchScreen';
@@ -136,16 +136,37 @@ class SearchScreen extends Component {
                      separatorStyle={{marginLeft: 0}}
                    >
                      {
-                       this.props.locations.map((location, i) => (
-                         <TouchableOpacity
-                           key={i}
+                       this.state.searchText
+                         ? this.props.locations.map((loc, i) => (
+                           <TouchableOpacity
+                             key={i}
+                             style={styles.searchItem}
+                             onPress={() => null}
+                           >
+                             <Image
+                               style={{height: 20, width: 20}}
+                               source={require('./img/geopoint.png')}
+                             />
+                             <Text
+                               style={{fontSize: 16, marginLeft: 10}}
+                              >
+                                {loc.description}
+                             </Text>
+                           </TouchableOpacity>
+                         ))
+                         : (<TouchableOpacity
                            style={styles.searchItem}
-                           onPress={() => null}
+                           onPress={() => this.props.dispatch(loadLocationByCoordinates())}
                          >
-                           <Image style={{height: 20, width: 20}} source={require('./img/geopoint.png')}/>
-                           <Text style={{fontSize: 16, marginLeft: 10}}>{location.description}</Text>
-                         </TouchableOpacity>
-                       ))
+                           <Image style={{height: 20, width: 20}}
+                             source={require('./img/geopoint.png')}
+                           />
+                           <Text
+                             style={{fontSize: 16, marginLeft: 10}}
+                            >
+                             Current Location
+                           </Text>
+                         </TouchableOpacity>)
                      }
                    </CSTextInputList>
                  ) : null
@@ -187,6 +208,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = function(state) {
   return {
     locations: state.location.locations,
+    location: state.location.location,
     dates: state.filter.dates,
     search: state.search
   };
