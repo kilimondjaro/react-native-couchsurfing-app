@@ -3,6 +3,7 @@
 export type Action =
   { type: 'SWITCH_TAB', tab: 'dashboard' | 'hosting' | 'search' | 'messages' | 'account'}
   | {type: 'LOADED_LOCATIONS', locations: Array<{description: string, id: string}> }
+  | {type: 'LOADED_LOCATION', location: ?string }
   | {type: 'SIGNUP_UPDATE', data: any}
   | {type: 'SIGNUP_RESET'}
   | {type: 'CALENDAR_UPDATE', data: {firstMonth: number, dates: Array<Array<number>>}}
