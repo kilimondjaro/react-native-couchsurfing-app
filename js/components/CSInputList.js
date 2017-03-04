@@ -12,7 +12,7 @@ type Props = {
   separatorStyle?: any;
 };
 
-class CSTextInputList extends Component {
+class CSInputList extends Component {
   props: Props;
   state: {
     length: number;
@@ -79,4 +79,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CSTextInputList;
+export default CSInputList;

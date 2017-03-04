@@ -14,7 +14,7 @@ import CSSegmentControl from '../../../components/CSSegmentControl';
 import CSCalendar from '../../../components/CSCalendar';
 import GuestsCountPicker from '../components/GuestsCountPicker';
 import ModeSegment from '../components/ModeSegment';
-import CSTextInputList from '../../../components/CSTextInputList';
+import CSInputList from '../../../components/CSInputList';
 import CSSearchBar from '../../../components/CSSearchBar';
 import DistanceSlider from '../components/DistanceSlider';
 import RangeCell from '../components/RangeCell';
@@ -157,7 +157,7 @@ class HostsFilterScreen extends Component {
               </CSSegmentControl>
             </SettingsBlock>
             <SettingsBlock title="host">
-              <CSTextInputList
+              <CSInputList
                 separatorStyle={{marginLeft: 0}}
               >
                 <CheckCell
@@ -192,10 +192,10 @@ class HostsFilterScreen extends Component {
                   onPress={(value) => dispatch(toggleFilter({name: 'ageRange', value}))}
                   text="Age Range"
                 />
-              </CSTextInputList>
+              </CSInputList>
             </SettingsBlock>
             <SettingsBlock title="preferences">
-              <CSTextInputList
+              <CSInputList
                 separatorStyle={{marginLeft: 0}}
               >
                 <CheckCell
@@ -224,10 +224,10 @@ class HostsFilterScreen extends Component {
                   checked={filters.wheelchairAccessible}
                   onPress={() => dispatch(toggleFilter({name: 'wheelchairAccessible'}))}
                   text="Wheelchair Accessible"/>
-              </CSTextInputList>
+              </CSInputList>
             </SettingsBlock>
             <SettingsBlock title="availlability">
-              <CSTextInputList
+              <CSInputList
                 separatorStyle={{marginLeft: 0}}
               >
                 <CheckCell
@@ -242,7 +242,7 @@ class HostsFilterScreen extends Component {
                   checked={filters.wantsToMeetUp}
                   onPress={() => dispatch(toggleFilter({name: 'wantsToMeetUp'}))}
                   text="Wants to Meet Up"/>
-              </CSTextInputList>
+              </CSInputList>
             </SettingsBlock>
             <SettingsBlock title="distance">
               <DistanceSlider
