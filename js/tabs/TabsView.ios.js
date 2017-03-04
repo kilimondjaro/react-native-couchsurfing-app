@@ -8,6 +8,7 @@ import type {Tab} from '../redux/reducers/navigation';
 import {switchTab} from '../redux/actions';
 import HostingScreen from './hosting/HostingScreen';
 import SearchScreen from './search/SearchScreen';
+import AccountScreen from './account/AccountScreen';
 
 class TabsView extends Component {
   props: {
@@ -51,6 +52,14 @@ class TabsView extends Component {
           navigator={this.props.navigator}
         />
       </TabBarIOS.Item>
+      <TabBarIOS.Item
+        title="Account"
+        selected={this.props.tab === 'account'}
+        onPress={() => this.onTabPress('account')}>
+      <AccountScreen
+        navigator={this.props.navigator}
+      />
+    </TabBarIOS.Item>
     </TabBarIOS>
     );
   }
