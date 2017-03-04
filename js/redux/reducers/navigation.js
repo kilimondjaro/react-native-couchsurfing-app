@@ -6,7 +6,7 @@ type State = {
   tab: Tab
 }
 
-const initialState: State = { tab: 'search' };
+const initialState: State = { tab: 'account' };
 
 export default function navigation(state: State = initialState, action: Action) : State {
   switch (action.type) {
