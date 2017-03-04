@@ -17,8 +17,8 @@ type Props = {
 
 export default function CheckCell(props: Props) {
   const sourse = props.checked
-    ? require('./img/checked.png')
-    : require('./img/plus.png');
+    ? require('../img/checked.png')
+    : require('../img/plus.png');
 
   return (
     <TouchableHighlight

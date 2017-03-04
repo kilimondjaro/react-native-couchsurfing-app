@@ -13,11 +13,11 @@ import CSTextInputList from '../../components/CSTextInputList';
 import CSSearchBar from '../../components/CSSearchBar';
 import {loadLocations, loadLocationByCoordinates} from '../../redux/actions/location';
 import CSSegmentControl from '../../components/CSSegmentControl';
-import SearchModeSegment from './ModeSegment';
-import HostsSearchScreen from './HostsSearchScreen';
-import TravelersSearchScreen from './TravelersSearchScreen';
-import MembersSearchScreen from './MembersSearchScreen';
-import EventsSearchScreen from './EventsSearchScreen';
+import SearchModeSegment from './components/ModeSegment';
+import HostsSearchScreen from './host/HostsSearchScreen';
+import TravelersSearchScreen from './traveler/TravelersSearchScreen';
+import MembersSearchScreen from './member/MembersSearchScreen';
+import EventsSearchScreen from './event/EventsSearchScreen';
 
 type State = {
   onSearchFocus: boolean;

@@ -42,7 +42,7 @@ class DistanceSlider extends Component {
           maximumValue={4}
           minimumValue={0}
           thumbTintColor="#3482b5"
-          thumbImage={require('./img/thumbImage.png')}
+          thumbImage={require('../img/thumbImage.png')}
           minimumTrackTintColor={'#bdc8d0'}
           maximumTrackTintColor={'#bdc8d0'}
           step={1}

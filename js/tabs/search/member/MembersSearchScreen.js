@@ -1,10 +1,12 @@
+// @flow
+
 import React, {Component} from 'react';
 import {
   View,
   ScrollView,
   RefreshControl
 } from 'react-native';
-import SurferCard from './SurferCard';
+import SurferCard from '../components/SurferCard';
 
 class MembersSearchScreen extends Component {
   constructor(props) {

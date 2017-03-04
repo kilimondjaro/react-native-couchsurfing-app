@@ -10,8 +10,8 @@ import LoginScreen from './login/LoginScreen';
 import SignUpScreen from './login/SignUpScreen';
 import SignUpAdressScreen from './login/SignUpAdressScreen';
 import SignUpSearchScreen from './login/SignUpSearchScreen';
-import HostsFilterScreen from './tabs/search/HostsFilterScreen';
-import TravelersFilterScreen from './tabs/search/TravelersFilterScreen';
+import HostsFilterScreen from './tabs/search/host/HostsFilterScreen';
+import TravelersFilterScreen from './tabs/search/traveler/TravelersFilterScreen';
 
 class CSNavigator extends Component {
   render(){

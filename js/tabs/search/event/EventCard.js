@@ -6,7 +6,7 @@ import {
   Image,
   StyleSheet
 } from 'react-native';
-import {daysOfWeek, monthNames} from '../../helpers';
+import {daysOfWeek, monthNames} from '../../../helpers';
 
 type Props = {
   event: {
@@ -32,7 +32,7 @@ export default function EventCard(props: Props) {
       <Image
         style={styles.image}
         // TODO add prop for image
-        source={require('./img/me.jpg')}
+        source={require('../img/me.jpg')}
       >
         <View style={styles.nameArea}>
           <Text style={styles.nameText}>{name}</Text>
@@ -41,7 +41,7 @@ export default function EventCard(props: Props) {
       <View style={styles.footer}>
         <View style={styles.footerBlock}>
           <View style={styles.blockElement}>
-            <Image source={require('./img/geopoint.png')} />
+            <Image source={require('../img/geopoint.png')} />
             <Text
               numberOfLines={1}
               style={[styles.footerText, {marginLeft: 5}]}
@@ -52,7 +52,7 @@ export default function EventCard(props: Props) {
         </View>
         <View style={styles.footerBlock}>
           <View style={styles.blockElement}>
-            <Image source={require('./img/time.png')}/>
+            <Image source={require('../img/time.png')}/>
             <Text style={[styles.footerText, {marginLeft: 5}]}>{fullDate}</Text>
           </View>
           <Text style={styles.footerText}>{`${attendance} Attending`}</Text>

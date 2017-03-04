@@ -7,7 +7,7 @@ import {
   Image,
   StyleSheet
 } from 'react-native';
-import {getDateString} from '../../helpers';
+import {getDateString} from '../../../helpers';
 
 type Date = {
   year: number;
@@ -76,7 +76,7 @@ class SurferCard extends Component {
         <Image
           style={styles.image}
           // TODO add prop for image
-          source={require('./img/me.jpg')}
+          source={require('../img/me.jpg')}
         >
           <View style={styles.nameArea}>
             <View style={styles.nameLine}>
@@ -86,7 +86,7 @@ class SurferCard extends Component {
                   ?  (
                     <Image
                       style={styles.verifiedIcon}
-                      source={require('./img/verified.png')}
+                      source={require('../img/verified.png')}
                     />
                   ) : null
               }
@@ -101,11 +101,11 @@ class SurferCard extends Component {
         <View style={styles.footer}>
           <View style={styles.footerBlock}>
             <View style={styles.statsLine}>
-              <Image source={require('./img/references.png')}/>
+              <Image source={require('../img/references.png')}/>
               <Text style={styles.statsText}>{`${references} References`}</Text>
             </View>
             <View style={styles.statsLine}>
-              <Image source={require('./img/speaks.png')}/>
+              <Image source={require('../img/speaks.png')}/>
               <Text style={styles.statsText}>{`Speaks ${speaks}`}</Text>
             </View>
           </View>
