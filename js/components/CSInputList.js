@@ -68,13 +68,11 @@ const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 1,
     borderBottomColor: '#CCCCCC',
-    borderTopWidth: 1,
-    borderTopColor: '#CCCCCC',
     backgroundColor: 'white'
   },
   separator: {
     marginLeft: 20,
-    height: 1,
+    height: 0.5,
     backgroundColor: '#CCCCCC',
   }
 });
