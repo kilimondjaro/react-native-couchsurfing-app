@@ -8,8 +8,19 @@ import {
 } from 'react-native';
 import SurferCard from '../components/SurferCard';
 
+type Props = {
+
+};
+
+type State = {
+  refreshing: boolean;
+};
+
 class MembersSearchScreen extends Component {
-  constructor(props) {
+  props: Props;
+  state: State;
+
+  constructor(props: Props) {
     super(props);
 
     this.state = {
