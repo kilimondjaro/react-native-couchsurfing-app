@@ -26,7 +26,7 @@ class TravelersSearchScreen extends Component {
             onPress={() => this.props.navigator.push({travelersFilter: true})}
           >
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Image source={require('./img/moreFilters.png')}/>
+              <Image source={require('../img/moreFilters.png')}/>
               <Text style={{marginLeft: 10, color: '#006faf', fontSize: 15}}>More Filters</Text>
             </View>
           </TouchableOpacity>

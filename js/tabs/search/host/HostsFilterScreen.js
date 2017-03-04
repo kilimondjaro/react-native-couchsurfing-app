@@ -9,20 +9,20 @@ import {
   Navigator
 } from 'react-native';
 import {connect} from 'react-redux';
-import CalendarSegment from './CalendarSegment';
-import CSSegmentControl from '../../components/CSSegmentControl';
-import CSCalendar from '../../components/CSCalendar';
-import GuestsCountPicker from './GuestsCountPicker';
-import ModeSegment from './ModeSegment';
-import CSTextInputList from '../../components/CSTextInputList';
-import CSSearchBar from '../../components/CSSearchBar';
-import DistanceSlider from './DistanceSlider';
-import RangeCell from './RangeCell';
-import CheckCell from './CheckCell';
-import {addDate, toggleFilter} from '../../redux/actions/filter';
-import type {Dispatch} from '../../redux/actions/types';
-import type {Filters} from '../../redux/reducers/filter';
-import {getDateString} from '../../helpers';
+import CalendarSegment from '../components/CalendarSegment';
+import CSSegmentControl from '../../../components/CSSegmentControl';
+import CSCalendar from '../../../components/CSCalendar';
+import GuestsCountPicker from '../components/GuestsCountPicker';
+import ModeSegment from '../components/ModeSegment';
+import CSTextInputList from '../../../components/CSTextInputList';
+import CSSearchBar from '../../../components/CSSearchBar';
+import DistanceSlider from '../components/DistanceSlider';
+import RangeCell from '../components/RangeCell';
+import CheckCell from '../components/CheckCell';
+import {addDate, toggleFilter} from '../../../redux/actions/filter';
+import type {Dispatch} from '../../../redux/actions/types';
+import type {Filters} from '../../../redux/reducers/filter';
+import {getDateString} from '../../../helpers';
 
 function SettingsBlock(props) {
   return (
@@ -151,7 +151,7 @@ class HostsFilterScreen extends Component {
                 onPress={(value) => dispatch(toggleFilter({name: 'accommodation', value}))}
                 active={filters.accommodation}
               >
-                <ModeSegment icon={require('./img/private.png')} value="private" text="Private"/>
+                <ModeSegment icon={require('../img/private.png')} value="private" text="Private"/>
                 <ModeSegment value="public" text="Public" icon={null}/>
                 <ModeSegment value="shared" text="Shared" icon={null}/>
               </CSSegmentControl>

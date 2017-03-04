@@ -79,7 +79,7 @@ class SurferCard extends Component {
         <Image
           style={styles.image}
           // TODO add prop for image
-          source={require('./img/me.jpg')}
+          source={require('../img/me.jpg')}
         >
           <View style={styles.statusArea}>
             <View style={[styles.status, statusAreaStyle]}>
@@ -94,7 +94,7 @@ class SurferCard extends Component {
                   ?  (
                     <Image
                       style={styles.verifiedIcon}
-                      source={require('./img/verified.png')}
+                      source={require('../img/verified.png')}
                     />
                   ) : null
               }
@@ -105,11 +105,11 @@ class SurferCard extends Component {
         <View style={styles.footer}>
           <View style={styles.footerBlock}>
             <View style={styles.leftFooterBlock}>
-              <Image source={require('./img/references.png')}/>
+              <Image source={require('../img/references.png')}/>
               <Text style={styles.leftFooterBlockText}>{`${references} References`}</Text>
             </View>
             <View style={styles.leftFooterBlock}>
-              <Image source={require('./img/speaks.png')}/>
+              <Image source={require('../img/speaks.png')}/>
               <Text style={styles.leftFooterBlockText}>{`Speaks ${speaks}`}</Text>
             </View>
           </View>

@@ -9,17 +9,17 @@ import {
   Navigator
 } from 'react-native';
 import {connect} from 'react-redux';
-import CalendarSegment from './CalendarSegment';
-import CSSegmentControl from '../../components/CSSegmentControl';
-import CSCalendar from '../../components/CSCalendar';
-import CSTextInputList from '../../components/CSTextInputList';
-import DistanceSlider from './DistanceSlider';
-import RangeCell from './RangeCell';
-import CheckCell from './CheckCell';
-import {addDate, toggleFilter} from '../../redux/actions/filter';
-import type {Dispatch} from '../../redux/actions/types';
-import type {Filters} from '../../redux/reducers/filter';
-import {getDateString} from '../../helpers';
+import CalendarSegment from '../components/CalendarSegment';
+import CSSegmentControl from '../../../components/CSSegmentControl';
+import CSCalendar from '../../../components/CSCalendar';
+import CSTextInputList from '../../../components/CSTextInputList';
+import DistanceSlider from '../components/DistanceSlider';
+import RangeCell from '../components/RangeCell';
+import CheckCell from '../components/CheckCell';
+import {addDate, toggleFilter} from '../../../redux/actions/filter';
+import type {Dispatch} from '../../../redux/actions/types';
+import type {Filters} from '../../../redux/reducers/filter';
+import {getDateString} from '../../../helpers';
 
 function SettingsBlock(props) {
   return (

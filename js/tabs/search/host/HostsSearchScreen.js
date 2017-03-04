@@ -1,3 +1,4 @@
+// @flow
 import React, {Component} from 'react';
 import {
   View,
@@ -7,10 +8,10 @@ import {
   ScrollView,
   RefreshControl
 } from 'react-native';
-import CalendarSegment from './CalendarSegment';
-import CSSegmentControl from '../../components/CSSegmentControl';
-import SurferCard from './SurferCard';
-import {getDateString} from '../../helpers';
+import CalendarSegment from '../components/CalendarSegment';
+import CSSegmentControl from '../../../components/CSSegmentControl';
+import SurferCard from '../components/SurferCard';
+import {getDateString} from '../../../helpers';
 
 class HostsSearchScreen extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ class HostsSearchScreen extends Component {
             }})}
           >
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Image source={require('./img/moreFilters.png')}/>
+              <Image source={require('../img/moreFilters.png')}/>
               <Text style={{marginLeft: 10, color: '#006faf', fontSize: 15}}>More Filters</Text>
             </View>
           </TouchableOpacity>
