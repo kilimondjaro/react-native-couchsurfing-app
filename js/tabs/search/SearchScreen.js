@@ -144,7 +144,6 @@ class SearchScreen extends Component {
                              onPress={() => null}
                            >
                              <Image
-                               style={{height: 20, width: 20}}
                                source={require('./img/geopoint.png')}
                              />
                              <Text
@@ -158,7 +157,7 @@ class SearchScreen extends Component {
                            style={styles.searchItem}
                            onPress={() => this.props.dispatch(loadLocationByCoordinates())}
                          >
-                           <Image style={{height: 20, width: 20}}
+                           <Image
                              source={require('./img/geopoint.png')}
                            />
                            <Text

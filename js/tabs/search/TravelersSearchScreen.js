@@ -2,14 +2,12 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
+  Image,
   TouchableOpacity,
   ScrollView,
   RefreshControl
 } from 'react-native';
-import CalendarSegment from './CalendarSegment';
-import CSSegmentControl from '../../components/CSSegmentControl';
 import TravelerCard from './TravelerCard';
-import {getDateString} from '../../helpers';
 
 class TravelersSearchScreen extends Component {
   constructor(props) {
@@ -27,7 +25,10 @@ class TravelersSearchScreen extends Component {
           <TouchableOpacity
             onPress={() => this.props.navigator.push({travelersFilter: true})}
           >
-            <Text style={{color: '#006faf', fontSize: 15}}>More Filters</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Image source={require('./img/moreFilters.png')}/>
+              <Text style={{marginLeft: 10, color: '#006faf', fontSize: 15}}>More Filters</Text>
+            </View>
           </TouchableOpacity>
         </View>
         <ScrollView
