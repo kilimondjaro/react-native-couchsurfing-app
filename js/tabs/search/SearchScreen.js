@@ -9,7 +9,7 @@ import {
   Navigator
 } from 'react-native';
 import {connect} from 'react-redux';
-import CSTextInputList from '../../components/CSTextInputList';
+import CSInputList from '../../components/CSInputList';
 import CSSearchBar from '../../components/CSSearchBar';
 import {loadLocations, loadLocationByCoordinates} from '../../redux/actions/location';
 import CSSegmentControl from '../../components/CSSegmentControl';
@@ -132,7 +132,7 @@ class SearchScreen extends Component {
               {
                 this.state.searchMode !== 'member'
                  ? (
-                   <CSTextInputList
+                   <CSInputList
                      separatorStyle={{marginLeft: 0}}
                    >
                      {
@@ -167,7 +167,7 @@ class SearchScreen extends Component {
                            </Text>
                          </TouchableOpacity>)
                      }
-                   </CSTextInputList>
+                   </CSInputList>
                  ) : null
               }
             </View>

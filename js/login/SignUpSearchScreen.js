@@ -11,7 +11,7 @@ import {
 import {connect} from 'react-redux';
 import {loadLocations} from '../redux/actions/location';
 import CSSearchBar from '../components/CSSearchBar';
-import CSTextInputList from '../components/CSTextInputList';
+import CSInputList from '../components/CSInputList';
 import {signupUpdate} from '../redux/actions/signup';
 
 type Props = {
@@ -56,7 +56,7 @@ class SignUpSearchScreen extends Component {
           onChange={(text) => this._onSearch(text)}
         />
 
-        <CSTextInputList
+        <CSInputList
           separatorStyle={{marginLeft: 0}}
         >
           {
@@ -78,7 +78,7 @@ class SignUpSearchScreen extends Component {
               </TouchableOpacity>
             ))
           }
-        </CSTextInputList>
+        </CSInputList>
       </View>
     );
   }

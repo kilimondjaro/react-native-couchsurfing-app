@@ -12,7 +12,7 @@ import {connect} from 'react-redux';
 import CalendarSegment from '../components/CalendarSegment';
 import CSSegmentControl from '../../../components/CSSegmentControl';
 import CSCalendar from '../../../components/CSCalendar';
-import CSTextInputList from '../../../components/CSTextInputList';
+import CSInputList from '../../../components/CSInputList';
 import DistanceSlider from '../components/DistanceSlider';
 import RangeCell from '../components/RangeCell';
 import CheckCell from '../components/CheckCell';
@@ -115,7 +115,7 @@ class TravelersFilterScreen extends Component {
             </CSSegmentControl>
             {calendar}
             <SettingsBlock title="host">
-              <CSTextInputList
+              <CSInputList
                 separatorStyle={{marginLeft: 0}}
               >
                 <CheckCell
@@ -150,7 +150,7 @@ class TravelersFilterScreen extends Component {
                   onPress={(value) => dispatch(toggleFilter({name: 'ageRange', value}))}
                   text="Age Range"
                 />
-              </CSTextInputList>
+              </CSInputList>
             </SettingsBlock>
             <SettingsBlock title="distance">
               <DistanceSlider

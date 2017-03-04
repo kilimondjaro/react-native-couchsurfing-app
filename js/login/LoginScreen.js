@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Navigator
 } from 'react-native';
-import CSTextInputList from '../components/CSTextInputList';
+import CSInputList from '../components/CSInputList';
 import CSTextInput from '../components/CSTextInput';
 import CSButton from '../components/CSButton';
 import {CSHeader} from '../components/CSHeader';
@@ -55,7 +55,7 @@ class LoginScreen extends Component {
           style={styles.header}
           title="log in"
         />
-        <CSTextInputList>
+        <CSInputList>
           <CSTextInput
             placeholder="Email or username"
             onChangeText={(text) => this.onChangeText(text, 'username')}
@@ -67,7 +67,7 @@ class LoginScreen extends Component {
             value={this.state.password}
             secureTextEntry
           />
-        </CSTextInputList>
+        </CSInputList>
           <CSButton
             style={styles.button}
             text="Log in"

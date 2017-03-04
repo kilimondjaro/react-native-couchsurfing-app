@@ -10,7 +10,7 @@ import {
   Text
 } from 'react-native';
 import {connect} from 'react-redux';
-import CSTextInputList from '../components/CSTextInputList';
+import CSInputList from '../components/CSInputList';
 import CSTextInput from '../components/CSTextInput';
 import {CSHeader} from '../components/CSHeader';
 import CSDatePickerIOS from '../components/CSDatePickerIOS';
@@ -93,7 +93,7 @@ class LoginScreen extends Component {
           keyboardDismissMode="on-drag"
           onScroll={() => this._onScroll()}
         >
-          <CSTextInputList>
+          <CSInputList>
             <CSTextInput
               placeholder="First name"
               onChangeText={(text) => this.onChangeField(text, 'firtname')}
@@ -104,8 +104,8 @@ class LoginScreen extends Component {
               onChangeText={(text) => this.onChangeField(text, 'lastname')}
               value={lastname}
             />
-          </CSTextInputList>
-          <CSTextInputList
+          </CSInputList>
+          <CSInputList
             style={{marginTop: 50}}
           >
             <CSTextInput
@@ -119,8 +119,8 @@ class LoginScreen extends Component {
               value={password}
               secureTextEntry
             />
-          </CSTextInputList>
-          <CSTextInputList
+          </CSInputList>
+          <CSInputList
             style={{marginTop: 50}}
           >
             <SegmentedControlIOS
@@ -132,8 +132,8 @@ class LoginScreen extends Component {
                 this.onChangeField(genderTypes[index], 'gender');
               }}
             />
-          </CSTextInputList>
-          <CSTextInputList
+          </CSInputList>
+          <CSInputList
             style={{marginTop: 50, marginBottom: 300}}
           >
             <TouchableOpacity
@@ -147,7 +147,7 @@ class LoginScreen extends Component {
                 }
               </Text>
             </TouchableOpacity>
-          </CSTextInputList>
+          </CSInputList>
         </ScrollView>
         <CSDatePickerIOS
           visible={this.state.datePickerIsVisible}

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {CSHeader} from '../components/CSHeader';
-import CSTextInputList from '../components/CSTextInputList';
+import CSInputList from '../components/CSInputList';
 import CSButton from '../components/CSButton';
 
 type Props = {
@@ -30,7 +30,7 @@ class SignUpAdressScreen extends Component {
           }]}
           title="where do you live?"
         />
-        <CSTextInputList>
+        <CSInputList>
           <TouchableOpacity
             style={styles.segment}
             onPress={() => this.props.navigator.push({signupSearch: true})}
@@ -38,7 +38,7 @@ class SignUpAdressScreen extends Component {
             <Text style={{fontSize: 16}}>City or Address</Text>
             <Text style={{fontSize: 16}}>{this.props.location}</Text>
           </TouchableOpacity>
-        </CSTextInputList>
+        </CSInputList>
         <CSButton
           style={styles.button}
           text="Create Account"
