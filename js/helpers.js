@@ -12,10 +12,31 @@ export function getLocations(place) {
         if (responseJson.status === 'OK') {
           return responseJson.predictions.map((loc) => ({
             description: loc.description,
-            id: loc.id
+            id: loc.place_id
           }));
         }
         return [];
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+}
+
+export function getLocationByCoords(coords) {
+  // eslint-disable-next-line
+  return fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coords.latitude},${coords.longitude}&radius=500&key=${googleKey}`)
+  .then((response) => response.json())
+      .then((responseJson) => {
+        if (responseJson.status === 'ZERO_RESULTS') {
+          return null;
+        }
+        if (responseJson.status === 'OK') {
+          const firstResult = responseJson.results[0];
+          if (firstResult.types[0] === 'locality' && firstResult.types[1] === 'political') {
+            return firstResult.place_id;
+          }
+        }
+        return null;
       })
       .catch((error) => {
         console.error(error);
@@ -83,4 +104,17 @@ export function getCalendarDates() {
   }
 
   return dates;
+}
+
+export const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+export const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat'];
+
+type Date = {
+  year: number;
+  month: number;
+  day: number;
+}
+
+export function getDateString(date: Date) {
+  return date && `${monthNames[date.month]} ${date.day}`;
 }

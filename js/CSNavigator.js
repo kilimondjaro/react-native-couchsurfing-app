@@ -10,6 +10,8 @@ import LoginScreen from './login/LoginScreen';
 import SignUpScreen from './login/SignUpScreen';
 import SignUpAdressScreen from './login/SignUpAdressScreen';
 import SignUpSearchScreen from './login/SignUpSearchScreen';
+import HostsFilterScreen from './tabs/search/host/HostsFilterScreen';
+import TravelersFilterScreen from './tabs/search/traveler/TravelersFilterScreen';
 
 class CSNavigator extends Component {
   render(){
@@ -19,6 +21,9 @@ class CSNavigator extends Component {
           configureScene={(route) => {
             if (Platform.OS === 'android') {
               return Navigator.SceneConfigs.FloatFromBottomAndroid;
+            }
+            if (route.searchFilter) {
+              return Navigator.SceneConfigs.FloatFromBottom;
             }
             return Navigator.SceneConfigs.PushFromRight;
           }}
@@ -65,6 +70,24 @@ class CSNavigator extends Component {
       return (
         <SignUpSearchScreen
           navigator={navigator}
+        />
+      );
+    }
+
+    if (route.hostsFilter) {
+      return (
+        <HostsFilterScreen
+          navigator={navigator}
+          data={route.data}
+        />
+      );
+    }
+
+    if (route.travelersFilter) {
+      return (
+        <TravelersFilterScreen
+          navigator={navigator}
+          data={route.data}
         />
       );
     }
