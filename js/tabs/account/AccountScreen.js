@@ -20,6 +20,10 @@ class AccountScreen extends Component {
     }
   }
 
+  onCellPress(name) {
+    this.props.navigator.push({[name]: true});
+  }
+
   render() {
     const {name, location, verified} = this.props.account;
 
@@ -69,7 +73,7 @@ class AccountScreen extends Component {
                 text="Friends"
               />
               <AccountCell
-                onPress={null}
+                onPress={() => this.onCellPress('accountSettings')}
                 text="Account & Settings"
               />
               <AccountCell
