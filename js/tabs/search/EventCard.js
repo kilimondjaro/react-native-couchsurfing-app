@@ -40,16 +40,20 @@ export default function EventCard(props: Props) {
       </Image>
       <View style={styles.footer}>
         <View style={styles.footerBlock}>
-          <Text
-            numberOfLines={1}
-            style={styles.footerText}
-          >
-            {location}
-          </Text>
+          <View style={styles.blockElement}>
+            <Image source={require('./img/geopoint.png')} />
+            <Text
+              numberOfLines={1}
+              style={[styles.footerText, {marginLeft: 5}]}
+            >
+              {location}
+            </Text>
+          </View>
         </View>
         <View style={styles.footerBlock}>
           <View style={styles.blockElement}>
-            <Text style={styles.footerText}>{fullDate}</Text>
+            <Image source={require('./img/time.png')}/>
+            <Text style={[styles.footerText, {marginLeft: 5}]}>{fullDate}</Text>
           </View>
           <Text style={styles.footerText}>{`${attendance} Attending`}</Text>
         </View>
@@ -96,6 +100,7 @@ const styles = StyleSheet.create({
   },
   blockElement: {
     flexDirection: 'row',
+    alignItems: 'center'
   },
   footer: {
     flex: 1,

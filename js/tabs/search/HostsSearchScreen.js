@@ -24,7 +24,7 @@ class HostsSearchScreen extends Component {
     return (
       <View style={{flex: 1}}>
         <CSSegmentControl
-          onPress={() => this.props.navigator.push({searchFilter: true, data: {
+          onPress={() => this.props.navigator.push({hostsFilter: true, data: {
             showCalendar: true
           }})}
           style={{margin: 5, marginBottom: 0}}

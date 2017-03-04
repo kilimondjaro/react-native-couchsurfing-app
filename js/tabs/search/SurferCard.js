@@ -105,11 +105,11 @@ class SurferCard extends Component {
         <View style={styles.footer}>
           <View style={styles.footerBlock}>
             <View style={styles.leftFooterBlock}>
-              <Image source={require('./img/quote.png')}/>
+              <Image source={require('./img/references.png')}/>
               <Text style={styles.leftFooterBlockText}>{`${references} References`}</Text>
             </View>
             <View style={styles.leftFooterBlock}>
-              <Image source={require('./img/reference.png')}/>
+              <Image source={require('./img/speaks.png')}/>
               <Text style={styles.leftFooterBlockText}>{`Speaks ${speaks}`}</Text>
             </View>
           </View>
@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
     margin: 10
   },
   leftFooterBlock: {
+    alignItems: 'center',
     flexDirection: 'row'
   },
   leftFooterBlockText: {
