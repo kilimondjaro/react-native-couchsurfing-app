@@ -10,9 +10,9 @@ import {
 type Props = {
   icon: any;
   text: string;
-  value: string;
-  onPress: (value: string) => void;
-  active: boolean | {[x: string]: boolean};
+  value?: string;
+  onPress?: (value: string) => void;
+  active?: boolean | {[x: string]: boolean};
 }
 
 export default function ModeSegment(props: Props) {

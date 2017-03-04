@@ -1,3 +1,4 @@
+// @flow
 import React, {Component} from 'react';
 import {
   View,
@@ -7,8 +8,20 @@ import {
 } from 'react-native';
 import EventCard from './EventCard';
 
+type Props = {
+  events: Array<{[name: string]: any}>;
+}
+
+type State = {
+  refreshing: boolean;
+  dataSource: ListView.DataSource;
+}
+
 class EventsSearchScreen extends Component {
-  constructor(props) {
+  props: Props;
+  state: State;
+
+  constructor(props: Props) {
     super(props);
 
     const data = {};
@@ -21,7 +34,7 @@ class EventsSearchScreen extends Component {
         data[date] = [e];
       }
     });
-    this.data = data;
+
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2,
       sectionHeaderHasChanged: (h1, h2) => h1 !== h2});
 
@@ -52,7 +65,7 @@ class EventsSearchScreen extends Component {
               <View style={{height: 40, width: 150, justifyContent: 'center'}}>
                 <Text style={{backgroundColor: '#35495d', padding: 5, color: 'white'}}>{date}</Text>
               </View>
-            )
+            );
           }}
           refreshControl={
             <RefreshControl

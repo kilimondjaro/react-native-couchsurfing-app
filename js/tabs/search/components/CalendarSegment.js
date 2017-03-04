@@ -9,8 +9,8 @@ import {
 type Props = {
   title: string;
   date: string;
-  value: string;
-  onPress: (value: string) => void;
+  value?: string;
+  onPress?: (value: string) => void;
 }
 
 export default function CalendarSegment(props: Props) {

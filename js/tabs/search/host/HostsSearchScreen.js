@@ -6,15 +6,28 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  RefreshControl
+  RefreshControl,
+  Navigator
 } from 'react-native';
 import CalendarSegment from '../components/CalendarSegment';
 import CSSegmentControl from '../../../components/CSSegmentControl';
 import SurferCard from '../components/SurferCard';
 import {getDateString} from '../../../helpers';
 
+type Props = {
+  navigator: Navigator;
+  dates: any;
+};
+
+type State = {
+  refreshing: boolean;
+}
+
 class HostsSearchScreen extends Component {
-  constructor(props) {
+  props: Props;
+  state: State;
+
+  constructor(props: Props) {
     super(props);
 
     this.state = {
