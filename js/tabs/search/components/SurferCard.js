@@ -6,6 +6,7 @@ import {
   Image,
   StyleSheet
 } from 'react-native';
+import CSAvatar from '../../../components/CSAvatar';
 
 const statusMap = {
   accepting: {
@@ -76,32 +77,19 @@ class SurferCard extends Component {
 
     return (
       <View style={[styles.container, this.props.style]}>
-        <Image
-          style={styles.image}
-          // TODO add prop for image
-          source={require('../img/me.jpg')}
+        <CSAvatar
+          style={styles.avatar}
+          image={require('../img/me.jpg')}
+          firstLine={name}
+          secondLine={`From ${location}`}
+          verified={verified}
         >
           <View style={styles.statusArea}>
             <View style={[styles.status, statusAreaStyle]}>
               <Text style={[styles.statusText, statusTextColor]}>{statusMap[status].label}</Text>
             </View>
           </View>
-          <View style={styles.nameArea}>
-            <View style={styles.nameLine}>
-              <Text style={styles.nameText}>{name}</Text>
-              {
-                verified
-                  ?  (
-                    <Image
-                      style={styles.verifiedIcon}
-                      source={require('../img/verified.png')}
-                    />
-                  ) : null
-              }
-            </View>
-            <Text style={styles.locationText}>{location}</Text>
-          </View>
-        </Image>
+        </CSAvatar>
         <View style={styles.footer}>
           <View style={styles.footerBlock}>
             <View style={styles.leftFooterBlock}>
@@ -129,7 +117,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#c7d0d7'
   },
-  image: {
+  avatar: {
     flex: 4,
   },
   statusArea: {
@@ -137,27 +125,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     flexDirection: 'row',
     paddingTop: 20
-  },
-  nameArea: {
-    backgroundColor: 'transparent',
-    flex: 1,
-    justifyContent: 'flex-end',
-    padding: 10
-  },
-  nameLine: {
-    flexDirection: 'row'
-  },
-  nameText: {
-    color: 'white',
-    fontSize: 20
-  },
-  verifiedIcon: {
-    marginTop: 3,
-    marginLeft: 5
-  },
-  locationText: {
-    color: 'white',
-    fontSize: 18
   },
   footer: {
     flex: 1,
