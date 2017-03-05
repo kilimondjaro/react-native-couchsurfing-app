@@ -10,22 +10,24 @@ import {
 import {CSHeader} from '../../components/CSHeader';
 import CSInputList from '../../components/CSInputList';
 import AccountCell from './AccountCell';
+import CSAvatar from '../../components/CSAvatar';
 
 class AccountScreen extends Component {
   static defaultProps = {
     account: {
-      name: 'Kirill Babich',
+      firstName: 'Kirill',
+      lastName: 'Babich',
       location: 'Russian Federation',
       verified: false
     }
   }
 
-  onCellPress(name) {
+  onCellPress(name: string) {
     this.props.navigator.push({[name]: true});
   }
 
   render() {
-    const {name, location, verified} = this.props.account;
+    const {firstName, lastName, location, verified} = this.props.account;
 
     return (
       <View style={styles.container}>
@@ -37,27 +39,13 @@ class AccountScreen extends Component {
         <ScrollView
           automaticallyAdjustContentInsets={false}
         >
-          <Image
-            style={styles.image}
-            // TODO add prop for image
-            source={require('../search/img/me.jpg')}
-          >
-            <View style={styles.nameArea}>
-              <View style={styles.nameLine}>
-                <Text style={styles.nameText}>{name}</Text>
-                {
-                  verified
-                    ?  (
-                      <Image
-                        style={styles.verifiedIcon}
-                        source={require('../search/img/verified.png')}
-                      />
-                    ) : null
-                }
-              </View>
-              <Text style={styles.locationText}>{location}</Text>
-            </View>
-          </Image>
+          <CSAvatar
+            style={styles.avatar}
+            image={require('../search/img/me.jpg')}
+            firstLine={`${firstName} ${lastName}`}
+            secondLine={location}
+            verified={verified}
+          />
           <View>
             <CSInputList separatorStyle={{marginLeft: 5}}>
               <AccountCell
@@ -114,6 +102,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f8f8'
+  },
+  avatar: {
+    height: 180,
   },
   nameArea: {
     backgroundColor: 'transparent',

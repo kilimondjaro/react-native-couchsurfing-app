@@ -8,6 +8,7 @@ import {
   StyleSheet
 } from 'react-native';
 import {getDateString} from '../../../helpers';
+import CSAvatar from '../../../components/CSAvatar';
 
 type Date = {
   year: number;
@@ -73,27 +74,13 @@ class SurferCard extends Component {
         onPress={this.props.onPress}
         style={[styles.container, this.props.style]}
       >
-        <Image
-          style={styles.image}
-          // TODO add prop for image
-          source={require('../img/me.jpg')}
-        >
-          <View style={styles.nameArea}>
-            <View style={styles.nameLine}>
-              <Text style={styles.nameText}>{name}</Text>
-              {
-                verified
-                  ?  (
-                    <Image
-                      style={styles.verifiedIcon}
-                      source={require('../img/verified.png')}
-                    />
-                  ) : null
-              }
-            </View>
-            <Text style={styles.locationText}>{`From ${location}`}</Text>
-          </View>
-        </Image>
+        <CSAvatar
+          style={styles.avatar}
+          image={require('../img/me.jpg')}
+          firstLine={name}
+          secondLine={`From ${location}`}
+          verified={verified}
+        />
         <View style={styles.visitingArea}>
           <Text style={styles.visitingText}>{`Visiting ${visiting}`}</Text>
           <Text style={styles.visitingDate}>{`${getDateString(date.arrives)} - ${getDateString(date.departs)} ${count} Traveler${count > 1 ? 's' : ''}`}</Text>
@@ -129,29 +116,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#c7d0d7'
   },
-  image: {
+  avatar: {
     flex: 5.5,
-  },
-  nameArea: {
-    backgroundColor: 'transparent',
-    flex: 1,
-    justifyContent: 'flex-end',
-    padding: 10
-  },
-  nameLine: {
-    flexDirection: 'row'
-  },
-  nameText: {
-    color: 'white',
-    fontSize: 20
-  },
-  verifiedIcon: {
-    marginTop: 3,
-    marginLeft: 5
-  },
-  locationText: {
-    color: 'white',
-    fontSize: 18
   },
   visitingArea: {
     flex: 1.5,
