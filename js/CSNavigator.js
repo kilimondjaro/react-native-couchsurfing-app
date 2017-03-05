@@ -13,6 +13,7 @@ import SignUpSearchScreen from './login/SignUpSearchScreen';
 import HostsFilterScreen from './tabs/search/host/HostsFilterScreen';
 import TravelersFilterScreen from './tabs/search/traveler/TravelersFilterScreen';
 import AccountSettingsScreen from './tabs/account/AccountSettingsScreen';
+import ProfileScreen from './tabs/account/ProfileScreen';
 
 class CSNavigator extends Component {
   render(){
@@ -28,7 +29,7 @@ class CSNavigator extends Component {
             }
             return Navigator.SceneConfigs.PushFromRight;
           }}
-          initialRoute={{}}
+          initialRoute={{profile: true}}
           renderScene={this.renderScene}
         />
     );
@@ -96,6 +97,14 @@ class CSNavigator extends Component {
     if (route.accountSettings) {
       return (
         <AccountSettingsScreen
+          navigator={navigator}
+        />
+      );
+    }
+
+    if (route.profile) {
+      return (
+        <ProfileScreen
           navigator={navigator}
         />
       );
