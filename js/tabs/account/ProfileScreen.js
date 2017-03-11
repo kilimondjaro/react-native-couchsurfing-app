@@ -10,11 +10,13 @@ import {
   StyleSheet,
   Navigator
 } from 'react-native';
+import { TabViewAnimated, TabBar } from 'react-native-tab-view';
 import {CSHeader} from '../../components/CSHeader';
 import CSAvatar from '../../components/CSAvatar';
 import ProfileProgressBar from './ProfileProgressBar';
 import CSInputList from '../../components/CSInputList';
 import {statusMap} from '../../helpers';
+import ProfileTabsView from './ProfileTabsView';
 
 const verifiedStatuses = {
   payment: 'Payment',
@@ -145,6 +147,7 @@ class ProfileScreen extends Component {
           <TouchableOpacity style={styles.requestButton}>
             <Text style={styles.requestText}>Request to Stay</Text>
           </TouchableOpacity>
+          <ProfileTabsView />
         </ScrollView>
       </View>
     );
