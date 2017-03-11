@@ -7,29 +7,7 @@ import {
   StyleSheet
 } from 'react-native';
 import CSAvatar from '../../../components/CSAvatar';
-
-const statusMap = {
-  accepting: {
-    label: 'Accepting Guests',
-    textColor: 'white',
-    areaColor: '#43b667'
-  },
-  maybe: {
-    label: 'Maybe Accepting Guests',
-    textColor: 'white',
-    areaColor: '#273c53'
-  },
-  not: {
-    label: 'Not Accepting Guests',
-    textColor: 'black',
-    areaColor: '#bfcad1'
-  },
-  meetUp: {
-    label: 'Want to Meet Up',
-    textColor: 'black',
-    areaColor: '#bfcad1'
-  }
-};
+import {statusMap} from '../../../helpers';
 
 type Props = {
   user: {
