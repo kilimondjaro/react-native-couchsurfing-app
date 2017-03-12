@@ -112,7 +112,8 @@ class ProfileTabsView extends Component {
         stayedWith: [{reference: 'Nice guy!', star: true}]
       },
       interests: ['guitar', 'music', 'The Beatles', 'Photography', 'Traveling'],
-      interestsDescription: 'I like playing guitar'
+      interestsDescription: 'I like playing guitar',
+      countriesIveVisited: ['England', 'France']
     }
   }
 

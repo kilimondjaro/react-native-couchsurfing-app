@@ -57,72 +57,71 @@ type Props = {
 
 export default function MyHomeView(props: Props) {
   return (
-    <View>
-      <View style={styles.preferencesGroup}>
-        <Text style={styles.title}>{`${props.account.firstName} ${props.account.lastName}'s preferences`.toUpperCase()}</Text>
-        {
-          Object.keys(template.preferences).map(key => {
-            const value = props.account[key];
-            if (value === null) {
-              return null;
-            }
+    <View style={styles.container}>
+      <Text style={[styles.title, styles.item]}>{`${props.account.firstName} ${props.account.lastName}'s preferences`.toUpperCase()}</Text>
+      {
+        Object.keys(template.preferences).map(key => {
+          const value = props.account[key];
+          if (value === null) {
+            return null;
+          }
 
-            return (
-              <View key={key} style={styles.lineContainer}>
-                <Text style={styles.key}>{template.preferences[key]}</Text>
-                <Text style={styles.value}>{getValueString(key, value)}</Text>
-              </View>
-            );
-          })
-        }
-      </View>
-      <View style={styles.preferencesGroup}>
-        <Text style={styles.title}>{`${props.account.firstName} ${props.account.lastName}'s home`.toUpperCase()}</Text>
-        {
-          Object.keys(template.home).map(key => {
-            const value = props.account[key];
-            if (value === null) {
-              return null;
-            }
+          return (
+            <View key={key} style={[styles.lineContainer, styles.item]}>
+              <Text style={styles.key}>{template.preferences[key]}</Text>
+              <Text style={styles.value}>{getValueString(key, value)}</Text>
+            </View>
+          );
+        })
+      }
 
-            return (
-              <View key={key} style={styles.lineContainer}>
-                <Text style={styles.key}>{template.home[key]}</Text>
-                <Text style={styles.value}>{getValueString(key, value)}</Text>
-              </View>
-            );
-          })
-        }
-      </View>
-      <View style={styles.preferencesGroup}>
-        {
-          Object.keys(template.others).map(key => {
-            const value = props.account[key];
-            if (value === null) {
-              return null;
-            }
+      <Text style={[styles.title, styles.item]}>{`${props.account.firstName} ${props.account.lastName}'s home`.toUpperCase()}</Text>
+      {
+        Object.keys(template.home).map(key => {
+          const value = props.account[key];
+          if (value === null) {
+            return null;
+          }
 
-            return (
-              <View key={key}>
-                <Text style={styles.title}>{`${template.others[key]}`.toUpperCase()}</Text>
-                <View key={key} style={styles.lineContainer}>
-                  <Text style={styles.key}>{value}</Text>
-                </View>
+          return (
+            <View key={key} style={[styles.lineContainer, styles.item]}>
+              <Text style={styles.key}>{template.home[key]}</Text>
+              <Text style={styles.value}>{getValueString(key, value)}</Text>
+            </View>
+          );
+        })
+      }
+
+      {
+        Object.keys(template.others).map(key => {
+          const value = props.account[key];
+          if (value === null) {
+            return null;
+          }
+
+          return (
+            <View key={key}>
+              <Text style={[styles.title, styles.item]}>{`${template.others[key]}`.toUpperCase()}</Text>
+              <View key={key} style={[styles.lineContainer, styles.item]}>
+                <Text style={styles.key}>{value}</Text>
               </View>
-            );
-          })
-        }
-      </View>
+            </View>
+          );
+        })
+      }
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  preferencesGroup: {
-    margin: 10
+  container: {
+    padding: 10
+  },
+  item: {
+    marginTop: 8,
+    marginBottom: 8
   },
   lineContainer: {
-    marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },

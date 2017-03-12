@@ -79,6 +79,14 @@ class ProfileScreen extends Component {
     return (
       <View style={styles.container}>
         <CSHeader
+          leftItem={[{
+            icon: require('../../components/img/back.png'),
+            onPress: () => this.props.navigator.pop()
+          }]}
+          rightItem={[{
+            text: 'Edit',
+            onPress: () => {}
+          }]}
           style={styles.header}
           title={`${account.firstName} ${account.lastName}`}
         />
