@@ -12,6 +12,7 @@ import { TabViewAnimated, TabBar } from 'react-native-tab-view';
 import CSAvatar from '../../components/CSAvatar';
 import CSInputList from '../../components/CSInputList';
 import MyHomeView from './MyHomeView';
+import AboutView from './AboutView';
 
 function PhotosCell(props) {
   const count = props.album.photos.length;
@@ -60,7 +61,7 @@ class ProfileTabsView extends Component {
     super(props);
 
     this.state = {
-      index: 1,
+      index: 0,
       routes: [
         { key: 'about', title: 'About' },
         { key: 'myHome', title: 'My Home' },
@@ -73,6 +74,11 @@ class ProfileTabsView extends Component {
     account: {
       firstName: 'Kirill',
       lastName: 'Babich',
+      gender: 'male',
+      age: 20,
+      createdAt: new Date(),
+      friends: [],
+      location: 'Moscow, Moscow, Russian Federation',
       photoAlbums: [
         {
           title: 'Profile Photos',
@@ -89,6 +95,7 @@ class ProfileTabsView extends Component {
       smokingAllowed: true,
       kidFriendly: false,
       petFriendly: true,
+      languagesImFluentIn: ['Russian', 'English'],
       sleepingArrengements: 'Shared Room',
       petsAtHome: false,
       kidsAtHome: false,
@@ -98,7 +105,14 @@ class ProfileTabsView extends Component {
       descriptionOfSleepingArrengements: null,
       roommateSituation: null,
       whatYouCanShareWithGuests: null,
-      additionalInformation: 'My home is located near the center of the city.'
+      additionalInformation: 'My home is located near the center of the city.',
+      aboutMe: 'I\'m a Russian student from Moscow.',
+      experience: {
+        hosted: [{reference: 'Nice guy!', star: true}],
+        stayedWith: [{reference: 'Nice guy!', star: true}]
+      },
+      interests: ['guitar', 'music', 'The Beatles', 'Photography', 'Traveling'],
+      interestsDescription: 'I like playing guitar'
     }
   }
 
@@ -138,7 +152,7 @@ class ProfileTabsView extends Component {
 
     switch (route.key) {
       case 'about':
-        return <View style={[ {flex: 1, height: 300}, { backgroundColor: '#ff4081' } ]} />;
+        return <AboutView account={this.props.account} />;
       case 'myHome':
         return <MyHomeView account={this.props.account}/>;
       case 'photos':

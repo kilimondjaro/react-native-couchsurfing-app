@@ -38,7 +38,7 @@ export default function EventCard(props: Props) {
       <View style={styles.footer}>
         <View style={styles.footerBlock}>
           <View style={styles.blockElement}>
-            <Image source={require('../img/geopoint.png')} />
+            <Image source={require('../../../components/img/geopoint.png')} />
             <Text
               numberOfLines={1}
               style={[styles.footerText, {marginLeft: 5}]}
