@@ -16,6 +16,7 @@ class CSTextInput extends Component {
   props: Props;
   state: {
     onFocus: boolean;
+    height: number;
   };
 
   static defaultProps = {
@@ -26,7 +27,8 @@ class CSTextInput extends Component {
     super(props);
 
     this.state = {
-      onFocus: false
+      onFocus: false,
+      height: 0
     };
 
     this.onFocus.bind(this);
@@ -61,18 +63,28 @@ class CSTextInput extends Component {
       ? {marginBottom: 5}
       : null;
 
+    // Multiline size hook
+    var containerSize, textInputSize;
+    if (this.props.multiline) {
+      containerSize = {height: null};
+      textInputSize = this.props.value.length > 0
+        ? {height: this.state.height}
+        : {height: 30}
+    }
+
     return (
-      <View style={[styles.container, containerStyle]}>
-        {
-          this.props.value.length > 0
-          ? (<Text style={[styles.label, textStyle]}>{this.props.placeholder}</Text>)
-          : null
-        }
+      <View style={[styles.container, containerStyle, containerSize]}>
+        <Text style={[styles.label, textStyle]}>{ this.props.value.length > 0 ? this.props.placeholder : ''}</Text>
         <TextInput
           spellCheck={false}
           autoCorrect={false}
-          style={[styles.textInput, inputStyle]}
+          style={[styles.textInput, inputStyle, textInputSize]}
           {...this.props}
+          onChange={(event) => {
+            if (this.props.multiline) {
+              this.setState({height: event.nativeEvent.contentSize.height});
+            }
+          }}
           onFocus={() => this.onFocus()}
           onBlur={() => this.onBlur()}
         />
@@ -91,7 +103,8 @@ const styles = StyleSheet.create({
   textInput: {
     paddingLeft: 20,
     height: 20,
-    color: 'black'
+    color: 'black',
+    fontSize: 16
   },
   label: {
     fontSize: 12,
