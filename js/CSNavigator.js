@@ -29,7 +29,7 @@ class CSNavigator extends Component {
             }
             return Navigator.SceneConfigs.PushFromRight;
           }}
-          initialRoute={{profile: true}}
+          initialRoute={{}}
           renderScene={this.renderScene}
         />
     );

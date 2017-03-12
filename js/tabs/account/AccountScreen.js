@@ -53,7 +53,7 @@ class AccountScreen extends Component {
                 text="Get Verified"
               />
               <AccountCell
-                onPress={null}
+                onPress={() => this.onCellPress('profile')}
                 text="Profile"
               />
               <AccountCell
