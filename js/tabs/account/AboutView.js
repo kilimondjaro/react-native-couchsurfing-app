@@ -37,7 +37,13 @@ function InterestBubble(props) {
   );
 }
 
-export default function AboutView(props) {
+type Props = {
+  account: {
+    [name: string]: any;
+  }
+};
+
+export default function AboutView(props: Props) {
   const {account} = props;
 
   const hostedCount = account.experience.hosted.length;
@@ -127,14 +133,32 @@ export default function AboutView(props) {
       }
       </View>
 
-      <Text style={[styles.title, styles.item]}>{'Countries I\'ve Visited'.toUpperCase()}</Text>
-      <Text style={[styles.key, styles.item]}>{account.countriesIveVisited.join(', ')}</Text>
+      {
+        account.countriesIveVisited ? (
+          <View>
+            <Text style={[styles.title, styles.item]}>{'Countries I\'ve Visited'.toUpperCase()}</Text>
+            <Text style={[styles.key, styles.item]}>{account.countriesIveVisited.join(', ')}</Text>
+          </View>
+        ) : null
+      }
 
-      <Text style={[styles.title, styles.item]}>{'Countries I\'ve Lived In'.toUpperCase()}</Text>
-      <Text style={[styles.key, styles.item]}>{account.countriesIveLivedIn.join(', ')}</Text>
+      {
+        account.countriesIveLivedIn ? (
+          <View>
+            <Text style={[styles.title, styles.item]}>{'Countries I\'ve Lived In'.toUpperCase()}</Text>
+            <Text style={[styles.key, styles.item]}>{account.countriesIveLivedIn.join(', ')}</Text>
+          </View>
+        ) : null
+      }
 
-      <Text style={[styles.title, styles.item]}>{'Groups'.toUpperCase()}</Text>
-      <Text style={[styles.key, styles.item]}>{account.groups.join(', ')}</Text>
+      {
+        account.groups ? (
+          <View>
+            <Text style={[styles.title, styles.item]}>{'Groups'.toUpperCase()}</Text>
+            <Text style={[styles.key, styles.item]}>{account.groups.join(', ')}</Text>
+          </View>
+        ) : null
+      }
 
       <View>
         {
