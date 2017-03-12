@@ -92,7 +92,7 @@ class SurferCard extends Component {
               <Text style={styles.statsText}>{`${references} References`}</Text>
             </View>
             <View style={styles.statsLine}>
-              <Image source={require('../img/speaks.png')}/>
+              <Image source={require('../../../components/img/speaks.png')}/>
               <Text style={styles.statsText}>{`Speaks ${speaks}`}</Text>
             </View>
           </View>

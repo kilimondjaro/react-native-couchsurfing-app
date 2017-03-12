@@ -127,7 +127,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   title: {
-    color: '#eb6547'
+    color: '#eb6547',
+    fontWeight: 'bold'
   },
   key: {
     color: '#002042'

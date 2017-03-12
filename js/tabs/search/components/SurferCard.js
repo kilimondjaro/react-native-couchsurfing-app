@@ -75,7 +75,7 @@ class SurferCard extends Component {
               <Text style={styles.leftFooterBlockText}>{`${references} References`}</Text>
             </View>
             <View style={styles.leftFooterBlock}>
-              <Image source={require('../img/speaks.png')}/>
+              <Image source={require('../../../components/img/speaks.png')}/>
               <Text style={styles.leftFooterBlockText}>{`Speaks ${speaks}`}</Text>
             </View>
           </View>
