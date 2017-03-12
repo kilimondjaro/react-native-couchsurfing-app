@@ -85,7 +85,7 @@ class ProfileScreen extends Component {
           }]}
           rightItem={[{
             text: 'Edit',
-            onPress: () => {}
+            onPress: () => this.props.navigator.push({editProfile: true})
           }]}
           style={styles.header}
           title={`${account.firstName} ${account.lastName}`}
