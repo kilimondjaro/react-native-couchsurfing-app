@@ -15,7 +15,7 @@ type Props = {
   onPress: () => void;
 };
 
-export default function SettingCell(props: Props) {
+export default function CSSettingCell(props: Props) {
   return (
     <TouchableHighlight
       underlayColor="#d9d9d9"
@@ -31,7 +31,7 @@ export default function SettingCell(props: Props) {
             props.showIcon ? (
               <Image
                 style={styles.nextIcon}
-                source={require('../../components/img/next.png')}
+                source={require('./img/next.png')}
               />
             ) : null
           }
@@ -41,7 +41,7 @@ export default function SettingCell(props: Props) {
   );
 }
 
-SettingCell.defaultProps = {
+CSSettingCell.defaultProps = {
   showIcon: true
 };
 

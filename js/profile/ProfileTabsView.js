@@ -9,8 +9,7 @@ import {
   Navigator
 } from 'react-native';
 import { TabViewAnimated, TabBar } from 'react-native-tab-view';
-import CSAvatar from '../../components/CSAvatar';
-import CSInputList from '../../components/CSInputList';
+import CSInputList from '../components/CSInputList';
 import MyHomeView from './MyHomeView';
 import AboutView from './AboutView';
 
@@ -27,7 +26,7 @@ function PhotosCell(props) {
         <View style={styles.photosCellPicture}>
           <Image
             style={{tintColor: '#bfcad2'}}
-            source={count > 0 ? null : require('../../components/img/blank_picture.png')}
+            source={count > 0 ? null : require('../components/img/blank_picture.png')}
           />
         </View>
         <View style={styles.photosCellContent}>
@@ -35,7 +34,7 @@ function PhotosCell(props) {
           <Text style={styles.photosCellSubtitle}>{`${count} Photo${count > 1 ? 's' : ''}`}</Text>
         </View>
         <View style={styles.photosCellNext}>
-          <Image source={require('../../components/img/next.png')}/>
+          <Image source={require('../components/img/next.png')}/>
         </View>
       </View>
     </TouchableHighlight>

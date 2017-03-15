@@ -10,12 +10,11 @@ import {
   StyleSheet,
   Navigator
 } from 'react-native';
-import { TabViewAnimated, TabBar } from 'react-native-tab-view';
-import {CSHeader} from '../../components/CSHeader';
-import CSAvatar from '../../components/CSAvatar';
+import {CSHeader} from '../components/CSHeader';
+import CSAvatar from '../components/CSAvatar';
 import ProfileProgressBar from './ProfileProgressBar';
-import CSInputList from '../../components/CSInputList';
-import {statusMap} from '../../helpers';
+import CSInputList from '../components/CSInputList';
+import {statusMap} from '../helpers';
 import ProfileTabsView from './ProfileTabsView';
 
 const verifiedStatuses = {
@@ -80,7 +79,7 @@ class ProfileScreen extends Component {
       <View style={styles.container}>
         <CSHeader
           leftItem={[{
-            icon: require('../../components/img/back.png'),
+            icon: require('../components/img/back.png'),
             onPress: () => this.props.navigator.pop()
           }]}
           rightItem={[{
@@ -94,7 +93,7 @@ class ProfileScreen extends Component {
           <ProfileProgressBar completion={0.75} />
           <CSAvatar
             style={styles.avatarContainer}
-            image={require('../search/img/me.jpg')}
+            image={require('../tabs/search/img/me.jpg')}
             firstLine={`${account.firstName} ${account.lastName}`}
             secondLine={account.location}
           >
@@ -112,7 +111,7 @@ class ProfileScreen extends Component {
           >
             <CellWithIcon
               onPress={() => {}}
-              icon={require('../search/img/references.png')}
+              icon={require('../tabs/search/img/references.png')}
             >
               {
                 account.references.length > 0
@@ -125,7 +124,7 @@ class ProfileScreen extends Component {
                           <Text>{account.references.filter(r => r.wouldStayAgain === true).length}</Text>
                         </View>
                       </View>
-                      <Image source={require('../../components/img/next.png')}/>
+                      <Image source={require('../components/img/next.png')}/>
                     </View>
                   )
                   : (
@@ -134,7 +133,7 @@ class ProfileScreen extends Component {
               }
             </CellWithIcon>
             <CellWithIcon
-              icon={require('../search/img/references.png')}
+              icon={require('../tabs/search/img/references.png')}
             >
               <View>
                 {/* Fix status color bug!!!! */}
@@ -143,7 +142,7 @@ class ProfileScreen extends Component {
               </View>
             </CellWithIcon>
             <CellWithIcon
-              icon={require('../search/img/references.png')}
+              icon={require('../tabs/search/img/references.png')}
             >
               <View>
                 {/* Fix status color bug!!!! */}
