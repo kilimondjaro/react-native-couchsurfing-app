@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import {
   Navigator,
@@ -13,9 +14,9 @@ import SignUpSearchScreen from './login/SignUpSearchScreen';
 import HostsFilterScreen from './tabs/search/host/HostsFilterScreen';
 import TravelersFilterScreen from './tabs/search/traveler/TravelersFilterScreen';
 import AccountSettingsScreen from './tabs/account/AccountSettingsScreen';
-import ProfileScreen from './tabs/account/ProfileScreen';
-import ProfileEditorScreen from './tabs/account/ProfileEditorScreen';
-import AboutMeEditorScreen from './tabs/account/AboutMeEditorScreen';
+import ProfileScreen from './profile/ProfileScreen';
+import ProfileEditorScreen from './profile/ProfileEditorScreen';
+import AboutMeEditorScreen from './profile/AboutMeEditorScreen';
 
 class CSNavigator extends Component {
   render(){
@@ -31,7 +32,7 @@ class CSNavigator extends Component {
             }
             return Navigator.SceneConfigs.PushFromRight;
           }}
-          initialRoute={{aboutMeEditor: true}}
+          initialRoute={{}}
           renderScene={this.renderScene}
         />
     );

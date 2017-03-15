@@ -7,11 +7,11 @@ import {
   Text,
   StyleSheet
 } from 'react-native';
-import {CSHeader} from '../../components/CSHeader';
-import CSInputList from '../../components/CSInputList';
-import CSTextInput from '../../components/CSTextInput';
-import SettingCell from './SettingCell';
-import SwitchCell from './SwitchCell';
+import {CSHeader} from '../components/CSHeader';
+import CSInputList from '../components/CSInputList';
+import CSTextInput from '../components/CSTextInput';
+import CSSettingCell from '../components/CSSettingCell';
+import CSSwitchCell from '../components/CSSwitchCell';
 
 type Props = {
   account: {
@@ -42,7 +42,7 @@ export default class AboutMeEditorScreen extends Component {
       <View style={styles.container}>
         <CSHeader
           leftItem={[{
-            icon: require('../../components/img/back.png'),
+            icon: require('../components/img/back.png'),
             onPress: () => this.props.navigator.pop()
           }]}
           title="About Me"
@@ -92,23 +92,23 @@ export default class AboutMeEditorScreen extends Component {
             onChangeText={(text) => this.setState({val: text})}
             value={''}
           />
-          <SettingCell
+          <CSSettingCell
             title="Interests"
             value={account.interests.length > 0 ? account.interests.length : 'None'}
             showIcon={false}
             onPress={() => {}}
           />
-          <SwitchCell
+          <CSSwitchCell
             title="I have children"
             onChange={() => this.setState({ children: !this.state.children })}
             value={this.state.children}
           />
-          <SwitchCell
+          <CSSwitchCell
             title="I have pets"
             onChange={() => {}}
             value={false}
           />
-          <SwitchCell
+          <CSSwitchCell
             title="I'm a smoker"
             onChange={() => {}}
             value={false}

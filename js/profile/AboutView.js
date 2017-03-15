@@ -6,7 +6,7 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import {monthNames} from '../../helpers';
+import {monthNames} from '../helpers';
 
 const template = {
   aboutMe: 'About Me',
@@ -97,21 +97,21 @@ export default function AboutView(props: Props) {
 
       <Text style={[styles.title, styles.item]}>{'Overview'.toUpperCase()}</Text>
       <TextWithIcon
-        icon={require('../../components/img/gender.png')}
+        icon={require('../components/img/gender.png')}
         text={`${account.gender[0].toUpperCase()}, ${account.age}`}
       />
       <TextWithIcon
-        icon={require('../../components/img/geopoint.png')}
+        icon={require('../components/img/geopoint.png')}
         text={`Member since ${monthNames[account.createdAt.getMonth()]} ${account.createdAt.getFullYear()}`}
       />
       <TextWithIcon
-        icon={require('../../components/img/geopoint.png')}
+        icon={require('../components/img/geopoint.png')}
         text={`${account.friends.length > 0 ? account.friends.length : 'No'} Couchsurfing Friends`}
       />
       {
         account.languagesImFluentIn ? (
           <TextWithIcon
-            icon={require('../../components/img/speaks.png')}
+            icon={require('../components/img/speaks.png')}
             text={`Fluent in ${account.languagesImFluentIn.join(', ')}`}
           />
         ) : null
@@ -119,7 +119,7 @@ export default function AboutView(props: Props) {
       {
         account.location ? (
           <TextWithIcon
-            icon={require('../../components/img/geopoint.png')}
+            icon={require('../components/img/geopoint.png')}
             text={`From ${account.location}`}
           />
         ) : null

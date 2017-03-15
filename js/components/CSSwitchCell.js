@@ -13,7 +13,7 @@ type Props = {
   onChange: () => void;
 };
 
-export default function SwitchCell(props: Props) {
+export default function CSSwitchCell(props: Props) {
   return (
     <View style={styles.container}>
       <Text style={styles.titileText}>{props.title}</Text>

@@ -2,15 +2,12 @@
 import React, {Component} from 'react';
 import {
   View,
-  TouchableOpacity,
-  ScrollView,
   Text,
-  Image,
   StyleSheet
 } from 'react-native';
-import {CSHeader} from '../../components/CSHeader';
-import CSInputList from '../../components/CSInputList';
-import SettingCell from './SettingCell';
+import {CSHeader} from '../components/CSHeader';
+import CSInputList from '../components/CSInputList';
+import CSSettingCell from '../components/CSSettingCell';
 
 class ProfileEditorScreen extends Component {
   render() {
@@ -32,7 +29,7 @@ class ProfileEditorScreen extends Component {
         <CSInputList
           style={styles.inputList}
         >
-          <SettingCell
+          <CSSettingCell
             title="Status"
             onPress={() => {}}
           />
@@ -40,19 +37,19 @@ class ProfileEditorScreen extends Component {
         <CSInputList
           style={[styles.inputList, {marginTop: 40}]}
         >
-          <SettingCell
+          <CSSettingCell
             title="About Me"
             onPress={() => this.props.navigator.push({aboutMeEditor: true})}
           />
-          <SettingCell
+          <CSSettingCell
             title="Your Home & Preferences"
             onPress={() => {}}
           />
-          <SettingCell
+          <CSSettingCell
             title="Overview"
             onPress={() => {}}
           />
-          <SettingCell
+          <CSSettingCell
             title="Address"
             onPress={() => {}}
           />

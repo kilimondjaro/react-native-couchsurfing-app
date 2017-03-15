@@ -14,7 +14,7 @@ import CSTextInput from '../../components/CSTextInput';
 import CSInputList from '../../components/CSInputList';
 import CSDatePickerIOS from '../../components/CSDatePickerIOS';
 import {CSHeader} from '../../components/CSHeader';
-import SettingCell from './SettingCell';
+import CSSettingCell from '../../components/CSSettingCell';
 
 function SettingsBlock(props) {
   return (
@@ -155,7 +155,7 @@ class AccountSettingsScreen extends Component {
             <CSInputList
               style={[styles.inputList, {marginTop: 40}]}
             >
-              <SettingCell
+              <CSSettingCell
                 title="Birthday"
                 onPress={() => this.setState({datePickerIsVisible: true})}
                 value={birthday.toDateString()}
