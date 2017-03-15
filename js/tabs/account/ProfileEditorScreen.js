@@ -42,7 +42,7 @@ class ProfileEditorScreen extends Component {
         >
           <SettingCell
             title="About Me"
-            onPress={() => {}}
+            onPress={() => this.props.navigator.push({aboutMeEditor: true})}
           />
           <SettingCell
             title="Your Home & Preferences"
