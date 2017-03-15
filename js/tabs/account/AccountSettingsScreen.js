@@ -14,6 +14,7 @@ import CSTextInput from '../../components/CSTextInput';
 import CSInputList from '../../components/CSInputList';
 import CSDatePickerIOS from '../../components/CSDatePickerIOS';
 import {CSHeader} from '../../components/CSHeader';
+import SettingCell from './SettingCell';
 
 function SettingsBlock(props) {
   return (
@@ -154,17 +155,12 @@ class AccountSettingsScreen extends Component {
             <CSInputList
               style={[styles.inputList, {marginTop: 40}]}
             >
-              <TouchableOpacity
-                style={styles.segment}
+              <SettingCell
+                title="Birthday"
                 onPress={() => this.setState({datePickerIsVisible: true})}
-              >
-                <Text style={styles.birthdayCellText}>Birthday</Text>
-                <Text style={styles.birthdayCellText}>
-                  {
-                    birthday.toDateString()
-                  }
-                </Text>
-              </TouchableOpacity>
+                value={birthday.toDateString()}
+                showIcon={false}
+              />
             </CSInputList>
           </SettingsBlock>
           <SettingsBlock title="contact details">
@@ -270,9 +266,6 @@ const styles = StyleSheet.create({
   },
   settingsBlock: {
     marginTop: 20
-  },
-  birthdayCellText: {
-    fontSize: 18
   },
   emergencyText: {
     margin: 10,

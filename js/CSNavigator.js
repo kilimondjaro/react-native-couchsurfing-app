@@ -31,7 +31,7 @@ class CSNavigator extends Component {
             }
             return Navigator.SceneConfigs.PushFromRight;
           }}
-          initialRoute={{editProfile: true}}
+          initialRoute={{aboutMeEditor: true}}
           renderScene={this.renderScene}
         />
     );

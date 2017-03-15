@@ -11,6 +11,7 @@ import {
 type Props = {
   title: string;
   value?: string;
+  showIcon?: boolean;
   onPress: () => void;
 };
 
@@ -21,20 +22,28 @@ export default function SettingCell(props: Props) {
       onPress={props.onPress}
     >
       <View style={styles.container}>
-        <Text style={styles.birthdayCellText}>{props.title}</Text>
+        <Text style={styles.titileText}>{props.title}</Text>
         <View style={styles.nextBlock}>
-          <Text style={styles.birthdayCellText}>
+          <Text style={styles.valueText}>
             {props.value}
           </Text>
-          <Image
-            style={styles.nextIcon}
-            source={require('../../components/img/next.png')}
-          />
+          {
+            props.showIcon ? (
+              <Image
+                style={styles.nextIcon}
+                source={require('../../components/img/next.png')}
+              />
+            ) : null
+          }
         </View>
       </View>
     </TouchableHighlight>
   );
 }
+
+SettingCell.defaultProps = {
+  showIcon: true
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -51,5 +60,12 @@ const styles = StyleSheet.create({
   nextIcon: {
     marginLeft: 10,
     tintColor: '#c7c7c7'
+  },
+  titileText: {
+    fontSize: 16
+  },
+  valueText: {
+    fontSize: 16,
+    color: '#3482b5'
   }
 });
