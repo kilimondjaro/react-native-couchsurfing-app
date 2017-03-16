@@ -83,7 +83,7 @@ class LoginScreen extends Component {
           rightItem={[{
             text: 'Next',
             onPress: () => {
-              this.props.navigator.push({signupAdress: true});
+              this.props.navigator.push({screen: 'signupAdress'});
             }
           }]}
           style={styles.header}

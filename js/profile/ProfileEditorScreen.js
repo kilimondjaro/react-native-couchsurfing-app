@@ -39,7 +39,7 @@ class ProfileEditorScreen extends Component {
         >
           <CSSettingCell
             title="About Me"
-            onPress={() => this.props.navigator.push({aboutMeEditor: true})}
+            onPress={() => this.props.navigator.push({screen: 'aboutMeEditor'})}
           />
           <CSSettingCell
             title="Your Home & Preferences"

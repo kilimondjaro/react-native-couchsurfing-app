@@ -33,7 +33,7 @@ class SignUpAdressScreen extends Component {
         <CSInputList>
           <TouchableOpacity
             style={styles.segment}
-            onPress={() => this.props.navigator.push({signupSearch: true})}
+            onPress={() => this.props.navigator.push({screen: 'signupSearch'})}
           >
             <Text style={{fontSize: 16}}>City or Address</Text>
             <Text style={{fontSize: 16}}>{this.props.location}</Text>
@@ -43,7 +43,7 @@ class SignUpAdressScreen extends Component {
           style={styles.button}
           text="Create Account"
           active={this.props.location} //TODO Find how is correct
-          onPress={() => this.props.navigator.push({tabs: true})}
+          onPress={() => this.props.navigator.push({screen: 'tabs'})}
         />
       </View>
     );

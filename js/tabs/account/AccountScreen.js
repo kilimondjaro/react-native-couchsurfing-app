@@ -23,7 +23,7 @@ class AccountScreen extends Component {
   }
 
   onCellPress(name: string) {
-    this.props.navigator.push({[name]: true});
+    this.props.navigator.push({screen: name});
   }
 
   render() {

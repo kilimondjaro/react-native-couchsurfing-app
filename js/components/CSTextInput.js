@@ -69,12 +69,16 @@ class CSTextInput extends Component {
       containerSize = {height: null};
       textInputSize = this.props.value.length > 0
         ? {height: this.state.height}
-        : {height: 30}
+        : {height: 40}
     }
 
     return (
       <View style={[styles.container, containerStyle, containerSize]}>
-        <Text style={[styles.label, textStyle]}>{ this.props.value.length > 0 ? this.props.placeholder : ''}</Text>
+        {
+          this.props.value.length > 0 ?
+            (<Text style={[styles.label, textStyle]}>{this.props.placeholder}</Text>)
+            : null
+        }
         <TextInput
           spellCheck={false}
           autoCorrect={false}
@@ -95,7 +99,7 @@ class CSTextInput extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: 40,
+    height: 43,
     flex: 1,
     justifyContent: 'space-between',
     backgroundColor: 'white'
