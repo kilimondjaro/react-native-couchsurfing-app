@@ -6,9 +6,9 @@ import {
   StyleSheet,
   Navigator
 } from 'react-native';
-import {CSHeader} from '../components/CSHeader';
-import CSInputList from '../components/CSInputList';
-import CSCheckCell from '../components/CSCheckCell';
+import {CSHeader} from '../../components/CSHeader';
+import CSInputList from '../../components/CSInputList';
+import CSCheckCell from '../../components/CSCheckCell';
 
 type Props = {
   account: {
@@ -17,17 +17,17 @@ type Props = {
   navigator: Navigator;
 };
 
-export default function PreferredGenderScreen(props: Props){
+export default function SleepingArrangementsScreen(props: Props){
   const {account} = props;
 
   return (
     <View style={styles.container}>
       <CSHeader
         leftItem={[{
-          icon: require('../components/img/back.png'),
+          icon: require('../../components/img/back.png'),
           onPress: () => props.navigator.pop()
         }]}
-        title="Preferred Gender"
+        title="Sleeping Arrangements"
       />
       <ScrollView>
         <View style={{marginTop: 40, marginBottom: 40}}>
@@ -35,17 +35,22 @@ export default function PreferredGenderScreen(props: Props){
             style={styles.inputList}
           >
             <CSCheckCell
-              title="Female"
+              title="Private Room"
               value={true}
               onPress={() => {}}
             />
             <CSCheckCell
-              title="Male"
+              title="Public Room"
               value={true}
               onPress={() => {}}
             />
             <CSCheckCell
-              title="Any"
+              title="Shared Room"
+              value={true}
+              onPress={() => {}}
+            />
+            <CSCheckCell
+              title="Shared Sleeping Surface"
               value={true}
               onPress={() => {}}
             />

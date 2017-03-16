@@ -6,9 +6,9 @@ import {
   StyleSheet,
   Navigator
 } from 'react-native';
-import {CSHeader} from '../components/CSHeader';
-import CSInputList from '../components/CSInputList';
-import CSCheckCell from '../components/CSCheckCell';
+import {CSHeader} from '../../components/CSHeader';
+import CSInputList from '../../components/CSInputList';
+import CSCheckCell from '../../components/CSCheckCell';
 
 type Props = {
   account: {
@@ -28,7 +28,7 @@ export default function MaximumGuestsScreen(props: Props){
     <View style={styles.container}>
       <CSHeader
         leftItem={[{
-          icon: require('../components/img/back.png'),
+          icon: require('../../components/img/back.png'),
           onPress: () => props.navigator.pop()
         }]}
         title="Maximum Guests"

@@ -16,12 +16,12 @@ import TravelersFilterScreen from './tabs/search/traveler/TravelersFilterScreen'
 import AccountSettingsScreen from './tabs/account/AccountSettingsScreen';
 import ProfileScreen from './profile/ProfileScreen';
 import ProfileEditorScreen from './profile/ProfileEditorScreen';
-import AboutMeEditorScreen from './profile/AboutMeEditorScreen';
-import YourHomeEditorScreen from './profile/YourHomeEditorScreen';
-import AvailableNightsToHostScreen from './profile/AvailableNightsToHostScreen';
-import MaximumGuestsScreen from './profile/MaximumGuestsScreen';
-import PreferredGenderScreen from './profile/PreferredGenderScreen';
-import SleepingArrangementsScreen from './profile/SleepingArrangementsScreen';
+import AboutMeEditorScreen from './profile/about/AboutMeEditorScreen';
+import YourHomeEditorScreen from './profile/home/YourHomeEditorScreen';
+import AvailableNightsToHostScreen from './profile/home/AvailableNightsToHostScreen';
+import MaximumGuestsScreen from './profile/home/MaximumGuestsScreen';
+import PreferredGenderScreen from './profile/home/PreferredGenderScreen';
+import SleepingArrangementsScreen from './profile/home/SleepingArrangementsScreen';
 
 class CSNavigator extends Component {
   render(){

@@ -2,17 +2,16 @@
 import React, {Component} from 'react';
 import {
   View,
-  TouchableHighlight,
   ScrollView,
   Image,
   Text,
   StyleSheet
 } from 'react-native';
-import {CSHeader} from '../components/CSHeader';
-import CSInputList from '../components/CSInputList';
-import CSTextInput from '../components/CSTextInput';
-import CSSettingCell from '../components/CSSettingCell';
-import CSSwitchCell from '../components/CSSwitchCell';
+import {CSHeader} from '../../components/CSHeader';
+import CSInputList from '../../components/CSInputList';
+import CSTextInput from '../../components/CSTextInput';
+import CSSettingCell from '../../components/CSSettingCell';
+import CSSwitchCell from '../../components/CSSwitchCell';
 
 type Props = {
   account: {
@@ -62,7 +61,7 @@ export default class AboutMeEditorScreen extends Component {
       <View style={styles.container}>
         <CSHeader
           leftItem={[{
-            icon: require('../components/img/back.png'),
+            icon: require('../../components/img/back.png'),
             onPress: () => this.props.navigator.pop()
           }]}
           title="Your Home & Preferences"
