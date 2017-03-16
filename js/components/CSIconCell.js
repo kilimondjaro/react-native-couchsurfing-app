@@ -9,18 +9,18 @@ import {
 
 type Props = {
   icon: any;
-  text: string;
+  title: string;
   onPress?: () => void;
 };
 
-export default function AccountCell(props: Props) {
+export default function CSIconCell(props: Props) {
   return (
     <TouchableOpacity
       onPress={props.onPress}
       style={styles.container}
     >
       <Image source={props.icon} />
-      <Text style={styles.text}>{props.text}</Text>
+      <Text style={styles.title}>{props.title}</Text>
     </TouchableOpacity>
   );
 }
@@ -30,10 +30,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    height: 45,
+    height: 43,
     padding: 10
   },
-  text: {
-    fontSize: 18
+  title: {
+    fontSize: 16
   }
 });
