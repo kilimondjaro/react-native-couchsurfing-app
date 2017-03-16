@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     paddingRight: 10
   },
   nextBlock: {
+    alignItems: 'center',
     flexDirection: 'row'
   },
   nextIcon: {

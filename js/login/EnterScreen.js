@@ -20,14 +20,14 @@ class EnterScreen extends Component {
       <View style={styles.container}>
         <View style={styles.buttonArea}>
           <Button
-            onPress={() => this.props.navigator.push({login: true})}
+            onPress={() => this.props.navigator.push({screen: 'login'})}
             title="Log in"
             color="white"
           />
           <Button
             onPress={() => {
               this.props.dispatch(signupReset());
-              this.props.navigator.push({signup: true});
+              this.props.navigator.push({screen: 'signup'});
             }}
             title="Sign Up"
             color="white"

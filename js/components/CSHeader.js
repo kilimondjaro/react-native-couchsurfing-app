@@ -103,7 +103,8 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'white'
   },
   title: {
     fontSize: 16
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10
   },
   centerItem: {
-    flex: 2,
+    flex: 4,
     alignItems: 'center',
   },
   rightItem: {

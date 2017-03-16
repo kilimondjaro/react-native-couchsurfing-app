@@ -17,6 +17,11 @@ import AccountSettingsScreen from './tabs/account/AccountSettingsScreen';
 import ProfileScreen from './profile/ProfileScreen';
 import ProfileEditorScreen from './profile/ProfileEditorScreen';
 import AboutMeEditorScreen from './profile/AboutMeEditorScreen';
+import YourHomeEditorScreen from './profile/YourHomeEditorScreen';
+import AvailableNightsToHostScreen from './profile/AvailableNightsToHostScreen';
+import MaximumGuestsScreen from './profile/MaximumGuestsScreen';
+import PreferredGenderScreen from './profile/PreferredGenderScreen';
+import SleepingArrangementsScreen from './profile/SleepingArrangementsScreen';
 
 class CSNavigator extends Component {
   render(){
@@ -32,104 +37,49 @@ class CSNavigator extends Component {
             }
             return Navigator.SceneConfigs.PushFromRight;
           }}
-          initialRoute={{}}
+          initialRoute={{screen: 'yourHomeEtidor'}}
           renderScene={this.renderScene}
         />
     );
   }
 
   renderScene(route, navigator) {
-    if (route.enter) {
-      return (
-        <EnterScreen
-          navigator={navigator}
-        />
-      );
+    switch (route.screen) {
+      case 'enter':
+        return <EnterScreen navigator={navigator} />;
+      case 'login':
+        return <LoginScreen navigator={navigator} />;
+      case 'signup':
+        return <SignUpScreen navigator={navigator} />;
+      case 'signupAdress':
+        return <SignUpAdressScreen navigator={navigator} />;
+      case 'signupSearch':
+        return <SignUpSearchScreen navigator={navigator} />;
+      case 'hostsFilter':
+        return <HostsFilterScreen navigator={navigator} data={route.data} />;
+      case 'travelersFilter':
+        return <TravelersFilterScreen navigator={navigator} data={route.data} />;
+      case 'accountSettings':
+        return <AccountSettingsScreen navigator={navigator} />;
+      case 'profile':
+        return <ProfileScreen navigator={navigator} />;
+      case 'editProfile':
+        return <ProfileEditorScreen navigator={navigator} />;
+      case 'aboutMeEditor':
+        return <AboutMeEditorScreen navigator={navigator} />;
+      case 'yourHomeEtidor':
+        return <YourHomeEditorScreen navigator={navigator} />;
+      case 'availableNightsToHost':
+        return <AvailableNightsToHostScreen navigator={navigator} />;
+      case 'maximumGuests':
+        return <MaximumGuestsScreen navigator={navigator} />;
+      case 'preferredGender':
+        return <PreferredGenderScreen navigator={navigator} />;
+      case 'sleepingArrangements':
+        return <SleepingArrangementsScreen navigator={navigator} />;
+      default:
+        return <TabsView navigator={navigator} />;
     }
-
-    if (route.login) {
-      return (
-        <LoginScreen
-          navigator={navigator}
-        />
-      );
-    }
-
-    if (route.signup) {
-      return (
-        <SignUpScreen
-          navigator={navigator}
-        />
-      );
-    }
-
-    if (route.signupAdress) {
-      return (
-        <SignUpAdressScreen
-          navigator={navigator}
-        />
-      );
-    }
-
-    if (route.signupSearch) {
-      return (
-        <SignUpSearchScreen
-          navigator={navigator}
-        />
-      );
-    }
-
-    if (route.hostsFilter) {
-      return (
-        <HostsFilterScreen
-          navigator={navigator}
-          data={route.data}
-        />
-      );
-    }
-
-    if (route.travelersFilter) {
-      return (
-        <TravelersFilterScreen
-          navigator={navigator}
-          data={route.data}
-        />
-      );
-    }
-
-    if (route.accountSettings) {
-      return (
-        <AccountSettingsScreen
-          navigator={navigator}
-        />
-      );
-    }
-
-    if (route.profile) {
-      return (
-        <ProfileScreen
-          navigator={navigator}
-        />
-      );
-    }
-
-    if (route.editProfile) {
-      return (
-        <ProfileEditorScreen
-          navigator={navigator}
-        />
-      );
-    }
-
-    if (route.aboutMeEditor) {
-      return (
-        <AboutMeEditorScreen
-          navigator={navigator}
-        />
-      );
-    }
-
-    return <TabsView navigator={navigator} />;
   }
 }
 
