@@ -66,7 +66,9 @@ export default class AboutMeEditorScreen extends Component {
           }]}
           title="Your Home & Preferences"
         />
-        <ScrollView>
+        <ScrollView
+          keyboardDismissMode="on-drag"
+        >
           <View style={{marginTop: 20, marginBottom: 20}}>
             <CSInputList
               style={styles.inputList}

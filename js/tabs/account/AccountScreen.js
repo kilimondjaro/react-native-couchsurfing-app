@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {CSHeader} from '../../components/CSHeader';
 import CSInputList from '../../components/CSInputList';
-import AccountCell from './AccountCell';
+import CSIconCell from '../../components/CSIconCell';
 import CSAvatar from '../../components/CSAvatar';
 
 class AccountScreen extends Component {
@@ -34,7 +34,7 @@ class AccountScreen extends Component {
         <CSHeader
           style={styles.header}
           title="account"
-          rightItem={[{text: 'Log Out'}]}
+          rightItem={[{title: 'Log Out'}]}
         />
         <ScrollView
           automaticallyAdjustContentInsets={false}
@@ -48,46 +48,46 @@ class AccountScreen extends Component {
           />
           <View>
             <CSInputList separatorStyle={{marginLeft: 5}}>
-              <AccountCell
+              <CSIconCell
                 onPress={null}
-                text="Get Verified"
+                title="Get Verified"
               />
-              <AccountCell
+              <CSIconCell
                 onPress={() => this.onCellPress('profile')}
-                text="Profile"
+                title="Profile"
               />
-              <AccountCell
+              <CSIconCell
                 onPress={null}
-                text="Friends"
+                title="Friends"
               />
-              <AccountCell
+              <CSIconCell
                 onPress={() => this.onCellPress('accountSettings')}
-                text="Account & Settings"
+                title="Account & Settings"
               />
-              <AccountCell
+              <CSIconCell
                 onPress={null}
-                text="Notification Settings"
+                title="Notification Settings"
               />
             </CSInputList>
           </View>
           <View style={{marginTop: 20}}>
             <Text style={{marginLeft: 5, color: '#696a6d'}}>{'about couchsurfing'.toUpperCase()}</Text>
             <CSInputList separatorStyle={{marginLeft: 5}}>
-              <AccountCell
+              <CSIconCell
                 onPress={null}
-                text="About"
+                title="About"
               />
-              <AccountCell
+              <CSIconCell
                 onPress={null}
-                text="Back"
+                title="Back"
               />
-              <AccountCell
+              <CSIconCell
                 onPress={null}
-                text="Safety"
+                title="Safety"
               />
-              <AccountCell
+              <CSIconCell
                 onPress={null}
-                text="Feedback"
+                title="Feedback"
               />
             </CSInputList>
           </View>

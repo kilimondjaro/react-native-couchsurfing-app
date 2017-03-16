@@ -22,6 +22,9 @@ import AvailableNightsToHostScreen from './profile/home/AvailableNightsToHostScr
 import MaximumGuestsScreen from './profile/home/MaximumGuestsScreen';
 import PreferredGenderScreen from './profile/home/PreferredGenderScreen';
 import SleepingArrangementsScreen from './profile/home/SleepingArrangementsScreen';
+import OverviewScreen from './profile/overview/OverviewScreen';
+import AddressEditorScreen from './profile/address/AddressEditorScreen';
+
 
 class CSNavigator extends Component {
   render(){
@@ -37,7 +40,7 @@ class CSNavigator extends Component {
             }
             return Navigator.SceneConfigs.PushFromRight;
           }}
-          initialRoute={{screen: 'yourHomeEtidor'}}
+          initialRoute={{}}
           renderScene={this.renderScene}
         />
     );
@@ -77,6 +80,10 @@ class CSNavigator extends Component {
         return <PreferredGenderScreen navigator={navigator} />;
       case 'sleepingArrangements':
         return <SleepingArrangementsScreen navigator={navigator} />;
+      case 'overviewEditor':
+        return <OverviewScreen navigator={navigator} />;
+      case 'addressEditor':
+        return <AddressEditorScreen navigator={navigator} />;
       default:
         return <TabsView navigator={navigator} />;
     }

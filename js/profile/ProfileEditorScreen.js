@@ -43,15 +43,15 @@ class ProfileEditorScreen extends Component {
           />
           <CSSettingCell
             title="Your Home & Preferences"
-            onPress={() => {}}
+            onPress={() => this.props.navigator.push({screen: 'yourHomeEtidor'})}
           />
           <CSSettingCell
             title="Overview"
-            onPress={() => {}}
+            onPress={() => this.props.navigator.push({screen: 'overviewEditor'})}
           />
           <CSSettingCell
             title="Address"
-            onPress={() => {}}
+            onPress={() => this.props.navigator.push({screen: 'addressEditor'})}
           />
         </CSInputList>
       </View>
