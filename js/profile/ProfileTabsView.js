@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Navigator
 } from 'react-native';
+import {connect} from 'react-redux';
 import { TabViewAnimated, TabBar } from 'react-native-tab-view';
 import CSInputList from '../components/CSInputList';
 import MyHomeView from './MyHomeView';
@@ -67,53 +68,6 @@ class ProfileTabsView extends Component {
         { key: 'photos', title: 'Photos' }
       ]
     };
-  }
-
-  static defaultProps = {
-    account: {
-      firstName: 'Kirill',
-      lastName: 'Babich',
-      gender: 'male',
-      age: 20,
-      createdAt: new Date(),
-      friends: [],
-      location: 'Moscow, Moscow, Russian Federation',
-      photoAlbums: [
-        {
-          title: 'Profile Photos',
-          photos: [1,2,3]
-        },
-        {
-          title: 'Couch Photos',
-          photos: []
-        }
-      ],
-      maxGuests: 1,
-      preferredGender: 'Any',
-      sameDayRequests: true,
-      smokingAllowed: true,
-      kidFriendly: false,
-      petFriendly: true,
-      languagesImFluentIn: ['Russian', 'English'],
-      sleepingArrengements: 'Shared Room',
-      petsAtHome: false,
-      kidsAtHome: false,
-      smoker: false,
-      wheelchairAccessible: false,
-      publicTransit: null,
-      descriptionOfSleepingArrengements: null,
-      roommateSituation: null,
-      whatYouCanShareWithGuests: null,
-      additionalInformation: 'My home is located near the center of the city.',
-      aboutMe: 'I\'m a Russian student from Moscow.',
-      experience: {
-        hosted: [{reference: 'Nice guy!', star: true}],
-        stayedWith: [{reference: 'Nice guy!', star: true}]
-      },
-      interests: ['guitar', 'music', 'The Beatles', 'Photography', 'Traveling'],
-      interestsDescription: 'I like playing guitar',
-      countriesIveVisited: ['England', 'France']
-    }
   }
 
   _handleChangeTab = (index) => {
@@ -207,4 +161,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProfileTabsView;
+export default connect(
+  (state) => ({ account: state.account })
+)(ProfileTabsView);

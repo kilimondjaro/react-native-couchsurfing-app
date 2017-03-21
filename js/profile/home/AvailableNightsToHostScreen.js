@@ -3,8 +3,10 @@ import React from 'react';
 import {
   View,
   ScrollView,
-  StyleSheet
+  StyleSheet,
+  Navigator
 } from 'react-native';
+import {connect} from 'react-redux';
 import {CSHeader} from '../../components/CSHeader';
 import CSInputList from '../../components/CSInputList';
 import CSCheckCell from '../../components/CSCheckCell';
@@ -12,13 +14,14 @@ import CSCheckCell from '../../components/CSCheckCell';
 type Props = {
   account: {
     [name: string]: any;
-  }
+  },
+  navigator: Navigator;
 };
 
-const days = ['']
-
-export default function AvailableNightsToHostScreen(props){
-  const {account} = props;
+function AvailableNightsToHostScreen(props: Props){
+  const {
+    availableNightsToHost
+  } = props.account;
 
   return (
     <View style={styles.container}>
@@ -35,7 +38,7 @@ export default function AvailableNightsToHostScreen(props){
             style={styles.inputList}
           >
             {
-              Object.keys(props.account.availableNightsToHost)
+              Object.keys(availableNightsToHost)
                 .map(key => (
                   <CSCheckCell
                     key={key}
@@ -76,3 +79,7 @@ const styles = StyleSheet.create({
     borderTopColor: '#CCCCCC'
   }
 });
+
+export default connect(
+  (state) => ({account: state.account})
+)(AvailableNightsToHostScreen)

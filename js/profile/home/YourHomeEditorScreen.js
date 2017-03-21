@@ -1,12 +1,12 @@
 // @flow
-import React, {Component} from 'react';
+import React from 'react';
 import {
   View,
   ScrollView,
-  Image,
-  Text,
-  StyleSheet
+  StyleSheet,
+  Navigator
 } from 'react-native';
+import {connect} from 'react-redux';
 import {CSHeader} from '../../components/CSHeader';
 import CSInputList from '../../components/CSInputList';
 import CSTextInput from '../../components/CSTextInput';
@@ -16,139 +16,130 @@ import CSSwitchCell from '../../components/CSSwitchCell';
 type Props = {
   account: {
     [name: string]: any;
-  }
+  };
+  navigator: Navigator;
 };
 
-export default class AboutMeEditorScreen extends Component {
-  constructor(props) {
-    super(props);
+function getAvailableNihtsToHostValue(availableNightsToHost: any) {
+  const len = Object.keys(availableNightsToHost)
+    .filter(key => availableNightsToHost[key] === true).length;
 
-    this.state = {
-    }
+  if (len > 0) {
+    return len === Object.keys(availableNightsToHost).length
+      ? 'All'
+      : 'Custom';
   }
+  return 'None';
+}
 
-  static defaultProps = {
-    account: {
-      availableNightsToHost: {
-        sunday: true,
-        monday: true,
-        tuesday: true,
-        wednesday: true,
-        thursday: true,
-        friday: true,
-        saturday: true
-      },
-      maxGuests: 1
-    }
-  }
+function AboutMeEditorScreen(props) {
+  const {
+    availableNightsToHost,
+    maxGuests,
+    multipleGroupsOk,
+    preferredGender,
+    kidFriendly,
+    petFriendly,
+    wheelchairAccessible,
+    smokingAllowed,
+    whatYouCanShareWithGuests,
+    descriptionOfSleepingArrengements,
+    roommateSituation,
+    publicTransit,
+    additionalInformation
+  } = props.account;
 
-  getAvailableNihtsToHostValue(availableNightsToHost: any) {
-    const len = Object.keys(availableNightsToHost)
-      .filter(key => availableNightsToHost[key] === true).length;
-
-    if (len > 0) {
-      return len === Object.keys(availableNightsToHost).length
-        ? 'All'
-        : 'Custom';
-    }
-    return 'None';
-  }
-
-  render() {
-    const {account} = this.props;
-
-    return (
-      <View style={styles.container}>
-        <CSHeader
-          leftItem={[{
-            icon: require('../../components/img/back.png'),
-            onPress: () => this.props.navigator.pop()
-          }]}
-          title="Your Home & Preferences"
-        />
-        <ScrollView
-          keyboardDismissMode="on-drag"
-        >
-          <View style={{marginTop: 20, marginBottom: 20}}>
-            <CSInputList
-              style={styles.inputList}
-            >
-              <CSSettingCell
-                title="Available Nights to Host"
-                value={this.getAvailableNihtsToHostValue(account.availableNightsToHost)}
-                onPress={() => this.props.navigator.push({screen: 'availableNightsToHost'})}
-              />
-              <CSSettingCell
-                title="Maximum Guests"
-                value={account.maxGuests}
-                onPress={() => this.props.navigator.push({screen: 'maximumGuests'})}
-              />
-              <CSSwitchCell
-                title="Multiple Groups Okay"
-                onChange={() => {}}
-                value={true}
-              />
-              <CSSettingCell
-                title="Preferred Gender"
-                value={'Any'}
-                onPress={() => this.props.navigator.push({screen: 'preferredGender'})}
-              />
-              <CSSwitchCell
-                title="Kid Friendly"
-                onChange={() => {}}
-                value={false}
-              />
-              <CSSwitchCell
-                title="Pet Friendly"
-                onChange={() => {}}
-                value={false}
-              />
-              <CSSwitchCell
-                title="Wheelchair Accessible"
-                onChange={() => {}}
-                value={false}
-              />
-              <CSSwitchCell
-                title="Smoking Allowed"
-                onChange={() => {}}
-                value={false}
-              />
-              <CSSettingCell
-                title="Sleeping Arrangments"
-                value={''}
-                onPress={() => this.props.navigator.push({screen: 'sleepingArrangements'})}
-              />
-              <CSTextInput
-                placeholder="What You Can Offer Guests"
-                onChangeText={(text) => {}}
-                value={''}
-              />
-              <CSTextInput
-                placeholder="Description Of Sleeping Arrangement"
-                onChangeText={(text) => {}}
-                value={''}
-              />
-              <CSTextInput
-                placeholder="Roommate Situation"
-                onChangeText={(text) => {}}
-                value={''}
-              />
-              <CSTextInput
-                placeholder="Public Transit Options"
-                onChangeText={(text) => {}}
-                value={''}
-              />
-              <CSTextInput
-                placeholder="Additional Information"
-                onChangeText={(text) => {}}
-                value={''}
-              />
-            </CSInputList>
-          </View>
-        </ScrollView>
-      </View>
-    );
-  }
+  return (
+    <View style={styles.container}>
+      <CSHeader
+        leftItem={[{
+          icon: require('../../components/img/back.png'),
+          onPress: () => props.navigator.pop()
+        }]}
+        title="Your Home & Preferences"
+      />
+      <ScrollView
+        keyboardDismissMode="on-drag"
+      >
+        <View style={{marginTop: 20, marginBottom: 20}}>
+          <CSInputList
+            style={styles.inputList}
+          >
+            <CSSettingCell
+              title="Available Nights to Host"
+              value={getAvailableNihtsToHostValue(availableNightsToHost)}
+              onPress={() => props.navigator.push({screen: 'availableNightsToHost'})}
+            />
+            <CSSettingCell
+              title="Maximum Guests"
+              value={maxGuests}
+              onPress={() => props.navigator.push({screen: 'maximumGuests'})}
+            />
+            <CSSwitchCell
+              title="Multiple Groups Okay"
+              onChange={() => {}}
+              value={multipleGroupsOk}
+            />
+            <CSSettingCell
+              title="Preferred Gender"
+              value={preferredGender}
+              onPress={() => props.navigator.push({screen: 'preferredGender'})}
+            />
+            <CSSwitchCell
+              title="Kid Friendly"
+              onChange={() => {}}
+              value={kidFriendly}
+            />
+            <CSSwitchCell
+              title="Pet Friendly"
+              onChange={() => {}}
+              value={petFriendly}
+            />
+            <CSSwitchCell
+              title="Wheelchair Accessible"
+              onChange={() => {}}
+              value={wheelchairAccessible}
+            />
+            <CSSwitchCell
+              title="Smoking Allowed"
+              onChange={() => {}}
+              value={false}
+            />
+            <CSSettingCell
+              title="Sleeping Arrangments"
+              value={smokingAllowed}
+              onPress={() => props.navigator.push({screen: 'sleepingArrangements'})}
+            />
+            <CSTextInput
+              placeholder="What You Can Offer Guests"
+              onChangeText={(text) => {}}
+              value={whatYouCanShareWithGuests}
+            />
+            <CSTextInput
+              placeholder="Description Of Sleeping Arrangement"
+              onChangeText={(text) => {}}
+              value={descriptionOfSleepingArrengements}
+            />
+            <CSTextInput
+              placeholder="Roommate Situation"
+              onChangeText={(text) => {}}
+              value={roommateSituation}
+            />
+            <CSTextInput
+              placeholder="Public Transit Options"
+              onChangeText={(text) => {}}
+              value={publicTransit}
+            />
+            <CSTextInput
+              placeholder="Additional Information"
+              onChangeText={(text) => {}}
+              value={additionalInformation}
+            />
+          </CSInputList>
+        </View>
+      </ScrollView>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -161,3 +152,7 @@ const styles = StyleSheet.create({
     borderTopColor: '#CCCCCC'
   }
 });
+
+export default connect(
+  state => ({account: state.account})
+)(AboutMeEditorScreen);
