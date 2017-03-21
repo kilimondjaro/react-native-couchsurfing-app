@@ -56,9 +56,15 @@ type Props = {
 };
 
 export default function MyHomeView(props: Props) {
+  const {
+    firstName,
+    lastName,
+
+  } = props.account;
+
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, styles.item]}>{`${props.account.firstName} ${props.account.lastName}'s preferences`.toUpperCase()}</Text>
+      <Text style={[styles.title, styles.item]}>{`${firstName} ${lastName}'s preferences`.toUpperCase()}</Text>
       {
         Object.keys(template.preferences).map(key => {
           const value = props.account[key];
@@ -75,7 +81,7 @@ export default function MyHomeView(props: Props) {
         })
       }
 
-      <Text style={[styles.title, styles.item]}>{`${props.account.firstName} ${props.account.lastName}'s home`.toUpperCase()}</Text>
+      <Text style={[styles.title, styles.item]}>{`${firstName} ${lastName}'s home`.toUpperCase()}</Text>
       {
         Object.keys(template.home).map(key => {
           const value = props.account[key];

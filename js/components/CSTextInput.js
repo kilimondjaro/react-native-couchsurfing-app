@@ -25,10 +25,11 @@ class CSTextInput extends Component {
 
   constructor(props: Props) {
     super(props);
+    this.textInput;
 
     this.state = {
       onFocus: false,
-      height: 0
+      height: 30
     };
 
     this.onFocus.bind(this);
@@ -67,9 +68,14 @@ class CSTextInput extends Component {
     var containerSize, textInputSize;
     if (this.props.multiline) {
       containerSize = {height: null};
-      textInputSize = this.props.value.length > 0
-        ? {height: this.state.height}
-        : {height: 40}
+      if (this.props.value.length > 0) {
+        textInputSize = this.state.height > 30
+          ? {height: this.state.height}
+          : {height: 30}
+      }
+      else {
+        textInputSize = {height: 40};
+      }
     }
 
     return (
@@ -82,6 +88,8 @@ class CSTextInput extends Component {
         <TextInput
           spellCheck={false}
           autoCorrect={false}
+          ref={(event) => { this.textInput = event; }}
+          onLayout={(e) => console.log(e.nativeEvent)}
           style={[styles.textInput, inputStyle, textInputSize]}
           {...this.props}
           onChange={(event) => {

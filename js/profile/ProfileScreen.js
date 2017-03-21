@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Navigator
 } from 'react-native';
+import {connect} from 'react-redux';
 import {CSHeader} from '../components/CSHeader';
 import CSAvatar from '../components/CSAvatar';
 import ProfileProgressBar from './ProfileProgressBar';
@@ -43,37 +44,25 @@ function CellWithIcon(props) {
 }
 
 class ProfileScreen extends Component {
-  static defaultProps = {
-    account: {
-      firstName: 'Kirill',
-      lastName: 'Babich',
-      location: 'Moscow',
-      references: [
-        {wouldStayAgain: true},
-        {wouldStayAgain: true},
-        {wouldStayAgain: false}
-      ],
-      status: 'accepting',
-      responseRate: 100,
-      active: 'Today',
-      verified: {
-        status: 'Partially Verified',
-        parts: {
-          payment: true,
-          phone: false,
-          governmentId: false,
-          address: false
-        }
-      }
-    }
-  }
-
   render() {
-    const {account} = this.props;
-    const status = statusMap[account.status];
+    const {
+      status,
+      verified,
+      experience,
+      firstName,
+      lastName,
+      location,
+      responseRate,
+      active
+    } = this.props.account;
+    const currentStatus = statusMap[status];
 
-    const verifiedText = Object.keys(account.verified.parts)
-      .map(part => <Text key={part} style={account.verified.parts[part] ? {color: '#47b769'} : null}>{`• ${verifiedStatuses[part]} `}</Text>);
+    const verifiedText = Object.keys(verified.parts)
+      .map(part => <Text key={part} style={verified.parts[part] ? {color: '#47b769'} : null}>{`• ${verifiedStatuses[part]} `}</Text>);
+
+    const referencesCount = experience.hosted.length + experience.stayedWith.length;
+    const starsCount = experience.hosted.filter(obj => obj.star === true).length
+      + experience.stayedWith.filter(obj => obj.star === true).length;
 
     return (
       <View style={styles.container}>
@@ -87,15 +76,15 @@ class ProfileScreen extends Component {
             onPress: () => this.props.navigator.push({screen: 'editProfile'})
           }]}
           style={styles.header}
-          title={`${account.firstName} ${account.lastName}`}
+          title={`${firstName} ${lastName}`}
         />
         <ScrollView>
           <ProfileProgressBar completion={0.75} />
           <CSAvatar
             style={styles.avatarContainer}
             image={require('../tabs/search/img/me.jpg')}
-            firstLine={`${account.firstName} ${account.lastName}`}
-            secondLine={account.location}
+            firstLine={`${firstName} ${lastName}`}
+            secondLine={location}
           >
             <View style={styles.zoomAvatartButtonContainer}>
               <TouchableOpacity
@@ -114,14 +103,14 @@ class ProfileScreen extends Component {
               icon={require('../tabs/search/img/references.png')}
             >
               {
-                account.references.length > 0
+                referencesCount > 0
                   ? (
                     <View style={styles.referenceCell}>
                       <View style={styles.referencesContainer}>
-                        <Text style={styles.referenceText}>{`${account.references.length} References`}</Text>
+                        <Text style={styles.referenceText}>{`${referencesCount} References`}</Text>
                         <View style={styles.wouldStayAgainContainer}>
                           <Image style={{marginRight: 5}} source={require('./img/star.png')} />
-                          <Text>{account.references.filter(r => r.wouldStayAgain === true).length}</Text>
+                          <Text>{starsCount}</Text>
                         </View>
                       </View>
                       <Image source={require('../components/img/next.png')}/>
@@ -137,8 +126,8 @@ class ProfileScreen extends Component {
             >
               <View>
                 {/* Fix status color bug!!!! */}
-                <Text style={{color: status.areaColor}}>{status.label}</Text>
-                <Text style={{fontSize: 12}}>{`Response rate: ${account.responseRate}% • Active ${account.active}`}</Text>
+                <Text style={{color: currentStatus.areaColor}}>{currentStatus.label}</Text>
+                <Text style={{fontSize: 12}}>{`Response rate: ${responseRate}% • Active ${active.toDateString()}`}</Text>
               </View>
             </CellWithIcon>
             <CellWithIcon
@@ -146,7 +135,7 @@ class ProfileScreen extends Component {
             >
               <View>
                 {/* Fix status color bug!!!! */}
-                <Text style={{color: status.areaColor}}>{account.verified.status}</Text>
+                <Text style={{color: currentStatus.areaColor}}>{verified.status}</Text>
                 <Text style={{fontSize: 12}}>{verifiedText}</Text>
               </View>
             </CellWithIcon>
@@ -218,4 +207,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProfileScreen;
+export default connect(
+  (state) => ({account: state.account})
+)(ProfileScreen);

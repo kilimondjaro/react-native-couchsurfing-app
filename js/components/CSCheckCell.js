@@ -10,13 +10,13 @@ import {
 type Props = {
   title: string;
   value?: boolean;
-  onChange: () => void;
+  onPress: () => void;
 };
 
 export default function CSCheckCell(props: Props) {
   return (
     <TouchableOpacity
-      onPress={props.onChange}
+      onPress={props.onPress}
       style={styles.container}
     >
       <Text style={styles.titileText}>{props.title}</Text>

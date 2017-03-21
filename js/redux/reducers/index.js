@@ -7,6 +7,8 @@ import calendar from './calendar';
 import hosting from './hosting';
 import filter from './filter';
 import search from './search';
+import user from './user';
+import account from './account';
 
 export default combineReducers({
   login,
@@ -16,5 +18,7 @@ export default combineReducers({
   calendar,
   hosting,
   filter,
-  search
+  search,
+  user,
+  account
 });

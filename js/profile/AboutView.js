@@ -6,7 +6,7 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import {monthNames} from '../helpers';
+import {monthNames, capitalizeFirstLetter} from '../helpers';
 
 const template = {
   aboutMe: 'About Me',
@@ -37,6 +37,12 @@ function InterestBubble(props) {
   );
 }
 
+function getAge(birthday){
+  const now = new Date();
+  const diff = now.getTime() - birthday.getTime();
+  return Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+}
+
 type Props = {
   account: {
     [name: string]: any;
@@ -44,14 +50,30 @@ type Props = {
 };
 
 export default function AboutView(props: Props) {
-  const {account} = props;
+  const {
+    experience,
+    languagesImFluentIn,
+    location,
+    gender,
+    birthday,
+    createdAt,
+    friends,
+    interestsDescription,
+    interests,
+    countriesIveVisited,
+    countriesIveLivedIn,
+    groups
+  } = props.account;
 
-  const hostedCount = account.experience.hosted.length;
-  const stayedWithCount = account.experience.stayedWith.length;
-  const wouldSurfAgainCount = account.experience.hosted
+  const hostedCount = experience.hosted.length;
+  const stayedWithCount = experience.stayedWith.length;
+  const wouldSurfAgainCount = experience.hosted
     .filter(ref => ref.star === true).length;
-  const wouldHostAgainCount = account.experience.stayedWith
+  const wouldHostAgainCount = experience.stayedWith
     .filter(ref => ref.star === true).length;
+
+  const lngImFluentIn = Object.keys(languagesImFluentIn)
+    .filter(key => languagesImFluentIn[key] === true);
 
   var hosted, stayedWith;
   if (hostedCount > 0) {
@@ -98,64 +120,78 @@ export default function AboutView(props: Props) {
       <Text style={[styles.title, styles.item]}>{'Overview'.toUpperCase()}</Text>
       <TextWithIcon
         icon={require('../components/img/gender.png')}
-        text={`${account.gender[0].toUpperCase()}, ${account.age}`}
+        text={`${gender[0].toUpperCase()}, ${getAge(birthday)}`}
       />
       <TextWithIcon
         icon={require('../components/img/geopoint.png')}
-        text={`Member since ${monthNames[account.createdAt.getMonth()]} ${account.createdAt.getFullYear()}`}
+        text={`Member since ${monthNames[createdAt.getMonth()]} ${createdAt.getFullYear()}`}
       />
       <TextWithIcon
         icon={require('../components/img/geopoint.png')}
-        text={`${account.friends.length > 0 ? account.friends.length : 'No'} Couchsurfing Friends`}
+        text={`${friends.length > 0 ? friends.length : 'No'} Couchsurfing Friends`}
       />
       {
-        account.languagesImFluentIn ? (
+        lngImFluentIn.length > 0 ? (
           <TextWithIcon
             icon={require('../components/img/speaks.png')}
-            text={`Fluent in ${account.languagesImFluentIn.join(', ')}`}
+            text={`Fluent in ${lngImFluentIn.map(name => `${name[0].toUpperCase()}${name.slice(1)}`).join(', ')}`}
           />
         ) : null
       }
       {
-        account.location ? (
+        location ? (
           <TextWithIcon
             icon={require('../components/img/geopoint.png')}
-            text={`From ${account.location}`}
+            text={`From ${location}`}
           />
         ) : null
       }
 
       <Text style={[styles.title, styles.item]}>{'Interests'.toUpperCase()}</Text>
-      <Text style={[styles.key, styles.item]}>{account.interestsDescription}</Text>
+      <Text style={[styles.key, styles.item]}>{interestsDescription}</Text>
       <View style={[styles.interestBubbleArea ,styles.item]}>
       {
-        account.interests.map(interest => <InterestBubble key={interest} text={interest} />)
+        interests.map(interest => <InterestBubble key={interest} text={interest} />)
       }
       </View>
 
       {
-        account.countriesIveVisited ? (
+        countriesIveVisited ? (
           <View>
             <Text style={[styles.title, styles.item]}>{'Countries I\'ve Visited'.toUpperCase()}</Text>
-            <Text style={[styles.key, styles.item]}>{account.countriesIveVisited.join(', ')}</Text>
+            <Text style={[styles.key, styles.item]}>
+              {
+                Object.keys(countriesIveVisited)
+                  .filter(key => countriesIveVisited[key] === true)
+                  .map(countries => capitalizeFirstLetter(countries))
+                  .join(', ')
+              }
+            </Text>
           </View>
         ) : null
       }
 
       {
-        account.countriesIveLivedIn ? (
+        countriesIveLivedIn ? (
           <View>
             <Text style={[styles.title, styles.item]}>{'Countries I\'ve Lived In'.toUpperCase()}</Text>
-            <Text style={[styles.key, styles.item]}>{account.countriesIveLivedIn.join(', ')}</Text>
+            <Text style={[styles.key, styles.item]}>
+              {
+                Object.keys(countriesIveLivedIn)
+                  .filter(key => countriesIveLivedIn[key] === true)
+                  .map(countries => capitalizeFirstLetter(countries))
+                  .join(', ')
+              }
+            </Text>
           </View>
         ) : null
       }
 
       {
-        account.groups ? (
+        groups ? (
           <View>
             <Text style={[styles.title, styles.item]}>{'Groups'.toUpperCase()}</Text>
-            <Text style={[styles.key, styles.item]}>{account.groups.join(', ')}</Text>
+            <Text style={[styles.key, styles.item]}>{groups.join(', ')}</Text>
           </View>
         ) : null
       }

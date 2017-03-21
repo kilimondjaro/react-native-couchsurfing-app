@@ -11,15 +11,10 @@ import CSInputList from '../../components/CSInputList';
 import CSCheckCell from '../../components/CSCheckCell';
 
 type Props = {
-  account: {
-    [name: string]: any;
-  };
   navigator: Navigator;
 };
 
 export default function PreferredGenderScreen(props: Props){
-  const {account} = props;
-
   return (
     <View style={styles.container}>
       <CSHeader

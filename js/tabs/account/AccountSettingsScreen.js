@@ -5,11 +5,11 @@ import {
   Text,
   Alert,
   ScrollView,
-  TouchableOpacity,
   StyleSheet,
   SegmentedControlIOS,
   Navigator
 } from 'react-native';
+import {connect} from 'react-redux';
 import CSTextInput from '../../components/CSTextInput';
 import CSInputList from '../../components/CSInputList';
 import CSDatePickerIOS from '../../components/CSDatePickerIOS';
@@ -27,35 +27,12 @@ function SettingsBlock(props) {
 
 const genderTypes = ['Male', 'Female', 'Other'];
 
-type Account = {
-  birthday: Date;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  gender: string;
-  emergencyName: string;
-  emergencyPhone: string;
-  emergencyEmail: string;
-  emergencyNotes: string;
-}
-
 type Props = {
-  account: Account;
+  account: Account; //FIXME
   navigator: Navigator;
 }
 
 type State = {
-  birthday: Date;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  gender: string;
-  emergencyName: string;
-  emergencyPhone: string;
-  emergencyEmail: string;
-  emergencyNotes: string;
   datePickerIsVisible: boolean;
 }
 
@@ -67,30 +44,9 @@ class AccountSettingsScreen extends Component {
     super(props);
 
     this.state = {
-      firstName: props.account.firstName,
-      lastName: props.account.lastName,
-      birthday: props.account.birthday,
-      email: props.account.email,
-      phone: props.account.phone,
-      gender: props.account.gender,
-      emergencyName: props.account.emergencyName,
-      emergencyPhone: props.account.emergencyPhone,
-      emergencyEmail: props.account.emergencyEmail,
-      emergencyNotes: props.account.emergencyNotes,
       datePickerIsVisible: false
     };
   }
-
-  static defaultProps = {
-    account: {
-      firstName: 'Kirill',
-      lastName: 'Babich',
-      birthday: new Date(),
-      email: 'email@gmail.com',
-      phone: '+71234567890',
-      gender: 'Male'
-    }
-  };
 
   _onScroll() {
     if (this.state.datePickerIsVisible) {
@@ -110,7 +66,7 @@ class AccountSettingsScreen extends Component {
       emergencyPhone,
       emergencyEmail,
       emergencyNotes
-    } = this.state;
+    } = this.props.account;
 
     const alertMessage = 'Are you shure you want to cancel and lose any unsaved change?';
     return (
@@ -143,12 +99,12 @@ class AccountSettingsScreen extends Component {
             >
               <CSTextInput
                 placeholder="First name"
-                onChangeText={(text) => this.setState({firstName: text})}
+                onChangeText={(text) => {}}
                 value={firstName}
               />
               <CSTextInput
                 placeholder="Last name"
-                onChangeText={(text) => this.setState({lastName: text})}
+                onChangeText={(text) => {}}
                 value={lastName}
               />
             </CSInputList>
@@ -169,12 +125,12 @@ class AccountSettingsScreen extends Component {
             >
               <CSTextInput
                 placeholder="Email"
-                onChangeText={(text) => this.setState({email: text})}
+                onChangeText={(text) => {}}
                 value={email}
               />
               <CSTextInput
                 placeholder="Phone"
-                onChangeText={(text) => this.setState({phone: text})}
+                onChangeText={() => {}}
                 value={phone}
               />
             </CSInputList>
@@ -190,7 +146,7 @@ class AccountSettingsScreen extends Component {
                 selectedIndex={genderTypes.indexOf(gender)}
                 onChange={(event) => {
                   const index = event.nativeEvent.selectedSegmentIndex;
-                  this.setState({gender: genderTypes[index]});
+                  // this.setState({gender: genderTypes[index]});
                 }}
               />
             </CSInputList>
@@ -201,22 +157,22 @@ class AccountSettingsScreen extends Component {
             >
               <CSTextInput
                 placeholder="Name"
-                onChangeText={(text) => this.setState({emergencyName: text})}
+                onChangeText={(text) => {}}
                 value={emergencyName}
               />
               <CSTextInput
                 placeholder="Phone Number"
-                onChangeText={(text) => this.setState({emergencyPhone: text})}
+                onChangeText={(text) => {}}
                 value={emergencyPhone}
               />
               <CSTextInput
                 placeholder="Email Adress"
-                onChangeText={(text) => this.setState({emergencyEmail: text})}
+                onChangeText={(text) => {}}
                 value={emergencyEmail}
               />
               <CSTextInput
                 placeholder="Notes"
-                onChangeText={(text) => this.setState({emergencyNotes: text})}
+                onChangeText={(text) => {}}
                 value={emergencyNotes}
               />
             </CSInputList>
@@ -232,8 +188,8 @@ class AccountSettingsScreen extends Component {
         </ScrollView>
         <CSDatePickerIOS
           visible={this.state.datePickerIsVisible}
-          date={this.state.birthday}
-          onDateChange={(date) => this.setState({birthday: date})}
+          date={birthday}
+          onDateChange={(date) => {}}
         />
       </View>
     );
@@ -274,4 +230,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default AccountSettingsScreen;
+export default connect(
+  (state) => ({account: state.account})
+)(AccountSettingsScreen);

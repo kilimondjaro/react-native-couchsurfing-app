@@ -6,19 +6,18 @@ import {
   StyleSheet,
   Navigator
 } from 'react-native';
+import {connect} from 'react-redux';
 import {CSHeader} from '../../components/CSHeader';
 import CSInputList from '../../components/CSInputList';
 import CSCheckCell from '../../components/CSCheckCell';
 
 type Props = {
-  account: {
-    [name: string]: any;
-  };
+  sleepingArrangement: string;
   navigator: Navigator;
 };
 
-export default function SleepingArrangementsScreen(props: Props){
-  const {account} = props;
+function SleepingArrangementsScreen(props: Props){
+  const checkValue = value => value === props.sleepingArrangement;
 
   return (
     <View style={styles.container}>
@@ -36,22 +35,22 @@ export default function SleepingArrangementsScreen(props: Props){
           >
             <CSCheckCell
               title="Private Room"
-              value={true}
+              value={checkValue('Private Room')}
               onPress={() => {}}
             />
             <CSCheckCell
               title="Public Room"
-              value={true}
+              value={checkValue('Public Room')}
               onPress={() => {}}
             />
             <CSCheckCell
               title="Shared Room"
-              value={true}
+              value={checkValue('Shared Room')}
               onPress={() => {}}
             />
             <CSCheckCell
               title="Shared Sleeping Surface"
-              value={true}
+              value={checkValue('Shared Sleeping Surface')}
               onPress={() => {}}
             />
           </CSInputList>
@@ -71,3 +70,7 @@ const styles = StyleSheet.create({
     borderTopColor: '#CCCCCC'
   }
 });
+
+export default connect(
+  (state) => ({sleepingArrangement: state.account.sleepingArrangement})
+)(SleepingArrangementsScreen)
