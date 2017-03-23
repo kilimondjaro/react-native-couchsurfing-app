@@ -38,7 +38,7 @@ const initialState = {
       photos: []
     }
   ],
-  maxGuests: 1,
+  maxGuests: '1',
   preferredGender: 'Any',
   sameDayRequests: true,
   smokingAllowed: true,
@@ -90,5 +90,22 @@ const initialState = {
 };
 
 export default function account(state = initialState, action) {
+  switch (action.type) {
+    case 'TOGGLE_SETTING': {
+      return {...state, [action.name]: !state[action.name]};
+    }
+    case 'SET_SETTING': {
+      return {...state, [action.name]: action.value};
+    }
+    case 'CHECK_SETTING': {
+      const setting = state[action.name];
+      const keyValue = state[action.name][action.key];
+
+      return {
+        ...state,
+        [action.name]: {...setting, [action.key]: !keyValue}
+      };
+    }
+  }
   return state;
 }

@@ -16,7 +16,7 @@ const template = {
     sameDayRequests: 'Same Day Requests'
   },
   home: {
-    sleepingArrengements: 'Sleeping Arrangements',
+    sleepingArrangement: 'Sleeping Arrangement',
     petsAtHome: 'I Have Pets',
     kidsAtHome: 'Kids at Home',
     smoker: 'Smoking at Home',
@@ -85,7 +85,7 @@ export default function MyHomeView(props: Props) {
       {
         Object.keys(template.home).map(key => {
           const value = props.account[key];
-          if (value === null) {
+          if (value === '') {            
             return null;
           }
 
@@ -101,7 +101,7 @@ export default function MyHomeView(props: Props) {
       {
         Object.keys(template.others).map(key => {
           const value = props.account[key];
-          if (value === null) {
+          if (!value) {
             return null;
           }
 

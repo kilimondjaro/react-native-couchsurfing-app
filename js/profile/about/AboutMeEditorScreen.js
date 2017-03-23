@@ -11,6 +11,7 @@ import CSInputList from '../../components/CSInputList';
 import CSTextInput from '../../components/CSTextInput';
 import CSSettingCell from '../../components/CSSettingCell';
 import CSSwitchCell from '../../components/CSSwitchCell';
+import {toggleSetting, setSetting} from '../../redux/actions';
 
 type Props = {
   account: {
@@ -33,6 +34,8 @@ function AboutMeEditorScreen(props) {
     smoker
   } = props.account;
 
+  const dispatch = props.dispatch;
+
   return (
     <View style={styles.container}>
       <CSHeader
@@ -51,43 +54,43 @@ function AboutMeEditorScreen(props) {
           <CSTextInput
             multiline={true}
             placeholder="About Me"
-            onChangeText={(text) => {}}
+            onChangeText={(text) => dispatch(setSetting('aboutMe', text))}
             value={aboutMe}
           />
           <CSTextInput
             multiline={true}
             placeholder="One Amazing Thing I've Done"
-            onChangeText={(text) => {}}
+            onChangeText={(text) => dispatch(setSetting('oneAmazingThingIveDone', text))}
             value={oneAmazingThingIveDone}
           />
           <CSTextInput
             multiline={true}
             placeholder="Music, Movies & Books"
-            onChangeText={(text) => {}}
+            onChangeText={(text) => dispatch(setSetting('musicMoviesBooks', text))}
             value={musicMoviesBooks}
           />
           <CSTextInput
             multiline={true}
             placeholder="Teach, Learn, Share"
-            onChangeText={(text) => {}}
+            onChangeText={(text) => dispatch(setSetting('teachLearnShare', text))}
             value={teachLearnShare}
           />
           <CSTextInput
             multiline={true}
             placeholder="Why I'm on Couchsurfing"
-            onChangeText={(text) => this.setState({val: text})}
+            onChangeText={(text) => dispatch(setSetting('whyImOnCouchsurfing', text))}
             value={whyImOnCouchsurfing}
           />
           <CSTextInput
             multiline={true}
             placeholder="What I Can Share With Hosts"
-            onChangeText={(text) => {}}
+            onChangeText={(text) => dispatch(setSetting('whatYouCanShareWithGuests', text))}
             value={whatYouCanShareWithGuests}
           />
           <CSTextInput
             multiline={true}
             placeholder="My Interests"
-            onChangeText={(text) => this.setState({val: text})}
+            onChangeText={(text) => dispatch(setSetting('interestsDescription', text))}
             value={interestsDescription}
           />
           <CSSettingCell
@@ -98,17 +101,17 @@ function AboutMeEditorScreen(props) {
           />
           <CSSwitchCell
             title="I have children"
-            onChange={() => {}}
+            onChange={() => dispatch(toggleSetting('kidsAtHome'))}
             value={kidsAtHome}
           />
           <CSSwitchCell
             title="I have pets"
-            onChange={() => {}}
+            onChange={() => dispatch(toggleSetting('petsAtHome'))}
             value={petsAtHome}
           />
           <CSSwitchCell
             title="I'm a smoker"
-            onChange={() => {}}
+            onChange={() => dispatch(toggleSetting('smoker'))}
             value={smoker}
           />
         </CSInputList>

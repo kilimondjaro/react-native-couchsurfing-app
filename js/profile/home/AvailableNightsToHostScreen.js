@@ -10,6 +10,7 @@ import {connect} from 'react-redux';
 import {CSHeader} from '../../components/CSHeader';
 import CSInputList from '../../components/CSInputList';
 import CSCheckCell from '../../components/CSCheckCell';
+import {checkSetting} from '../../redux/actions';
 
 type Props = {
   account: {
@@ -43,8 +44,8 @@ function AvailableNightsToHostScreen(props: Props){
                   <CSCheckCell
                     key={key}
                     title={`${key[0].toUpperCase()}${key.slice(1)}`}
-                    value={true}
-                    onPress={() => {}}
+                    value={availableNightsToHost[key]}
+                    onPress={() => props.dispatch(checkSetting('availableNightsToHost', key))}
                   />
                 ))
             }

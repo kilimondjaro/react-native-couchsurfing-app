@@ -6,15 +6,19 @@ import {
   StyleSheet,
   Navigator
 } from 'react-native';
+import {connect} from 'react-redux';
 import {CSHeader} from '../../components/CSHeader';
 import CSInputList from '../../components/CSInputList';
 import CSCheckCell from '../../components/CSCheckCell';
+import {setSetting} from '../../redux/actions';
 
 type Props = {
   navigator: Navigator;
 };
 
-export default function PreferredGenderScreen(props: Props){
+const GENDER = ['Male', 'Female', 'Any'];
+
+function PreferredGenderScreen(props: Props){
   return (
     <View style={styles.container}>
       <CSHeader
@@ -29,21 +33,17 @@ export default function PreferredGenderScreen(props: Props){
           <CSInputList
             style={styles.inputList}
           >
-            <CSCheckCell
-              title="Female"
-              value={true}
-              onPress={() => {}}
-            />
-            <CSCheckCell
-              title="Male"
-              value={true}
-              onPress={() => {}}
-            />
-            <CSCheckCell
-              title="Any"
-              value={true}
-              onPress={() => {}}
-            />
+            {
+              GENDER.map(gender => (
+                <CSCheckCell
+                  title={gender}
+                  value={props.preferredGender === gender}
+                  onPress={() =>
+                    props.dispatch(setSetting('preferredGender', gender))
+                  }
+                />
+              ))
+            }
           </CSInputList>
         </View>
       </ScrollView>
@@ -61,3 +61,7 @@ const styles = StyleSheet.create({
     borderTopColor: '#CCCCCC'
   }
 });
+
+export default connect(
+  state => ({preferredGender: state.account.preferredGender})
+)(PreferredGenderScreen);
