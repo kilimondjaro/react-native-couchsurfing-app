@@ -12,6 +12,9 @@ export type Action =
   | {type: 'ADD_DATE', date: {year: number, month: number, day: number}}
   | {type: 'TOGGLE_FILTER', filter: any}
   | {type: 'FINDED_HOSTS', hosts: Array<any>}
+  | {type: 'TOGGLE_SETTING', name: string}
+  | {type: 'SET_SETTING', name: string, value: string}
+  | {type: 'CHECK_SETTING', name: string, key: string}
   ;
 
 

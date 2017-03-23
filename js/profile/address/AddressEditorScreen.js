@@ -10,6 +10,7 @@ import {CSHeader} from '../../components/CSHeader';
 import CSInputList from '../../components/CSInputList';
 import CSTextInput from '../../components/CSTextInput';
 import CSIconCell from '../../components/CSIconCell';
+import {toggleSetting, setSetting, checkSetting} from '../../redux/actions';
 
 type Props = {
   account: {

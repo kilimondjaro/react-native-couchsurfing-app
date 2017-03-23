@@ -6,10 +6,12 @@ import {
   StyleSheet,
   Navigator
 } from 'react-native';
+import {connect} from 'react-redux';
 import {CSHeader} from '../../components/CSHeader';
 import CSInputList from '../../components/CSInputList';
 import CSSettingCell from '../../components/CSSettingCell';
 import CSTextInput from '../../components/CSTextInput';
+import {setSetting} from '../../redux/actions';
 
 type Props = {
   account: {
@@ -18,8 +20,8 @@ type Props = {
   navigator: Navigator;
 };
 
-export default function OverviewScreen(props: Props){
-  const {account} = props;
+function OverviewScreen(props: Props){
+  const {location} = props.account;
 
   return (
     <View style={styles.container}>
@@ -65,8 +67,9 @@ export default function OverviewScreen(props: Props){
           >
             <CSTextInput
               placeholder="Hometown"
-              onTextChange={() => {}}
-              value={''}
+              onChangeText={(text) =>
+                props.dispatch(setSetting('location', text))}
+              value={location}
             />
           </CSInputList>
         </View>
@@ -85,3 +88,7 @@ const styles = StyleSheet.create({
     borderTopColor: '#CCCCCC'
   }
 });
+
+export default connect(
+  state => ({account: state.account})
+)(OverviewScreen);

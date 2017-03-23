@@ -89,7 +89,6 @@ class CSTextInput extends Component {
           spellCheck={false}
           autoCorrect={false}
           ref={(event) => { this.textInput = event; }}
-          onLayout={(e) => console.log(e.nativeEvent)}
           style={[styles.textInput, inputStyle, textInputSize]}
           {...this.props}
           onChange={(event) => {

@@ -7,6 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {monthNames, capitalizeFirstLetter} from '../helpers';
+import {connect} from 'react-redux';
 
 const template = {
   aboutMe: 'About Me',
@@ -49,7 +50,7 @@ type Props = {
   }
 };
 
-export default function AboutView(props: Props) {
+function AboutView(props: Props) {
   const {
     experience,
     languagesImFluentIn,
@@ -269,3 +270,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   }
 });
+
+export default AboutView;

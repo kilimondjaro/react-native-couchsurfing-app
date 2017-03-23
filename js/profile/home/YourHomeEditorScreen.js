@@ -12,6 +12,7 @@ import CSInputList from '../../components/CSInputList';
 import CSTextInput from '../../components/CSTextInput';
 import CSSettingCell from '../../components/CSSettingCell';
 import CSSwitchCell from '../../components/CSSwitchCell';
+import {setSetting, toggleSetting, checkSetting} from '../../redux/actions';
 
 type Props = {
   account: {
@@ -48,6 +49,7 @@ function AboutMeEditorScreen(props) {
     publicTransit,
     additionalInformation
   } = props.account;
+  const dispatch = props.dispatch;
 
   return (
     <View style={styles.container}>
@@ -77,7 +79,7 @@ function AboutMeEditorScreen(props) {
             />
             <CSSwitchCell
               title="Multiple Groups Okay"
-              onChange={() => {}}
+              onChange={() => dispatch(toggleSetting('multipleGroupsOk'))}
               value={multipleGroupsOk}
             />
             <CSSettingCell
@@ -87,52 +89,52 @@ function AboutMeEditorScreen(props) {
             />
             <CSSwitchCell
               title="Kid Friendly"
-              onChange={() => {}}
+              onChange={() => dispatch(toggleSetting('kidFriendly'))}
               value={kidFriendly}
             />
             <CSSwitchCell
               title="Pet Friendly"
-              onChange={() => {}}
+              onChange={() => dispatch(toggleSetting('petFriendly'))}
               value={petFriendly}
             />
             <CSSwitchCell
               title="Wheelchair Accessible"
-              onChange={() => {}}
+              onChange={() => dispatch(toggleSetting('wheelchairAccessible'))}
               value={wheelchairAccessible}
             />
             <CSSwitchCell
               title="Smoking Allowed"
-              onChange={() => {}}
-              value={false}
+              onChange={() => dispatch(toggleSetting('smokingAllowed'))}
+              value={smokingAllowed}
             />
             <CSSettingCell
               title="Sleeping Arrangments"
-              value={smokingAllowed}
+              value={''}
               onPress={() => props.navigator.push({screen: 'sleepingArrangements'})}
             />
             <CSTextInput
               placeholder="What You Can Offer Guests"
-              onChangeText={(text) => {}}
+              onChangeText={(text) => dispatch(setSetting('whatYouCanShareWithGuests', text))}
               value={whatYouCanShareWithGuests}
             />
             <CSTextInput
               placeholder="Description Of Sleeping Arrangement"
-              onChangeText={(text) => {}}
+              onChangeText={(text) => dispatch(setSetting('descriptionOfSleepingArrengements', text))}
               value={descriptionOfSleepingArrengements}
             />
             <CSTextInput
               placeholder="Roommate Situation"
-              onChangeText={(text) => {}}
+              onChangeText={(text) => dispatch(setSetting('roommateSituation', text))}
               value={roommateSituation}
             />
             <CSTextInput
               placeholder="Public Transit Options"
-              onChangeText={(text) => {}}
+              onChangeText={(text) => dispatch(setSetting('publicTransit', text))}
               value={publicTransit}
             />
             <CSTextInput
               placeholder="Additional Information"
-              onChangeText={(text) => {}}
+              onChangeText={(text) => dispatch(setSetting('additionalInformation', text))}
               value={additionalInformation}
             />
           </CSInputList>

@@ -10,15 +10,21 @@ import {connect} from 'react-redux';
 import {CSHeader} from '../../components/CSHeader';
 import CSInputList from '../../components/CSInputList';
 import CSCheckCell from '../../components/CSCheckCell';
+import {setSetting} from '../../redux/actions';
 
 type Props = {
   sleepingArrangement: string;
   navigator: Navigator;
 };
 
-function SleepingArrangementsScreen(props: Props){
-  const checkValue = value => value === props.sleepingArrangement;
+const sleepingArrengements = [
+  'Private Room',
+  'Public Room',
+  'Shared Room',
+  'Shared Sleeping Surface'
+]
 
+function SleepingArrangementsScreen(props: Props){
   return (
     <View style={styles.container}>
       <CSHeader
@@ -33,26 +39,19 @@ function SleepingArrangementsScreen(props: Props){
           <CSInputList
             style={styles.inputList}
           >
-            <CSCheckCell
-              title="Private Room"
-              value={checkValue('Private Room')}
-              onPress={() => {}}
-            />
-            <CSCheckCell
-              title="Public Room"
-              value={checkValue('Public Room')}
-              onPress={() => {}}
-            />
-            <CSCheckCell
-              title="Shared Room"
-              value={checkValue('Shared Room')}
-              onPress={() => {}}
-            />
-            <CSCheckCell
-              title="Shared Sleeping Surface"
-              value={checkValue('Shared Sleeping Surface')}
-              onPress={() => {}}
-            />
+            {
+              sleepingArrengements.map(sleepingArrengement => (
+                <CSCheckCell
+                  key={sleepingArrengement}
+                  title="Private Room"
+                  value={props.sleepingArrangement === sleepingArrengement}
+                  onPress={() =>
+                    props.dispatch(
+                      setSetting('sleepingArrangement', sleepingArrengement))
+                  }
+                />
+              ))
+            }
           </CSInputList>
         </View>
       </ScrollView>

@@ -6,15 +6,17 @@ import {
   StyleSheet,
   Navigator
 } from 'react-native';
+import {connect} from 'react-redux';
 import {CSHeader} from '../../components/CSHeader';
 import CSInputList from '../../components/CSInputList';
 import CSCheckCell from '../../components/CSCheckCell';
+import {setSetting} from '../../redux/actions';
 
 type Props = {
   navigator: Navigator;
 };
 
-export default function MaximumGuestsScreen(props: Props){
+function MaximumGuestsScreen(props: Props){
   const guestsCountArray = ['Any'];
   for (let i = 1; i <= 15; i++) {
     guestsCountArray.push(`${i}`);
@@ -42,9 +44,9 @@ export default function MaximumGuestsScreen(props: Props){
                   >
                     <CSCheckCell
                       title={`${key[0].toUpperCase()}${key.slice(1)}`}
-                      value={true}
-                      onPress={() => {}}
-                  />
+                      value={props.maxGuests === key}
+                      onPress={() => props.dispatch(setSetting('maxGuests', key))}
+                    />
                   </View>
                 ))
             }
@@ -65,3 +67,7 @@ const styles = StyleSheet.create({
     borderTopColor: '#CCCCCC'
   }
 });
+
+export default connect(
+  state => ({maxGuests: state.account.maxGuests})
+)(MaximumGuestsScreen);
