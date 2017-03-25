@@ -15,6 +15,8 @@ export type Action =
   | {type: 'TOGGLE_SETTING', name: string}
   | {type: 'SET_SETTING', name: string, value: string}
   | {type: 'CHECK_SETTING', name: string, key: string}
+  | {type: 'ACCOUNT_SAVE_SUCCESS'}
+  | {type: 'ACCOUNT_LOADED', account: {[name: string]: any}}
   ;
 
 

@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "start:server": "babel-node ./server/server.js",
+    "create-schema": "babel-node ./scripts/schemaCreator.js",
     "test": "jest"
   },
   "jest": {

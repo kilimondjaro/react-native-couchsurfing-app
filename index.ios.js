@@ -1,5 +1,5 @@
 // @flow
 import { AppRegistry } from 'react-native';
-import CouchsurfingApp from './js/index';
+import setup from './js';
 
-AppRegistry.registerComponent('CouchsurfingApp', () => CouchsurfingApp);
+AppRegistry.registerComponent('CouchsurfingApp', () => setup());

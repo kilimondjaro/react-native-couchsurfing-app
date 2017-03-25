@@ -4,6 +4,7 @@ import locationActions from './location';
 import signupActions from './signup';
 import hostingActions from './hosting';
 import accountActions from './account';
+import loginActions from './login';
 
 module.exports = {
   ...navigationActions,
@@ -11,5 +12,6 @@ module.exports = {
   ...locationActions,
   ...signupActions,
   ...hostingActions,
-  ...accountActions
+  ...accountActions,
+  ...loginActions
 };
