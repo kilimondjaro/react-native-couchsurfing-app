@@ -118,3 +118,30 @@ type Date = {
 export function getDateString(date: Date) {
   return date && `${monthNames[date.month]} ${date.day}`;
 }
+
+export const statusMap = {
+  accepting: {
+    label: 'Accepting Guests',
+    textColor: 'white',
+    areaColor: '#43b667'
+  },
+  maybe: {
+    label: 'Maybe Accepting Guests',
+    textColor: 'white',
+    areaColor: '#273c53'
+  },
+  not: {
+    label: 'Not Accepting Guests',
+    textColor: 'black',
+    areaColor: '#bfcad1'
+  },
+  meetUp: {
+    label: 'Want to Meet Up',
+    textColor: 'black',
+    areaColor: '#bfcad1'
+  }
+};
+
+export function capitalizeFirstLetter(str: string) {
+  return `${str[0].toUpperCase()}${str.slice(1)}`;
+}

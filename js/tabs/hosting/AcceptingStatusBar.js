@@ -12,25 +12,7 @@ import {
 import {connect} from 'react-redux';
 import {updateStatus} from '../../redux/actions';
 import type {Dispatch} from '../../redux/actions/types';
-
-const statusMap = {
-  accepting: {
-    label: 'Accepting Guests',
-    color: '#43b667'
-  },
-  maybe: {
-    label: 'Maybe Accepting Guests',
-    color: '#273c53'
-  },
-  not: {
-    label: 'Not Accepting Guests',
-    color: '#bfcad1'
-  },
-  meetUp: {
-    label: 'Want to Meet Up',
-    color: '#bfcad1'
-  }
-};
+import {statusMap} from '../../helpers';
 
 type Props = {
   hosting: {

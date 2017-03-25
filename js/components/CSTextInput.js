@@ -16,6 +16,7 @@ class CSTextInput extends Component {
   props: Props;
   state: {
     onFocus: boolean;
+    height: number;
   };
 
   static defaultProps = {
@@ -24,9 +25,11 @@ class CSTextInput extends Component {
 
   constructor(props: Props) {
     super(props);
+    this.textInput;
 
     this.state = {
-      onFocus: false
+      onFocus: false,
+      height: 30
     };
 
     this.onFocus.bind(this);
@@ -61,18 +64,38 @@ class CSTextInput extends Component {
       ? {marginBottom: 5}
       : null;
 
+    // Multiline size hook
+    var containerSize, textInputSize;
+    if (this.props.multiline) {
+      containerSize = {height: null};
+      if (this.props.value.length > 0) {
+        textInputSize = this.state.height > 30
+          ? {height: this.state.height}
+          : {height: 30}
+      }
+      else {
+        textInputSize = {height: 40};
+      }
+    }
+
     return (
-      <View style={[styles.container, containerStyle]}>
+      <View style={[styles.container, containerStyle, containerSize]}>
         {
-          this.props.value.length > 0
-          ? (<Text style={[styles.label, textStyle]}>{this.props.placeholder}</Text>)
-          : null
+          this.props.value.length > 0 ?
+            (<Text style={[styles.label, textStyle]}>{this.props.placeholder}</Text>)
+            : null
         }
         <TextInput
           spellCheck={false}
           autoCorrect={false}
-          style={[styles.textInput, inputStyle]}
+          ref={(event) => { this.textInput = event; }}
+          style={[styles.textInput, inputStyle, textInputSize]}
           {...this.props}
+          onChange={(event) => {
+            if (this.props.multiline) {
+              this.setState({height: event.nativeEvent.contentSize.height});
+            }
+          }}
           onFocus={() => this.onFocus()}
           onBlur={() => this.onBlur()}
         />
@@ -83,7 +106,7 @@ class CSTextInput extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: 40,
+    height: 43,
     flex: 1,
     justifyContent: 'space-between',
     backgroundColor: 'white'
@@ -91,10 +114,11 @@ const styles = StyleSheet.create({
   textInput: {
     paddingLeft: 20,
     height: 20,
-    color: 'black'
+    color: 'black',
+    fontSize: 16
   },
   label: {
-    fontSize: 10,
+    fontSize: 12,
     paddingLeft: 20
   }
 });

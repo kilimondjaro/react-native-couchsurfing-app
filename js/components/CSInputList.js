@@ -54,6 +54,7 @@ class CSInputList extends Component {
         <ListView
           enableEmptySections
           scrollEnabled={false}
+          automaticallyAdjustContentInsets={false}
           keyboardShouldPersistTaps="handled"
           dataSource={this.state.dataSource}
           renderRow={(rowData, _, id) => (<View key={id}>{rowData}</View>)}

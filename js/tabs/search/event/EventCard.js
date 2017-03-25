@@ -7,6 +7,7 @@ import {
   StyleSheet
 } from 'react-native';
 import {daysOfWeek, monthNames} from '../../../helpers';
+import CSAvatar from '../../../components/CSAvatar';
 
 type Props = {
   event: {
@@ -29,19 +30,15 @@ export default function EventCard(props: Props) {
   const fullDate = `${daysOfWeek[date.getDay()]}, ${date.getDay()} ${monthNames[date.getMonth()]} at ${date.getHours()}:${date.getMinutes()}`;
   return (
     <View style={[styles.container, props.style]}>
-      <Image
-        style={styles.image}
-        // TODO add prop for image
-        source={require('../img/me.jpg')}
-      >
-        <View style={styles.nameArea}>
-          <Text style={styles.nameText}>{name}</Text>
-        </View>
-      </Image>
+      <CSAvatar
+        style={styles.avatar}
+        image={require('../img/me.jpg')}
+        firstLine={name}
+      />
       <View style={styles.footer}>
         <View style={styles.footerBlock}>
           <View style={styles.blockElement}>
-            <Image source={require('../img/geopoint.png')} />
+            <Image source={require('../../../components/img/geopoint.png')} />
             <Text
               numberOfLines={1}
               style={[styles.footerText, {marginLeft: 5}]}
@@ -77,18 +74,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#c7d0d7'
   },
-  image: {
+  avatar: {
     flex: 4,
-  },
-  nameArea: {
-    backgroundColor: 'transparent',
-    flex: 1,
-    justifyContent: 'flex-end',
-    padding: 10
-  },
-  nameText: {
-    color: 'white',
-    fontSize: 20
   },
   footerText: {
     fontSize: 15,

@@ -38,7 +38,7 @@ class HostsSearchScreen extends Component {
     return (
       <View style={{flex: 1}}>
         <CSSegmentControl
-          onPress={() => this.props.navigator.push({hostsFilter: true, data: {
+          onPress={() => this.props.navigator.push({screen: 'hostsFilter', data: {
             showCalendar: true
           }})}
           style={{margin: 5, marginBottom: 0}}
@@ -49,7 +49,7 @@ class HostsSearchScreen extends Component {
         <View style={{padding: 10, height: 40, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center'}}>
           <Text style={{color: '#68696c'}}>123 hosts found</Text>
           <TouchableOpacity
-            onPress={() => this.props.navigator.push({hostsFilter: true, data: {
+            onPress={() => this.props.navigator.push({screen: 'hostsFilter', data: {
               showCalendar: false
             }})}
           >
