@@ -4,30 +4,24 @@ import {
   View,
   ScrollView,
   Text,
-  Image,
   StyleSheet
 } from 'react-native';
+import {connect} from 'react-redux';
 import {CSHeader} from '../../components/CSHeader';
 import CSInputList from '../../components/CSInputList';
 import CSIconCell from '../../components/CSIconCell';
 import CSAvatar from '../../components/CSAvatar';
 
 class AccountScreen extends Component {
-  static defaultProps = {
-    account: {
-      firstName: 'Kirill',
-      lastName: 'Babich',
-      location: 'Russian Federation',
-      verified: false
-    }
-  }
-
   onCellPress(name: string) {
     this.props.navigator.push({screen: name});
   }
 
   render() {
     const {firstName, lastName, location, verified} = this.props.account;
+
+    const isVerified = Object.keys(verified.parts)
+      .findIndex(key => verified.parts[key] === true) >= 0;
 
     return (
       <View style={styles.container}>
@@ -44,7 +38,7 @@ class AccountScreen extends Component {
             image={require('../search/img/me.jpg')}
             firstLine={`${firstName} ${lastName}`}
             secondLine={location}
-            verified={verified}
+            verified={isVerified}
           />
           <View>
             <CSInputList separatorStyle={{marginLeft: 5}}>
@@ -61,7 +55,9 @@ class AccountScreen extends Component {
                 title="Friends"
               />
               <CSIconCell
-                onPress={() => this.onCellPress('accountSettings')}
+                onPress={() => {
+                  this.onCellPress('accountSettings');
+                }}
                 title="Account & Settings"
               />
               <CSIconCell
@@ -125,4 +121,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AccountScreen;
+export default connect(
+  (state) => ({account: state.account})
+)(AccountScreen);

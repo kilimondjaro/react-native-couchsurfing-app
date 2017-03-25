@@ -12,9 +12,11 @@ import {
 import {connect} from 'react-redux';
 import CSTextInput from '../../components/CSTextInput';
 import CSInputList from '../../components/CSInputList';
+import CSLoadingView from '../../components/CSLoadingView';
 import CSDatePickerIOS from '../../components/CSDatePickerIOS';
 import {CSHeader} from '../../components/CSHeader';
 import CSSettingCell from '../../components/CSSettingCell';
+import {setSetting, saveAccount, loadAccount} from '../../redux/actions';
 
 function SettingsBlock(props) {
   return (
@@ -34,6 +36,7 @@ type Props = {
 
 type State = {
   datePickerIsVisible: boolean;
+  loading: boolean;
 }
 
 class AccountSettingsScreen extends Component {
@@ -44,8 +47,15 @@ class AccountSettingsScreen extends Component {
     super(props);
 
     this.state = {
-      datePickerIsVisible: false
+      datePickerIsVisible: false,
+      loadin: false
     };
+  }
+
+  componentDidMount() {
+    this.setState({loading: true})
+    this.props.dispatch(loadAccount())
+      .then(() => this.setState({loading: false}));
   }
 
   _onScroll() {
@@ -68,8 +78,10 @@ class AccountSettingsScreen extends Component {
       emergencyNotes
     } = this.props.account;
 
+    const dispatch = this.props.dispatch;
+
     const alertMessage = 'Are you shure you want to cancel and lose any unsaved change?';
-    return (
+    return this.state.loading ? <CSLoadingView /> : (
       <View style={styles.container}>
         <CSHeader
           leftItem={[{
@@ -84,7 +96,11 @@ class AccountSettingsScreen extends Component {
           )}]}
           rightItem={[{
             text: 'Save',
-            onPress: () => {}
+            onPress: () => {
+              saveAccount(this.props.account)
+                .then(this.props.navigator.pop)
+                .catch((err) => console.log(err));
+            }
           }]}
           style={styles.header}
           title="edit account"
@@ -99,12 +115,14 @@ class AccountSettingsScreen extends Component {
             >
               <CSTextInput
                 placeholder="First name"
-                onChangeText={(text) => {}}
+                onChangeText={(text) =>
+                  dispatch(setSetting('firstName', text))}
                 value={firstName}
               />
               <CSTextInput
                 placeholder="Last name"
-                onChangeText={(text) => {}}
+                onChangeText={(text) =>
+                  dispatch(setSetting('lastName', text))}
                 value={lastName}
               />
             </CSInputList>
@@ -125,12 +143,14 @@ class AccountSettingsScreen extends Component {
             >
               <CSTextInput
                 placeholder="Email"
-                onChangeText={(text) => {}}
+                onChangeText={(text) =>
+                  dispatch(setSetting('email', text))}
                 value={email}
               />
               <CSTextInput
                 placeholder="Phone"
-                onChangeText={() => {}}
+                onChangeText={(text) =>
+                  dispatch(setSetting('phone', text))}
                 value={phone}
               />
             </CSInputList>
@@ -146,7 +166,7 @@ class AccountSettingsScreen extends Component {
                 selectedIndex={genderTypes.indexOf(gender)}
                 onChange={(event) => {
                   const index = event.nativeEvent.selectedSegmentIndex;
-                  // this.setState({gender: genderTypes[index]});
+                  dispatch(setSetting('gender', genderTypes[index]));
                 }}
               />
             </CSInputList>
@@ -157,22 +177,29 @@ class AccountSettingsScreen extends Component {
             >
               <CSTextInput
                 placeholder="Name"
-                onChangeText={(text) => {}}
+                multiline
+                onChangeText={(text) =>
+                  dispatch(setSetting('emergencyName', text))}
                 value={emergencyName}
               />
               <CSTextInput
                 placeholder="Phone Number"
-                onChangeText={(text) => {}}
+                multiline
+                onChangeText={(text) =>
+                  dispatch(setSetting('emergencyPhone', text))}
                 value={emergencyPhone}
               />
               <CSTextInput
                 placeholder="Email Adress"
+                multiline
                 onChangeText={(text) => {}}
                 value={emergencyEmail}
               />
               <CSTextInput
                 placeholder="Notes"
-                onChangeText={(text) => {}}
+                multiline
+                onChangeText={(text) =>
+                  dispatch(setSetting('emergencyNotes', text))}
                 value={emergencyNotes}
               />
             </CSInputList>
@@ -189,7 +216,8 @@ class AccountSettingsScreen extends Component {
         <CSDatePickerIOS
           visible={this.state.datePickerIsVisible}
           date={birthday}
-          onDateChange={(date) => {}}
+          onDateChange={(date) =>
+            dispatch(setSetting('birthday', date))}
         />
       </View>
     );

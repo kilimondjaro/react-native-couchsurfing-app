@@ -1,4 +1,5 @@
 const initialState = {
+  id: '45HO3ulF14',
   active: new Date(),
   firstName: 'Kirill',
   lastName: 'Babich',
@@ -105,6 +106,9 @@ export default function account(state = initialState, action) {
         ...state,
         [action.name]: {...setting, [action.key]: !keyValue}
       };
+    }
+    case 'ACCOUNT_LOADED': {
+      return action.account;
     }
   }
   return state;
