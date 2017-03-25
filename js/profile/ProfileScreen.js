@@ -17,6 +17,8 @@ import ProfileProgressBar from './ProfileProgressBar';
 import CSInputList from '../components/CSInputList';
 import {statusMap} from '../helpers';
 import ProfileTabsView from './ProfileTabsView';
+import CSLoadingView from '../components/CSLoadingView';
+import {loadAccount} from '../redux/actions';
 
 const verifiedStatuses = {
   payment: 'Payment',
@@ -44,6 +46,20 @@ function CellWithIcon(props) {
 }
 
 class ProfileScreen extends Component {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      loading: false
+    };
+  }
+
+  componentDidMount() {
+    this.setState({loading: true})
+    this.props.dispatch(loadAccount())
+      .then(() => this.setState({loading: false}));
+  }
+
   render() {
     const {
       status,
@@ -64,7 +80,7 @@ class ProfileScreen extends Component {
     const starsCount = experience.hosted.filter(obj => obj.star === true).length
       + experience.stayedWith.filter(obj => obj.star === true).length;
 
-    return (
+      return this.state.loading ? <CSLoadingView /> :  (
       <View style={styles.container}>
         <CSHeader
           leftItem={[{

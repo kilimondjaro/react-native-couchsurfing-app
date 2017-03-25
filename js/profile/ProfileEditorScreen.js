@@ -5,9 +5,11 @@ import {
   Text,
   StyleSheet
 } from 'react-native';
+import {connect} from 'react-redux';
 import {CSHeader} from '../components/CSHeader';
 import CSInputList from '../components/CSInputList';
 import CSSettingCell from '../components/CSSettingCell';
+import {saveAccount} from '../redux/actions';
 
 class ProfileEditorScreen extends Component {
   render() {
@@ -20,7 +22,11 @@ class ProfileEditorScreen extends Component {
           }]}
           rightItem={[{
             text: 'Save',
-            onPress: () => {}
+            onPress: () => {
+              saveAccount(this.props.account)
+                .then(this.props.navigator.pop)
+                .catch((err) => console.log(err));
+            }
           }]}
           title="edit profile"
         />
@@ -77,4 +83,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProfileEditorScreen;
+export default connect(
+  (state) => ({account: state.account})
+)(ProfileEditorScreen);
