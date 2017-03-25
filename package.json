@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "start:server": "babel-node ./server/server.js",
+    "create-schema": "babel-node ./scripts/schemaCreator.js",
     "test": "jest"
   },
   "jest": {
@@ -19,6 +20,7 @@
     "react-native": "^0.41.0",
     "react-native-code-push": "^1.16.1-beta",
     "react-native-linear-gradient": "^2.0.0",
+    "react-native-tab-view": "0.0.57",
     "react-redux": "^5.0.2",
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",

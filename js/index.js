@@ -1,31 +1,45 @@
 import React, { Component } from 'react';
+var Parse = require('parse/react-native');
 import { Provider } from 'react-redux';
 import CouchsurfingApp from './CouchsurfingApp';
 import configureStore from './redux/index';
+import {parse} from '../server/config';
+import {logIn} from './redux/actions';
 
-class Root extends Component {
-  state: {
-    isLoading: boolean;
-    store: any;
-  };
+function setup() {
+  Parse.initialize(parse.app_id);
+  Parse.serverURL = `${'http://localhost:8080'}/parse`; // TODO Move to config
 
-  constructor() {
-    super();
-    this.state = {
-      isLoading: false,
-      store: configureStore(() => this.setState({isLoading: false})),
+  logIn('admin', 'admin')
+    .then(() => console.log('LOGIN SUCCESS'))
+    .catch((err) => console.log(`LOGIN FAILED: ${err}`));
+
+  class Root extends Component {
+    state: {
+      isLoading: boolean;
+      store: any;
     };
-  }
-  render() {
-    if (this.state.isLoading) {
-      return null;
+
+    constructor() {
+      super();
+      this.state = {
+        isLoading: false,
+        store: configureStore(() => this.setState({isLoading: false})),
+      };
     }
-    return (
-      <Provider store={this.state.store}>
-        <CouchsurfingApp />
-      </Provider>
-    );
+    render() {
+      if (this.state.isLoading) {
+        return null;
+      }
+      return (
+        <Provider store={this.state.store}>
+          <CouchsurfingApp />
+        </Provider>
+      );
+    }
   }
+
+  return Root;
 }
 
-export default Root;
+export default setup;

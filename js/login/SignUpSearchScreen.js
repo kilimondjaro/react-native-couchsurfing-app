@@ -73,7 +73,7 @@ class SignUpSearchScreen extends Component {
                   this.props.navigator.pop();
                 }}
               >
-                <Image style={{height: 20, width: 20}} source={require('./img/geopoint.png')}/>
+                <Image source={require('../components/img/geopoint.png')}/>
                 <Text style={{fontSize: 16, marginLeft: 10}}>{location.description}</Text>
               </TouchableOpacity>
             ))

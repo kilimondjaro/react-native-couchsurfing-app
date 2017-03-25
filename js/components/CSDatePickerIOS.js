@@ -67,7 +67,8 @@ class CSDatePickerIOS extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    height: 240
+    height: 240,
+    overflow: 'scroll'
   }
 });
 

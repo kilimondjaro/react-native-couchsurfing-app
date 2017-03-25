@@ -23,7 +23,7 @@ class TravelersSearchScreen extends Component {
         <View style={{padding: 10, height: 40, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center'}}>
           <Text style={{color: '#68696c'}}>123 hosts found</Text>
           <TouchableOpacity
-            onPress={() => this.props.navigator.push({travelersFilter: true})}
+            onPress={() => this.props.navigator.push({screen: 'travelersFilter'})}
           >
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Image source={require('../img/moreFilters.png')}/>

@@ -72,7 +72,7 @@ class LoginScreen extends Component {
             style={styles.button}
             text="Log in"
             active={isButtonActive}
-            onPress={() => this.props.navigator.push({tabs: true})}
+            onPress={() => this.props.navigator.push({screen: 'tabs'})}
           />
       </View>
     );
