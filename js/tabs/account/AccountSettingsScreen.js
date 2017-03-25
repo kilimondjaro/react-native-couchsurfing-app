@@ -48,7 +48,7 @@ class AccountSettingsScreen extends Component {
 
     this.state = {
       datePickerIsVisible: false,
-      loadin: false
+      loading: false
     };
   }
 
