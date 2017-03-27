@@ -3,13 +3,14 @@ type State = {
 };
 
 const initialState = {
+  location: '',
   hosts: []
 };
 
 export default function search(state: State = initialState, action) {
   switch (action.type) {
     case 'FINDED_HOSTS': {
-      return action.hosts;
+      return {...state, hosts: action.hosts};
     }
     default:
       return state;
