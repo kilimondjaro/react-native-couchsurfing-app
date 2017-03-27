@@ -18,6 +18,7 @@ import HostsSearchScreen from './host/HostsSearchScreen';
 import TravelersSearchScreen from './traveler/TravelersSearchScreen';
 import MembersSearchScreen from './member/MembersSearchScreen';
 import EventsSearchScreen from './event/EventsSearchScreen';
+import {searchHosts} from '../../redux/actions';
 
 type State = {
   onSearchFocus: boolean;
@@ -141,7 +142,10 @@ class SearchScreen extends Component {
                            <TouchableOpacity
                              key={i}
                              style={styles.searchItem}
-                             onPress={() => null}
+                             onPress={() => {
+                               this.props.dispatch(searchHosts(loc.id, this.props.filters));
+                               this.setState({onSearchFocus: false})
+                             }}
                            >
                              <Image
                                source={require('../../components/img/geopoint.png')}
@@ -204,13 +208,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = function(state) {
-  return {
+export default connect(
+  state => ({
     locations: state.location.locations,
-    location: state.location.location,
+    filters: state.filter,
     dates: state.filter.dates,
     search: state.search
-  };
-};
-
-export default connect(mapStateToProps)(SearchScreen);
+  })
+)(SearchScreen);

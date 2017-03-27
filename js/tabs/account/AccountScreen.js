@@ -37,7 +37,7 @@ class AccountScreen extends Component {
             style={styles.avatar}
             image={require('../search/img/me.jpg')}
             firstLine={`${firstName} ${lastName}`}
-            secondLine={location}
+            secondLine={location.description}
             verified={isVerified}
           />
           <View>

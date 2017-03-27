@@ -100,7 +100,7 @@ class ProfileScreen extends Component {
             style={styles.avatarContainer}
             image={require('../tabs/search/img/me.jpg')}
             firstLine={`${firstName} ${lastName}`}
-            secondLine={location}
+            secondLine={location.description}
           >
             <View style={styles.zoomAvatartButtonContainer}>
               <TouchableOpacity

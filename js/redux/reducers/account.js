@@ -3,7 +3,10 @@ const initialState = {
   active: new Date(),
   firstName: 'Kirill',
   lastName: 'Babich',
-  location: 'Moscow, Moscow, Russian Federation',
+  location: {
+    description: 'Moscow, Moscow, Russian Federation',
+    id: 'ChIJybDUc_xKtUYRTM9XV8zWRD0'
+  },
   createdAt: new Date(),
   verified: {
     status: 'Partially Verified',
@@ -39,7 +42,7 @@ const initialState = {
       photos: []
     }
   ],
-  maxGuests: '1',
+  maxGuests: '1', //TODO Make it Number
   preferredGender: 'Any',
   sameDayRequests: true,
   smokingAllowed: true,

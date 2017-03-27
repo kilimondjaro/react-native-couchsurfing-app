@@ -74,7 +74,7 @@ function AboutMeEditorScreen(props) {
             />
             <CSSettingCell
               title="Maximum Guests"
-              value={maxGuests}
+              value={maxGuests === 16 ? 'Any' : maxGuests}
               onPress={() => props.navigator.push({screen: 'maximumGuests'})}
             />
             <CSSwitchCell

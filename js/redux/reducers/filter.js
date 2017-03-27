@@ -63,9 +63,11 @@ const initialState = {
   petFriendly: false,
   allowsSmoking: false,
   wheelchairAccessible: false,
-  acceptingGuests: false,
-  maybeAcceptingGuests: false,
-  wantsToMeetUp: false,
+  status: {
+    accepting: false,
+    maybe: false,
+    wantsToMeetUp: false
+  },
   distance: 5,
   sortBy: 'bestMatch'
 };
@@ -96,6 +98,9 @@ export default function filter(state = initialState, action) {
         return {...state, [name]: Object.assign({}, state[name], {[value]: !state[name][value]})};
       }
       return {...state, [name]: value};
+    }
+    case 'RESET_FILTER': {
+      return initialState;
     }
     default:
       return state;
