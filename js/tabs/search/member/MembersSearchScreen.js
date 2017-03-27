@@ -6,6 +6,7 @@ import {
   ScrollView,
   RefreshControl
 } from 'react-native';
+import {connect} from 'react-redux';
 import SurferCard from '../components/SurferCard';
 
 type Props = {
@@ -28,6 +29,8 @@ class MembersSearchScreen extends Component {
     };
   }
   render() {
+    const {members} = this.props.search;
+
     return (
       <View style={{flex: 1}}>
         <ScrollView
@@ -42,11 +45,13 @@ class MembersSearchScreen extends Component {
             />
           }
         >
-          {[1,2,3,4,5].map(i => (<SurferCard key={i} style={{marginBottom: 20}}/>))}
+          {members.map(i => (<SurferCard key={i} style={{marginBottom: 20}}/>))}
         </ScrollView>
       </View>
     );
   }
 }
 
-export default MembersSearchScreen;
+export default connect(
+  state => ({search: state.search})
+)(MembersSearchScreen);

@@ -18,7 +18,7 @@ import HostsSearchScreen from './host/HostsSearchScreen';
 import TravelersSearchScreen from './traveler/TravelersSearchScreen';
 import MembersSearchScreen from './member/MembersSearchScreen';
 import EventsSearchScreen from './event/EventsSearchScreen';
-import {searchHosts} from '../../redux/actions';
+import {searchHosts, searchMembers} from '../../redux/actions';
 
 type State = {
   onSearchFocus: boolean;
@@ -113,6 +113,13 @@ class SearchScreen extends Component {
           marginTop={-20}
           value={this.state.searchText}
           onChange={(text) => this._onSearch(text)}
+          returnKeyType={searchMode === 'member' ? 'search' : null}
+          onSubmitEditing={() => {
+            if (searchMode === 'member') {
+              this.props.dispatch(searchMembers(this.state.searchText));
+              this.setState({onSearchFocus: false});
+            }
+          }}
           onFocus={() => this.setState({onSearchFocus: true})}
           onBlur={() => this.setState({onSearchFocus: false})}
         />
