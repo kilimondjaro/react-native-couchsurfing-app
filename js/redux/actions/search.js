@@ -3,7 +3,7 @@ import type { ThunkAction } from './types';
 import type {Filter} from '../reducers/filter';
 import Parse from 'parse/react-native';
 
-function setUpHostFilters(query, filter) {
+function setUpHostFilters(query, filter, type) {
   const {
     status,
     accommodation,
@@ -19,28 +19,18 @@ function setUpHostFilters(query, filter) {
     wheelchairAccessible
   } = filter;
 
-  const accommodationMap = {
-    private: 'Private Room',
-    public: 'Public Room',
-    shared: 'Shared Room'
-  };
-  const accomoationFilter = Object.keys(accommodation)
-    .filter(key => accommodation[key] === true)
-    .map(key => accommodationMap[key]);
-  if (accomoationFilter.length > 0) {
-    query.containedIn('sleepingArrangement', accomoationFilter);
-  }
-
-  query.greaterThanOrEqualTo('maxGuests', numberOfTravelers);
-  if (verifiedMember) {
-    query.equalTo('verified.status', 'Verified');
-  }
-
   const genderFilter = Object.keys(gender)
     .filter(key => gender[key] === true)
     .map(key => gender[key]);
   if (genderFilter.length > 0) {
     query.containedIn('preferredGender', genderFilter);
+  }
+
+  const statusFilter = Object.keys(status)
+    .filter(key => status[key] === true)
+    .map(key => status[key]);
+  if (statusFilter.length > 0) {
+    query.containedIn('status', statusFilter);
   }
 
   if (ageRange !== 'Any') {
@@ -53,53 +43,88 @@ function setUpHostFilters(query, filter) {
     query.lessThanOrEqualTo('birthday', endDate);
   }
 
-  if (kidsAtHome) {
-    query.equalTo('kidsAtHome', true);
+  if (verifiedMember) {
+    query.equalTo('verified.status', 'Verified');
   }
 
-  if (kidsFriendly) {
-    query.equalTo('kidFriendly', true);
-  }
+  if (type === 'host') {
+    const accommodationMap = {
+      private: 'Private Room',
+      public: 'Public Room',
+      shared: 'Shared Room'
+    };
+    const accomodationFilter = Object.keys(accommodation)
+      .filter(key => accommodation[key] === true)
+      .map(key => accommodationMap[key]);
+    if (accomodationFilter.length > 0) {
+      query.containedIn('sleepingArrangement', accomodationFilter);
+    }
 
-  if (petFree) {
-    query.equalTo('petsAtHome', false);
-  }
+    query.greaterThanOrEqualTo('maxGuests', numberOfTravelers);
 
-  if (petFriendly) {
-    query.equalTo('petFriendly', true);
-  }
+    if (kidsAtHome) {
+      query.equalTo('kidsAtHome', true);
+    }
 
-  if (kidsAtHome) {
-    query.equalTo('kidsAtHome', true);
-  }
+    if (kidsFriendly) {
+      query.equalTo('kidFriendly', true);
+    }
 
-  if (allowsSmoking) {
-    query.equalTo('smokingAllowed', true);
-  }
+    if (petFree) {
+      query.equalTo('petsAtHome', false);
+    }
 
-  if (wheelchairAccessible) {
-    query.equalTo('wheelchairAccessible', true);
-  }
+    if (petFriendly) {
+      query.equalTo('petFriendly', true);
+    }
 
-  const statusFilter = Object.keys(status)
-    .filter(key => status[key] === true)
-    .map(key => status[key]);
-  if (statusFilter.length > 0) {
-    query.containedIn('status', statusFilter);
-  }
+    if (kidsAtHome) {
+      query.equalTo('kidsAtHome', true);
+    }
 
+    if (allowsSmoking) {
+      query.equalTo('smokingAllowed', true);
+    }
+
+    if (wheelchairAccessible) {
+      query.equalTo('wheelchairAccessible', true);
+    }
+  }
   //TODO Add filters: sortBy, distance, languageSpoken, dates
+}
 
+function searchMembers(name: string) {
+  return (dispatch) => new Promise((resolve) => {
+    var Account = Parse.Object.extend('Account');
+    var firstNameQuery = new Parse.Query(Account);
+    var lastNameQuery = new Parse.Query(Account);
+
+    const nameArr = name.split(' ');
+    firstNameQuery.containedIn('firstName', nameArr);
+    lastNameQuery.containedIn('lastName', nameArr);
+
+    var mainQuery = Parse.Query.or(firstNameQuery, lastNameQuery);
+    mainQuery.find({
+      success: (result) => {
+        resolve(dispatch({type: 'FINDED_MEMBERS', members: result}));
+        console.log(result);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  });
 }
 
 function searchHosts(locationId: string, filter: Filter) {
-  // console.log(filter);
   return (dispatch) => new Promise((resolve) => {
+    dispatch({type: 'SET_LOCATION_ID', locationId });
+
     var Account = Parse.Object.extend('Account');
     var query = new Parse.Query(Account);
 
     query.equalTo('location.id', locationId);
-    setUpHostFilters(query, filter);
+    setUpHostFilters(query, filter, 'host');
 
     query.find({
       success: (result) => {
@@ -115,5 +140,6 @@ function searchHosts(locationId: string, filter: Filter) {
 
 
 module.exports = {
-  searchHosts
+  searchHosts,
+  searchMembers
 };
