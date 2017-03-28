@@ -96,14 +96,24 @@ function setUpHostFilters(query, filter, type) {
 function searchMembers(name: string) {
   return (dispatch) => new Promise((resolve) => {
     var Account = Parse.Object.extend('Account');
-    var firstNameQuery = new Parse.Query(Account);
-    var lastNameQuery = new Parse.Query(Account);
+    var firstword = new Parse.Query(Account);
+    var secondWord = new Parse.Query(Account);
 
     const nameArr = name.split(' ');
-    firstNameQuery.containedIn('firstName', nameArr);
-    lastNameQuery.containedIn('lastName', nameArr);
 
-    var mainQuery = Parse.Query.or(firstNameQuery, lastNameQuery);
+    if (nameArr.length ===  1) {
+      firstword.startsWith('firstName', nameArr[0]);
+      secondWord.startsWith('lastName', nameArr[0]);
+    }
+    else {
+      firstword.startsWith('firstName', nameArr[0]);
+      firstword.startsWith('lastName', nameArr[1]);
+
+      secondWord.startsWith('lastName', nameArr[0]);
+      secondWord.startsWith('firstName', nameArr[1]);
+    }
+
+    var mainQuery = Parse.Query.or(firstword, secondWord);
     mainQuery.find({
       success: (result) => {
         resolve(dispatch({type: 'FINDED_MEMBERS', members: result}));
