@@ -2,6 +2,12 @@
 import type { Action, ThunkAction } from './types';
 import Parse from 'parse/react-native';
 
+type Date = {
+  month: number;
+  day: number;
+  year: number;
+}
+
 function toggleSetting(name: string) : Action {
   return {
     type: 'TOGGLE_SETTING',
@@ -46,13 +52,24 @@ function loadAccount(): ThunkAction {
     if (Parse.User.current()) {
       Parse.User.current().relation('account').query().find({
         success: (account) => {
-          resolve(dispatch({type: 'ACCOUNT_LOADED',
+          resolve(dispatch({
+            type: 'ACCOUNT_LOADED',
             account: {...account[0].attributes, id: account[0].id}
           }));
         }
       });
     }
+    resolve();
   });
+}
+
+function toggleDay(date: Date) : Action {
+  return {
+    type: 'TOGGLE_DAY',
+    year: date.year,
+    month: date.month,
+    day: date.day
+  };
 }
 
 module.exports = {
@@ -60,5 +77,6 @@ module.exports = {
   setSetting,
   checkSetting,
   saveAccount,
-  loadAccount
+  loadAccount,
+  toggleDay
 };
