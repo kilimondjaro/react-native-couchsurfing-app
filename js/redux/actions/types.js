@@ -7,7 +7,6 @@ export type Action =
   | {type: 'SIGNUP_UPDATE', data: any}
   | {type: 'SIGNUP_RESET'}
   | {type: 'CALENDAR_UPDATE', data: {firstMonth: number, dates: Array<Array<number>>}}
-  | {type: 'UPDATED_STATUS', status: string}
   | {type: 'TOGGLE_DAY', year: number, month: number, day: number}
   | {type: 'ADD_DATE', date: {year: number, month: number, day: number}}
   | {type: 'TOGGLE_FILTER', filter: any}
@@ -17,6 +16,7 @@ export type Action =
   | {type: 'CHECK_SETTING', name: string, key: string}
   | {type: 'ACCOUNT_SAVE_SUCCESS'}
   | {type: 'ACCOUNT_LOADED', account: {[name: string]: any}}
+  | {type: 'SET_STATUS', name: string, value: string}
   ;
 
 

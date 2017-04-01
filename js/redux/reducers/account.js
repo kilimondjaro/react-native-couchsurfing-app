@@ -1,3 +1,11 @@
+function getInitialDates() {
+  const dates = {};
+  for (let i = 0; i < 12; i++) {
+    dates[i] = {};
+  }
+  return dates;
+}
+
 const initialState = {
   id: '45HO3ulF14',
   active: new Date(),
@@ -17,6 +25,7 @@ const initialState = {
       address: false
     }
   },
+  reservedDates: getInitialDates(),
   status: 'accepting',
   birthday: new Date(1990, 18, 5),
   email: 'email@gmail.com',
@@ -112,6 +121,17 @@ export default function account(state = initialState, action) {
     }
     case 'ACCOUNT_LOADED': {
       return action.account;
+    }
+    case 'TOGGLE_DAY': {
+      const value = state.reservedDates[action.month][action.day] || false;
+      // TODO Replace it with some library function
+      const dates = Object.assign({}, state.reservedDates,
+        {[action.month]: Object.assign({},
+          state.reservedDates[action.month], {[action.day]: !value})});
+      return {
+        ...state,
+        reservedDates: dates
+      };
     }
   }
   return state;

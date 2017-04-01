@@ -2,11 +2,12 @@
 import React, { Component } from 'react';
 import {
   View,
+  NetInfo,
   StyleSheet
 } from 'react-native';
 import {connect} from 'react-redux';
 import {getCalendarDates} from './helpers';
-import {calendarUpdate} from './redux/actions';
+import {calendarUpdate, setStatus} from './redux/actions';
 import Navigator from './CSNavigator';
 
 class CouchsurfingApp extends Component {
@@ -18,6 +19,11 @@ class CouchsurfingApp extends Component {
     if (this.props.calendar.firstMonth !== curMonth) {
       dispatch(calendarUpdate({firstMonth: curMonth, dates: getCalendarDates()}));
     }
+
+    NetInfo.addEventListener('change',
+      (networkType) => {
+        dispatch(setStatus('connection', networkType));
+      });
   }
 
   render() {
@@ -35,4 +41,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect((state) => ({calendar: state.calendar}))(CouchsurfingApp);
+export default connect(
+  state => ({calendar: state.calendar})
+)(CouchsurfingApp);

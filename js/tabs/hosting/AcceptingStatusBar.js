@@ -10,14 +10,14 @@ import {
   StyleSheet
 } from 'react-native';
 import {connect} from 'react-redux';
-import {updateStatus} from '../../redux/actions';
+import {setSurferStatus} from '../../redux/actions';
 import type {Dispatch} from '../../redux/actions/types';
 import {statusMap} from '../../helpers';
 
 type Props = {
-  hosting: {
-    status: string;
-  },
+  account: {
+    [name: string]: any;
+  };
   style?: any;
   dispatch: Dispatch;
 };
@@ -40,15 +40,14 @@ class AcceptingStatusBar extends Component {
 
   onStatusCellPress(status: string) {
     this.setState({loading: true, showList: false});
-    this.props.dispatch(updateStatus(status)).then(() => {
-      this.setState({loading: false});
-    });
+    this.props.dispatch(setSurferStatus(status))
+      .then(() => this.setState({loading: false}));
   }
 
   render() {
     const {showList, loading} = this.state;
-    const {status} = this.props.hosting;
-    const {label, color} = statusMap[status];
+    const {account} = this.props;
+    const {label, color} = statusMap[account.status];
 
     return (
       <View>
@@ -77,7 +76,7 @@ class AcceptingStatusBar extends Component {
                 <View style={styles.listCellContent}>
                   <Text style={styles.listLabel}>{statusMap[curStatus].label}</Text>
                   {
-                    status === curStatus
+                    account.status === curStatus
                       ? (<Image source={require('./img/accept.png')}/>)
                       : null
                   }
@@ -124,6 +123,6 @@ const styles = StyleSheet.create({
 
 export default connect(
   (state) => ({
-    hosting: state.hosting
+    account: state.account
   })
 )(AcceptingStatusBar);
