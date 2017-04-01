@@ -45,7 +45,13 @@ function CellWithIcon(props) {
   );
 }
 
+type State = {
+  loading: boolean;
+}
+
 class ProfileScreen extends Component {
+  state: State;
+
   constructor(props: Props) {
     super(props);
 
@@ -55,7 +61,7 @@ class ProfileScreen extends Component {
   }
 
   componentDidMount() {
-    this.setState({loading: true})
+    this.setState({loading: true});
     this.props.dispatch(loadAccount())
       .then(() => this.setState({loading: false}));
   }
@@ -80,7 +86,7 @@ class ProfileScreen extends Component {
     const starsCount = experience.hosted.filter(obj => obj.star === true).length
       + experience.stayedWith.filter(obj => obj.star === true).length;
 
-      return this.state.loading ? <CSLoadingView /> :  (
+    return this.state.loading ? <CSLoadingView /> :  (
       <View style={styles.container}>
         <CSHeader
           leftItem={[{
