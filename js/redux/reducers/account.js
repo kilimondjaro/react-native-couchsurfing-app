@@ -42,7 +42,7 @@ const initialState = {
       photos: []
     }
   ],
-  maxGuests: '1', //TODO Make it Number
+  maxGuests: 1,
   preferredGender: 'Any',
   sameDayRequests: true,
   smokingAllowed: true,

@@ -144,7 +144,7 @@ function searchHosts(locationId: string, filter: Filter) {
       error: (err) => {
         console.log(err);
       }
-    })
+    });
   });
 }
 
