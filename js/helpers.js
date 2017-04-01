@@ -69,7 +69,9 @@ function getDayOfWeek(year, month, day) {
 
 export function getCalendarDates() {
   let firstDay = getDayOfWeek(curYear, curMonth, 1);
-  firstDay = (firstDay - 2) % 7; // offset for correct days order (mon - sun)
+  firstDay = firstDay - 2 >= 0
+    ? firstDay - 2
+    : firstDay - 2 + 7; // offset for correct days order (mon - sun)
 
   const dates = [];
   for (let i = 0; i < 12; i++) {

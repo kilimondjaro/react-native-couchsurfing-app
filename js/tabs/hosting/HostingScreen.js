@@ -8,10 +8,13 @@ import {connect} from 'react-redux';
 import CSCalendar from '../../components/CSCalendar';
 import AcceptingStatusBar from './AcceptingStatusBar';
 import {CSHeader} from '../../components/CSHeader';
-import {toggleDay} from '../../redux/actions';
+import {toggleDay, saveAccount} from '../../redux/actions';
 
 class HostingScreen extends Component {
   render() {
+    const {connection} = this.props.status;
+    const {account} = this.props;
+
     return (
       <View style={styles.container}>
         <CSHeader
@@ -20,9 +23,13 @@ class HostingScreen extends Component {
         />
         <AcceptingStatusBar style={styles.acceptingStatusBar} />
         <CSCalendar
-          selectedDates={this.props.reservedDates}
+          selectedDates={account.reservedDates}
           type="hosting"
-          onPress={(year, month, day) => this.props.dispatch(toggleDay({year, month, day}))}
+          onPress={(year, month, day) => {
+            if (connection === 'wifi' || connection === 'cell') {
+              this.props.dispatch(toggleDay({year, month, day}));
+            }
+          }}
         />
       </View>
     );
@@ -44,5 +51,8 @@ const styles = StyleSheet.create({
 });
 
 export default connect(
-  state => ({reservedDates: state.hosting.reservedDates})
+  state => ({
+    status: state.status,
+    account: state.account
+  })
 )(HostingScreen);
