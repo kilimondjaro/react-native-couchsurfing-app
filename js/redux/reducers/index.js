@@ -4,11 +4,11 @@ import navigation from './navigation';
 import location from './location';
 import signup from './signup';
 import calendar from './calendar';
-import hosting from './hosting';
 import filter from './filter';
 import search from './search';
 import user from './user';
 import account from './account';
+import status from './status';
 
 export default combineReducers({
   login,
@@ -16,9 +16,9 @@ export default combineReducers({
   location,
   signup,
   calendar,
-  hosting,
   filter,
   search,
   user,
-  account
+  account,
+  status
 });

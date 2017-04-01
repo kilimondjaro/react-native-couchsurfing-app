@@ -53,7 +53,7 @@ class AccountSettingsScreen extends Component {
   }
 
   componentDidMount() {
-    this.setState({loading: true})
+    this.setState({loading: true});
     this.props.dispatch(loadAccount())
       .then(() => this.setState({loading: false}));
   }
