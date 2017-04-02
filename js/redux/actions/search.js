@@ -37,8 +37,7 @@ function setUpHostFilters(query, filter, type) {
   }
 
   const statusFilter = Object.keys(status)
-    .filter(key => status[key] === true)
-    .map(key => status[key]);
+    .filter(key => status[key] === true);
   if (statusFilter.length > 0) {
     query.containedIn('status', statusFilter);
   }

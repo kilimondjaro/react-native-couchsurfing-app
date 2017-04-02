@@ -64,8 +64,8 @@ const initialState = {
   allowsSmoking: false,
   wheelchairAccessible: false,
   status: {
-    accepting: false,
-    maybe: false,
+    accepting: true,
+    maybe: true,
     wantsToMeetUp: false
   },
   distance: 5,
