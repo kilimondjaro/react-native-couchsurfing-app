@@ -2,6 +2,7 @@
 import React, {Component} from 'react';
 import {
   View,
+  TouchableOpacity,
   Text,
   Image,
   StyleSheet
@@ -10,56 +11,56 @@ import CSAvatar from '../../../components/CSAvatar';
 import {statusMap} from '../../../helpers';
 
 type Props = {
-  user: {
-    name: string;
-    location: string;
+  account: {
+    firstName: string;
+    lastName: string;
+    location: {
+      description: string;
+    };
     status: string;
-    references: number;
-    speaks: string;
-    active: string;
+    experience: {
+      hosted: Array<any>;
+      stayedWith: Array<any>;
+    };
+    languagesImFluentIn: {[name: string]: boolean};
+    active: Date;
     responseRate: number;
     verified: boolean;
   },
   style?: any;
+  onPress: () => void;
 };
 
 class SurferCard extends Component {
   props: Props;
-  static defaultProps = {
-    user: {
-      name: 'Kirill Babich',
-      status: 'accepting',
-      location: 'Moscow, Russia',
-      references: 8,
-      speaks: 'English',
-      responseRate: 100,
-      active: 'Today',
-      verified: true
-    }
-  }
 
   render() {
     const {
-      name,
+      firstName,
+      lastName,
       location,
       status,
-      references,
-      speaks,
+      experience,
+      languagesImFluentIn,
       active,
       responseRate,
       verified
-    } = this.props.user;
+    } = this.props.account;
 
     const statusAreaStyle = {backgroundColor: statusMap[status].areaColor};
     const statusTextColor = {color: statusMap[status].textColor};
 
     return (
-      <View style={[styles.container, this.props.style]}>
+      <TouchableOpacity
+        activeOpacity={0.9}
+        style={[styles.container, this.props.style]}
+        onPress={this.props.onPress}
+      >
         <CSAvatar
           style={styles.avatar}
           image={require('../img/me.jpg')}
-          firstLine={name}
-          secondLine={`From ${location}`}
+          firstLine={`${firstName} ${lastName}`}
+          secondLine={`From ${location.description}`}
           verified={verified}
         >
           <View style={styles.statusArea}>
@@ -72,19 +73,31 @@ class SurferCard extends Component {
           <View style={styles.footerBlock}>
             <View style={styles.leftFooterBlock}>
               <Image source={require('../img/references.png')}/>
-              <Text style={styles.leftFooterBlockText}>{`${references} References`}</Text>
+              <Text
+                style={styles.leftFooterBlockText}
+              >
+                {`${experience.hosted.length + experience.stayedWith.length} References`}
+              </Text>
             </View>
             <View style={styles.leftFooterBlock}>
               <Image source={require('../../../components/img/speaks.png')}/>
-              <Text style={styles.leftFooterBlockText}>{`Speaks ${speaks}`}</Text>
+              <Text
+                style={styles.leftFooterBlockText}
+              >
+                {`Speaks ${Object.keys(languagesImFluentIn).filter(key => languagesImFluentIn[key] === true).join(', ')}`}
+              </Text>
             </View>
           </View>
           <View style={styles.footerBlock}>
             <Text style={styles.rightFooterBlockText}>{`Response rate: ${responseRate}%`}</Text>
-            <Text style={styles.rightFooterBlockText}>{`Active ${active}`}</Text>
+            <Text
+              style={styles.rightFooterBlockText}
+            >
+              {`Active ${Math.round(Math.abs((active.getTime() - new Date().getTime()) / (24 * 60 * 60 * 1000)))} days ago`}
+            </Text>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
