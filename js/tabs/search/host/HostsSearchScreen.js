@@ -70,7 +70,7 @@ class HostsSearchScreen extends Component {
               refreshing={this.state.refreshing}
               onRefresh={() => {
                 this.setState({refreshing: true});
-                this.props.dispatch(searchHosts('', this.props.filter))
+                this.props.dispatch(searchHosts(this.props.search.locationId, this.props.filter))
                   .then(() => this.setState({refreshing: false}));
               }}
             />

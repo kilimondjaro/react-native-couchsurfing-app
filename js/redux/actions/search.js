@@ -16,8 +16,18 @@ function setUpHostFilters(query, filter, type) {
     petFree,
     petFriendly,
     allowsSmoking,
-    wheelchairAccessible
+    wheelchairAccessible,
+    dates
   } = filter;
+
+  const {arrives, departs} = dates;
+  if (arrives && departs) {
+    for (let m = arrives.month; m <= departs.month; m++) {
+      for (let d = arrives.day; d <= departs.day; d++) {
+        query.notEqualTo(`reservedDates.${m}.${d}`, true);
+      }
+    }
+  }
 
   const genderFilter = Object.keys(gender)
     .filter(key => gender[key] === true)
