@@ -30,8 +30,7 @@ function setUpHostFilters(query, filter, type) {
   }
 
   const genderFilter = Object.keys(gender)
-    .filter(key => gender[key] === true)
-    .map(key => gender[key]);
+    .filter(key => gender[key] === true);
   if (genderFilter.length > 0) {
     query.containedIn('preferredGender', genderFilter);
   }
@@ -63,8 +62,7 @@ function setUpHostFilters(query, filter, type) {
       shared: 'Shared Room'
     };
     const accomodationFilter = Object.keys(accommodation)
-      .filter(key => accommodation[key] === true)
-      .map(key => accommodationMap[key]);
+      .filter(key => accommodation[key] === true);
     if (accomodationFilter.length > 0) {
       query.containedIn('sleepingArrangement', accomodationFilter);
     }
