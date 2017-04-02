@@ -45,7 +45,7 @@ class MembersSearchScreen extends Component {
             />
           }
         >
-          {members.map(i => (<SurferCard key={i} style={{marginBottom: 20}}/>))}
+          {members.map((account, i) => (<SurferCard account={account.attributes} key={i} style={{marginBottom: 20}}/>))}
         </ScrollView>
       </View>
     );
