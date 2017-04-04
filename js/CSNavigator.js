@@ -65,7 +65,7 @@ class CSNavigator extends Component {
       case 'accountSettings':
         return <AccountSettingsScreen navigator={navigator} />;
       case 'profile':
-        return <ProfileScreen navigator={navigator} />;
+        return <ProfileScreen navigator={navigator} data={route.data} />;
       case 'editProfile':
         return <ProfileEditorScreen navigator={navigator} />;
       case 'aboutMeEditor':
