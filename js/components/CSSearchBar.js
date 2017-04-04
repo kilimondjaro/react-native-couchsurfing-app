@@ -18,6 +18,8 @@ type Props = {
   editable: boolean;
   placeholder?: string;
   marginTop?: number; // Manual fix for changing status bar size bug
+  onSubmitEditing: () => void;
+  returnKeyType?: string;
   onChange: (value: string) => void;
   onFocus?: () => void;
   onBlur?: () => void;
@@ -36,7 +38,9 @@ class CSSearchBar extends Component {
       onFocus,
       onBlur,
       marginTop,
-      editable
+      editable,
+      onSubmitEditing,
+      returnKeyType
     } = this.props;
 
     return (
@@ -62,6 +66,8 @@ class CSSearchBar extends Component {
                 source={require('./img/search-bar.png')}
               />
               <TextInput
+                onSubmitEditing={onSubmitEditing}
+                returnKeyType={returnKeyType}
                 clearButtonMode="always"
                 style={styles.textInput}
                 placeholder={placeholder || ''}

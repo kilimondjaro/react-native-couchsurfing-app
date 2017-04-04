@@ -10,7 +10,7 @@ import {
   StyleSheet
 } from 'react-native';
 import {connect} from 'react-redux';
-import {setSetting, saveAccount} from '../../redux/actions';
+import {setSurferStatus} from '../../redux/actions';
 import type {Dispatch} from '../../redux/actions/types';
 import {statusMap} from '../../helpers';
 
@@ -40,11 +40,8 @@ class AcceptingStatusBar extends Component {
 
   onStatusCellPress(status: string) {
     this.setState({loading: true, showList: false});
-    this.props.dispatch(setSetting('status', status));
-    saveAccount(this.props.account)
-      .then(() => {
-        this.setState({loading: false});
-      });
+    this.props.dispatch(setSurferStatus(status))
+      .then(() => this.setState({loading: false}));
   }
 
   render() {

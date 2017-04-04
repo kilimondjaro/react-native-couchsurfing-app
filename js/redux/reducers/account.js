@@ -12,8 +12,8 @@ const initialState = {
   firstName: 'Kirill',
   lastName: 'Babich',
   location: {
-    id: '',
-    description: ''
+    description: 'Moscow, Moscow, Russian Federation',
+    id: 'ChIJybDUc_xKtUYRTM9XV8zWRD0'
   },
   createdAt: new Date(),
   verified: {
@@ -51,7 +51,7 @@ const initialState = {
       photos: []
     }
   ],
-  maxGuests: '1',
+  maxGuests: 1,
   preferredGender: 'Any',
   sameDayRequests: true,
   smokingAllowed: true,

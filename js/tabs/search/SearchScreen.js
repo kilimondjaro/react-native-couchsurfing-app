@@ -18,6 +18,7 @@ import HostsSearchScreen from './host/HostsSearchScreen';
 import TravelersSearchScreen from './traveler/TravelersSearchScreen';
 import MembersSearchScreen from './member/MembersSearchScreen';
 import EventsSearchScreen from './event/EventsSearchScreen';
+import {searchHosts, searchMembers} from '../../redux/actions';
 
 type State = {
   onSearchFocus: boolean;
@@ -112,6 +113,13 @@ class SearchScreen extends Component {
           marginTop={-20}
           value={this.state.searchText}
           onChange={(text) => this._onSearch(text)}
+          returnKeyType={searchMode === 'member' ? 'search' : null}
+          onSubmitEditing={() => {
+            if (searchMode === 'member') {
+              this.props.dispatch(searchMembers(this.state.searchText));
+              this.setState({onSearchFocus: false});
+            }
+          }}
           onFocus={() => this.setState({onSearchFocus: true})}
           onBlur={() => this.setState({onSearchFocus: false})}
         />
@@ -141,7 +149,10 @@ class SearchScreen extends Component {
                            <TouchableOpacity
                              key={i}
                              style={styles.searchItem}
-                             onPress={() => null}
+                             onPress={() => {
+                               this.props.dispatch(searchHosts(loc.id, this.props.filters));
+                               this.setState({onSearchFocus: false})
+                             }}
                            >
                              <Image
                                source={require('../../components/img/geopoint.png')}
@@ -204,13 +215,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = function(state) {
-  return {
+export default connect(
+  state => ({
     locations: state.location.locations,
-    location: state.location.location,
+    filters: state.filter,
     dates: state.filter.dates,
     search: state.search
-  };
-};
-
-export default connect(mapStateToProps)(SearchScreen);
+  })
+)(SearchScreen);

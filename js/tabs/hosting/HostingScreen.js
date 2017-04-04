@@ -28,7 +28,6 @@ class HostingScreen extends Component {
           onPress={(year, month, day) => {
             if (connection === 'wifi' || connection === 'cell') {
               this.props.dispatch(toggleDay({year, month, day}));
-              saveAccount(account);
             }
           }}
         />

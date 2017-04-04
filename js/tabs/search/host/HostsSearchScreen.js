@@ -9,10 +9,12 @@ import {
   RefreshControl,
   Navigator
 } from 'react-native';
+import {connect} from 'react-redux';
 import CalendarSegment from '../components/CalendarSegment';
 import CSSegmentControl from '../../../components/CSSegmentControl';
 import SurferCard from '../components/SurferCard';
 import {getDateString} from '../../../helpers';
+import {searchHosts} from '../../../redux/actions';
 
 type Props = {
   navigator: Navigator;
@@ -35,6 +37,8 @@ class HostsSearchScreen extends Component {
     };
   }
   render() {
+    const {hosts} = this.props.search;
+
     return (
       <View style={{flex: 1}}>
         <CSSegmentControl
@@ -47,7 +51,7 @@ class HostsSearchScreen extends Component {
           <CalendarSegment title="Departs" date={getDateString(this.props.dates.departs)}/>
         </CSSegmentControl>
         <View style={{padding: 10, height: 40, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={{color: '#68696c'}}>123 hosts found</Text>
+          <Text style={{color: '#68696c'}}>{`${hosts.length} hosts found`}</Text>
           <TouchableOpacity
             onPress={() => this.props.navigator.push({screen: 'hostsFilter', data: {
               showCalendar: false
@@ -66,16 +70,32 @@ class HostsSearchScreen extends Component {
               refreshing={this.state.refreshing}
               onRefresh={() => {
                 this.setState({refreshing: true});
-                setTimeout(() => this.setState({refreshing: false}), 1000);
+                this.props.dispatch(searchHosts(this.props.search.locationId, this.props.filter))
+                  .then(() => this.setState({refreshing: false}));
               }}
             />
           }
         >
-          {[1,2,3,4,5].map(i => (<SurferCard key={i} style={{marginBottom: 20}}/>))}
+          {hosts.map(account => (
+            <SurferCard
+              account={account.attributes}
+              onPress={() =>
+                this.props.navigator.push({screen: 'profile',
+                  data: {
+                    type: 'host',
+                    account: account.attributes
+                  }
+                })}
+              key={1}
+              style={{marginBottom: 20}}
+            />
+          ))}
         </ScrollView>
       </View>
     );
   }
 }
 
-export default HostsSearchScreen;
+export default connect(
+  state => ({filter: state.filter, search: state.search})
+)(HostsSearchScreen);

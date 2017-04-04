@@ -16,10 +16,11 @@ type Props = {
   navigator: Navigator;
 };
 
+const maxGuestsCount = 15;
+const guestsCountArray = [maxGuestsCount + 1];
 function MaximumGuestsScreen(props: Props){
-  const guestsCountArray = ['Any'];
   for (let i = 1; i <= 15; i++) {
-    guestsCountArray.push(`${i}`);
+    guestsCountArray.push(i);
   }
 
   return (
@@ -43,9 +44,11 @@ function MaximumGuestsScreen(props: Props){
                     key={key}
                   >
                     <CSCheckCell
-                      title={`${key[0].toUpperCase()}${key.slice(1)}`}
+                      title={key === maxGuestsCount + 1 ? 'Any' : key}
                       value={props.maxGuests === key}
-                      onPress={() => props.dispatch(setSetting('maxGuests', key))}
+                      onPress={() =>
+                        props.dispatch(setSetting('maxGuests', key))
+                      }
                     />
                   </View>
                 ))

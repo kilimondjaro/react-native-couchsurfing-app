@@ -40,7 +40,8 @@ const accountTemplate = {
       photos: []
     }
   ],
-  maxGuests: '1',
+  reservedDates: [],
+  maxGuests: 1,
   preferredGender: 'Any',
   sameDayRequests: true,
   smokingAllowed: true,

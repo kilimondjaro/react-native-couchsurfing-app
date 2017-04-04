@@ -37,7 +37,7 @@ class AccountScreen extends Component {
             style={styles.avatar}
             image={require('../search/img/me.jpg')}
             firstLine={`${firstName} ${lastName}`}
-            secondLine={location}
+            secondLine={location.description}
             verified={isVerified}
           />
           <View>
@@ -47,7 +47,7 @@ class AccountScreen extends Component {
                 title="Get Verified"
               />
               <CSIconCell
-                onPress={() => this.onCellPress('profile')}
+                onPress={() => this.props.navigator.push({screen: 'profile', data: {type: 'self'}})}
                 title="Profile"
               />
               <CSIconCell
