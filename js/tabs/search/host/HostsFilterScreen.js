@@ -231,16 +231,16 @@ class HostsFilterScreen extends Component {
                 separatorStyle={{marginLeft: 0}}
               >
                 <CheckCell
-                  checked={filters.acceptingGuests}
-                  onPress={() => dispatch(toggleFilter({name: 'acceptingGuests'}))}
+                  checked={filters.status.accepting}
+                  onPress={() => dispatch(toggleFilter({name: 'status', value: 'accepting'}))}
                   text="Accepting Guests"/>
                 <CheckCell
-                  checked={filters.maybeAcceptingGuests}
-                  onPress={() => dispatch(toggleFilter({name: 'maybeAcceptingGuests'}))}
+                  checked={filters.status.maybe}
+                  onPress={() => dispatch(toggleFilter({name: 'status', value: 'maybe'}))}
                   text="Mayber Accepting Guests"/>
                 <CheckCell
-                  checked={filters.wantsToMeetUp}
-                  onPress={() => dispatch(toggleFilter({name: 'wantsToMeetUp'}))}
+                  checked={filters.status.wantsToMeetUp}
+                  onPress={() => dispatch(toggleFilter({name: 'status', value: 'wantsToMeetUp'}))}
                   text="Wants to Meet Up"/>
               </CSInputList>
             </SettingsBlock>

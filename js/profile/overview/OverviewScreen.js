@@ -69,7 +69,7 @@ function OverviewScreen(props: Props){
               placeholder="Hometown"
               onChangeText={(text) =>
                 props.dispatch(setSetting('location', text))}
-              value={location}
+              value={location.description}
             />
           </CSInputList>
         </View>

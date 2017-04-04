@@ -63,13 +63,27 @@ function loadAccount(): ThunkAction {
   });
 }
 
-function toggleDay(date: Date) : Action {
-  return {
-    type: 'TOGGLE_DAY',
-    year: date.year,
-    month: date.month,
-    day: date.day
+function toggleDay(date: Date) : ThunkAction {
+  return (dispatch, getState) => {
+    dispatch({
+      type: 'TOGGLE_DAY',
+      year: date.year,
+      month: date.month,
+      day: date.day
+    });
+    saveAccount(getState().account);
   };
+}
+
+function setSurferStatus(status: string) : ThunkAction {
+  return (dispatch, getState) => new Promise((resolve) => {
+    dispatch({
+      type: 'SET_SETTING',
+      name: 'status',
+      value: status
+    });
+    saveAccount(getState().account).then(resolve);
+  });
 }
 
 module.exports = {
@@ -78,5 +92,6 @@ module.exports = {
   checkSetting,
   saveAccount,
   loadAccount,
-  toggleDay
+  toggleDay,
+  setSurferStatus
 };

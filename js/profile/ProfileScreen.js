@@ -45,6 +45,17 @@ function CellWithIcon(props) {
   );
 }
 
+function ActionButton(props) {
+  return (
+    <TouchableOpacity
+      onPress={props.onPress}
+      style={styles.requestButton}
+    >
+      <Text style={styles.requestText}>{props.title}</Text>
+    </TouchableOpacity>
+  );
+}
+
 type State = {
   loading: boolean;
 }
@@ -76,7 +87,9 @@ class ProfileScreen extends Component {
       location,
       responseRate,
       active
-    } = this.props.account;
+    } = this.props.data.account || this.props.account;
+
+    const type = this.props.data.type;
     const currentStatus = statusMap[status];
 
     const verifiedText = Object.keys(verified.parts)
@@ -86,6 +99,31 @@ class ProfileScreen extends Component {
     const starsCount = experience.hosted.filter(obj => obj.star === true).length
       + experience.stayedWith.filter(obj => obj.star === true).length;
 
+
+    var actionButton;
+    var rightItem;
+    if (type === 'host') {
+      actionButton = (
+        <ActionButton title="Request to Stay"/>
+      );
+    }
+    if (type === 'traveler') {
+      actionButton = (
+        <ActionButton title="Offer to Host"/>
+      );
+    }
+    if (type === 'member') {
+      actionButton = (
+        <ActionButton title="Send a Message"/>
+      );
+    }
+    if (type === 'self') {
+      rightItem = [{
+        text: 'Edit',
+        onPress: () => this.props.navigator.push({screen: 'editProfile'})
+      }];
+    }
+
     return this.state.loading ? <CSLoadingView /> :  (
       <View style={styles.container}>
         <CSHeader
@@ -93,10 +131,7 @@ class ProfileScreen extends Component {
             icon: require('../components/img/back.png'),
             onPress: () => this.props.navigator.pop()
           }]}
-          rightItem={[{
-            text: 'Edit',
-            onPress: () => this.props.navigator.push({screen: 'editProfile'})
-          }]}
+          rightItem={rightItem}
           style={styles.header}
           title={`${firstName} ${lastName}`}
         />
@@ -106,7 +141,7 @@ class ProfileScreen extends Component {
             style={styles.avatarContainer}
             image={require('../tabs/search/img/me.jpg')}
             firstLine={`${firstName} ${lastName}`}
-            secondLine={location}
+            secondLine={location.description}
           >
             <View style={styles.zoomAvatartButtonContainer}>
               <TouchableOpacity
@@ -162,9 +197,7 @@ class ProfileScreen extends Component {
               </View>
             </CellWithIcon>
           </CSInputList>
-          <TouchableOpacity style={styles.requestButton}>
-            <Text style={styles.requestText}>Request to Stay</Text>
-          </TouchableOpacity>
+          {actionButton}
           <ProfileTabsView />
         </ScrollView>
       </View>
