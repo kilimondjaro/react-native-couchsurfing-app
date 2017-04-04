@@ -140,9 +140,14 @@ function searchHosts(locationId: string, filter: Filter) {
     var Account = Parse.Object.extend('Account');
     var query = new Parse.Query(Account);
 
+    query.limit(10);
+    query.skip(0); //TODO Make it dynamic
+
     query.equalTo('location.id', locationId);
     setUpHostFilters(query, filter, 'host');
 
+
+    //TODO Use count query for showing total number
     query.find({
       success: (result) => {
         resolve(dispatch({type: 'FINDED_HOSTS', hosts: result}));

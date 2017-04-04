@@ -45,7 +45,19 @@ class MembersSearchScreen extends Component {
             />
           }
         >
-          {members.map((account, i) => (<SurferCard account={account.attributes} key={i} style={{marginBottom: 20}}/>))}
+          {members.map((account, i) => (
+            <SurferCard
+              account={account.attributes}
+              key={i}
+              onPress={() => this.props.navigator.push({screen: 'profile',
+                data: {
+                  type: 'member',
+                  account: account.attributes
+                }
+              })}
+              style={{marginBottom: 20}}
+            />
+          ))}
         </ScrollView>
       </View>
     );

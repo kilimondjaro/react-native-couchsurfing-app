@@ -76,7 +76,20 @@ class HostsSearchScreen extends Component {
             />
           }
         >
-          {hosts.map(account => (<SurferCard account={account.attributes} onPress={() => {}} key={1} style={{marginBottom: 20}}/>))}
+          {hosts.map(account => (
+            <SurferCard
+              account={account.attributes}
+              onPress={() =>
+                this.props.navigator.push({screen: 'profile',
+                  data: {
+                    type: 'host',
+                    account: account.attributes
+                  }
+                })}
+              key={1}
+              style={{marginBottom: 20}}
+            />
+          ))}
         </ScrollView>
       </View>
     );
