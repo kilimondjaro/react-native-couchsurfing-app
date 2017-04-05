@@ -5,6 +5,8 @@ import {
   Platform,
   StyleSheet
 } from 'react-native';
+import {connect} from 'react-redux';
+import Parse from 'parse/react-native';
 import TabsView from './tabs/TabsView';
 import EnterScreen from './login/EnterScreen';
 import LoginScreen from './login/LoginScreen';
@@ -28,6 +30,7 @@ import AddressEditorScreen from './profile/address/AddressEditorScreen';
 
 class CSNavigator extends Component {
   render(){
+    const initialRoute = this.props.user.loggedIn ? 'tabs' : 'enter';
     return (
         <Navigator
           style={styles.navigator}
@@ -40,7 +43,7 @@ class CSNavigator extends Component {
             }
             return Navigator.SceneConfigs.PushFromRight;
           }}
-          initialRoute={{}}
+          initialRoute={{screen: initialRoute}}
           renderScene={this.renderScene}
         />
     );
@@ -96,4 +99,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CSNavigator;
+export default connect(
+  state => ({user: state.user})
+)(CSNavigator);
