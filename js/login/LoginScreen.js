@@ -5,10 +5,12 @@ import {
   StyleSheet,
   Navigator
 } from 'react-native';
+import {connect} from 'react-redux';
 import CSInputList from '../components/CSInputList';
 import CSTextInput from '../components/CSTextInput';
 import CSButton from '../components/CSButton';
 import {CSHeader} from '../components/CSHeader';
+import {logIn} from '../redux/actions';
 
 type Props = {
   navigator: Navigator;
@@ -72,7 +74,10 @@ class LoginScreen extends Component {
             style={styles.button}
             text="Log in"
             active={isButtonActive}
-            onPress={() => this.props.navigator.push({screen: 'tabs'})}
+            onPress={() => {
+              this.props.dispatch(logIn(this.state.username, this.state.password))
+                .then(() => this.props.navigator.push({screen: 'tabs'}));
+            }}
           />
       </View>
     );
@@ -97,4 +102,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LoginScreen;
+export default connect()(LoginScreen);

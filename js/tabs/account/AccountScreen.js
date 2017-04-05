@@ -11,6 +11,7 @@ import {CSHeader} from '../../components/CSHeader';
 import CSInputList from '../../components/CSInputList';
 import CSIconCell from '../../components/CSIconCell';
 import CSAvatar from '../../components/CSAvatar';
+import {logOut} from '../../redux/actions';
 
 class AccountScreen extends Component {
   onCellPress(name: string) {
@@ -28,7 +29,10 @@ class AccountScreen extends Component {
         <CSHeader
           style={styles.header}
           title="account"
-          rightItem={[{title: 'Log Out'}]}
+          rightItem={[{
+            text: 'Log Out',
+            onPress: () => logOut().then(() => this.props.navigator.push({screen: 'enter'}))
+          }]}
         />
         <ScrollView
           automaticallyAdjustContentInsets={false}

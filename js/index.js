@@ -10,10 +10,6 @@ function setup() {
   Parse.initialize(parse.app_id);
   Parse.serverURL = `${'http://localhost:8080'}/parse`; // TODO Move to config
 
-  logIn('admin', 'admin')
-    .then(() => console.log('LOGIN SUCCESS'))
-    .catch((err) => console.log(`LOGIN FAILED: ${err}`));
-
   class Root extends Component {
     state: {
       isLoading: boolean;
