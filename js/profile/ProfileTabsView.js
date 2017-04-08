@@ -8,7 +8,6 @@ import {
   StyleSheet,
   Navigator
 } from 'react-native';
-import {connect} from 'react-redux';
 import { TabViewAnimated, TabBar } from 'react-native-tab-view';
 import CSInputList from '../components/CSInputList';
 import MyHomeView from './MyHomeView';
@@ -161,6 +160,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(
-  (state) => ({ account: state.account })
-)(ProfileTabsView);
+export default ProfileTabsView;

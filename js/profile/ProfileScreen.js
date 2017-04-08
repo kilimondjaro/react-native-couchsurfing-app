@@ -78,6 +78,7 @@ class ProfileScreen extends Component {
   }
 
   render() {
+    const account = this.props.data.account || this.props.account;
     const {
       status,
       verified,
@@ -87,7 +88,7 @@ class ProfileScreen extends Component {
       location,
       responseRate,
       active
-    } = this.props.data.account || this.props.account;
+    } = account;
 
     const type = this.props.data.type;
     const currentStatus = statusMap[status];
@@ -198,7 +199,7 @@ class ProfileScreen extends Component {
             </CellWithIcon>
           </CSInputList>
           {actionButton}
-          <ProfileTabsView />
+          <ProfileTabsView account={account}/>
         </ScrollView>
       </View>
     );
