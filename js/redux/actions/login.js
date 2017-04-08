@@ -22,9 +22,9 @@ function logIn(username, password) {
 }
 
 function logOut() {
-  return new Promise((resolve, reject) => {
+  return (dispatch) => new Promise((resolve, reject) => {
     Parse.User.logOut().then(() => {
-      resolve();
+      resolve(dispatch({type: 'LOGGED_OUT'}));
     });
   });
 }
