@@ -31,7 +31,8 @@ class AccountScreen extends Component {
           title="account"
           rightItem={[{
             text: 'Log Out',
-            onPress: () => logOut().then(() => this.props.navigator.push({screen: 'enter'}))
+            onPress: () => this.props.dispatch(logOut())
+              .then(() => this.props.navigator.push({screen: 'enter'}))
           }]}
         />
         <ScrollView

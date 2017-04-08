@@ -13,6 +13,13 @@ export default function user(state = initialState, action) {
         username: action.user.get('username')
       };
     }
+    case 'LOGGED_OUT': {
+      return {
+        ...state,
+        loggedIn: false,
+        username: ''
+      };
+    }
     default:
 
   }
