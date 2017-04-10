@@ -11,6 +11,7 @@ import {connect} from 'react-redux';
 import {CSHeader} from '../components/CSHeader';
 import CSInputList from '../components/CSInputList';
 import CSButton from '../components/CSButton';
+import {signUp} from '../redux/actions';
 
 type Props = {
   navigator: Navigator;
@@ -42,8 +43,11 @@ class SignUpAdressScreen extends Component {
         <CSButton
           style={styles.button}
           text="Create Account"
-          active={this.props.location} //TODO Find how is correct
-          onPress={() => this.props.navigator.push({screen: 'tabs'})}
+          active={!!this.props.location}
+          onPress={() => {
+            this.props.dispatch(signUp(this.props.signUpData))
+              .then(() =>  this.props.navigator.push({screen: 'tabs'}));
+          }}
         />
       </View>
     );
@@ -71,5 +75,5 @@ const styles = StyleSheet.create({
 });
 
 export default connect(
-  (state) => ({location: state.signup.location.description})
+  (state) => ({location: state.signup.location.description, signUpData: state.signup})
 )(SignUpAdressScreen);
