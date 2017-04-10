@@ -76,7 +76,7 @@ class HostsSearchScreen extends Component {
             />
           }
         >
-          {hosts.map(account => (
+          {hosts.map((account, key) => (
             <SurferCard
               account={account.attributes}
               onPress={() =>
@@ -86,7 +86,7 @@ class HostsSearchScreen extends Component {
                     account: account.attributes
                   }
                 })}
-              key={1}
+              key={key}
               style={{marginBottom: 20}}
             />
           ))}

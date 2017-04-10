@@ -33,12 +33,18 @@ function checkSetting(name: string, key: string) : Action {
 
 function saveAccount(account): Promise {
   return new Promise((resolve, reject) => {
-    if (Parse.User.current()) {
+    const user = Parse.User.current();
+    if (user) {
       const Account = Parse.Object.extend('Account');
-      const curAccount = new Account();
-      curAccount.save(account, {
-        success: resolve,
-        error: (_, error) => reject(error)
+      var query = new Parse.Query(Account);
+      query.equalTo('parent', user);
+      query.find({
+        success: function(accounts) {
+          accounts[0].save(account, {
+            success: resolve,
+            error: (_, error) => reject(error)
+          });
+        }
       });
     }
     else {
@@ -49,12 +55,16 @@ function saveAccount(account): Promise {
 
 function loadAccount(): ThunkAction {
   return (dispatch) => new Promise((resolve) => {
-    if (Parse.User.current()) {
-      Parse.User.current().relation('account').query().find({
-        success: (account) => {
+    const user = Parse.User.current();
+    if (user) {
+      const Account = Parse.Object.extend('Account');
+      var query = new Parse.Query(Account);
+      query.equalTo('parent', user);
+      query.find({
+        success: function(accounts) {
           resolve(dispatch({
             type: 'ACCOUNT_LOADED',
-            account: {...account[0].attributes, id: account[0].id}
+            account: {...accounts[0].attributes, id: accounts[0].id}
           }));
         }
       });

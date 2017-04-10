@@ -143,7 +143,7 @@ function AboutView(props: Props) {
         location ? (
           <TextWithIcon
             icon={require('../components/img/geopoint.png')}
-            text={`From ${location}`}
+            text={`From ${location.description}`}
           />
         ) : null
       }

@@ -17,6 +17,8 @@ export type Action =
   | {type: 'ACCOUNT_SAVE_SUCCESS'}
   | {type: 'ACCOUNT_LOADED', account: {[name: string]: any}}
   | {type: 'SET_STATUS', name: string, value: string}
+  | {type: 'LOGGED_IN', user: {email: string}}
+  | {type: 'LOGGED_OUT'}
   ;
 
 
