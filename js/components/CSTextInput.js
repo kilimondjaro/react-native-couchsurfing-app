@@ -88,6 +88,7 @@ class CSTextInput extends Component {
         <TextInput
           spellCheck={false}
           autoCorrect={false}
+          autoCapitalize="none"
           ref={(event) => { this.textInput = event; }}
           style={[styles.textInput, inputStyle, textInputSize]}
           {...this.props}
