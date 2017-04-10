@@ -40,7 +40,6 @@ function saveAccount(account): Promise {
       query.equalTo('parent', user);
       query.find({
         success: function(accounts) {
-          console.log(accounts);
           accounts[0].save(account, {
             success: resolve,
             error: (_, error) => reject(error)
@@ -56,13 +55,11 @@ function saveAccount(account): Promise {
 
 function loadAccount(): ThunkAction {
   return (dispatch) => new Promise((resolve) => {
-    console.log('1');
-    console.log('user');
-    // console.log(user);
-    if (true) {
+    const user = Parse.User.current();
+    if (user) {
       const Account = Parse.Object.extend('Account');
       var query = new Parse.Query(Account);
-      query.equalTo('parent', Parse.User.current());
+      query.equalTo('parent', user);
       query.find({
         success: function(accounts) {
           resolve(dispatch({
