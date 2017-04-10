@@ -22,7 +22,7 @@ type Props = {
   navigator: Navigator;
   signupData: {
     firstName: string;
-    lastname: string;
+    lastName: string;
     email: string;
     password: string;
     gender: string;
@@ -66,7 +66,7 @@ class LoginScreen extends Component {
   render() {
     const {
       firstName,
-      lastname,
+      lastName,
       email,
       password,
       gender,
@@ -101,8 +101,8 @@ class LoginScreen extends Component {
             />
             <CSTextInput
               placeholder="Last name"
-              onChangeText={(text) => this.onChangeField(text, 'lastname')}
-              value={lastname}
+              onChangeText={(text) => this.onChangeField(text, 'lastName')}
+              value={lastName}
             />
           </CSInputList>
           <CSInputList
