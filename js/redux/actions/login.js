@@ -4,15 +4,27 @@ function logIn(username, password) {
   return (dispatch) => new Promise((resolve, reject) => {
     Parse.User.logIn(username, password, {
       success: (user) => {
-        user.relation('account').query().find({
-          success: (account) => {
+        const Account = Parse.Object.extend('Account');
+        var query = new Parse.Query(Account);
+        query.equalTo('parent', user);
+        query.find({
+          success: function(accounts) {
             dispatch({
               type: 'ACCOUNT_LOADED',
-              account: {...account[0].attributes, id: account[0].id}
+              account: {...accounts[0].attributes, id: accounts[0].id}
             });
             resolve(dispatch({type: 'LOGGED_IN', user}));
           }
         });
+        // user.relation('account').query().find({
+        //   success: (account) => {
+        //     dispatch({
+        //       type: 'ACCOUNT_LOADED',
+        //       account: {...account[0].attributes, id: account[0].id}
+        //     });
+        //     resolve(dispatch({type: 'LOGGED_IN', user}));
+        //   }
+        // });
       },
       error: (user, error) => {
         reject(error);

@@ -21,7 +21,7 @@ const genderTypes = ['Male', 'Female', 'Other'];
 type Props = {
   navigator: Navigator;
   signupData: {
-    firtname: string;
+    firstName: string;
     lastname: string;
     email: string;
     password: string;
@@ -65,7 +65,7 @@ class LoginScreen extends Component {
 
   render() {
     const {
-      firtname,
+      firstName,
       lastname,
       email,
       password,
@@ -96,8 +96,8 @@ class LoginScreen extends Component {
           <CSInputList>
             <CSTextInput
               placeholder="First name"
-              onChangeText={(text) => this.onChangeField(text, 'firtname')}
-              value={firtname}
+              onChangeText={(text) => this.onChangeField(text, 'firstName')}
+              value={firstName}
             />
             <CSTextInput
               placeholder="Last name"
