@@ -16,15 +16,6 @@ function logIn(username, password) {
             resolve(dispatch({type: 'LOGGED_IN', user}));
           }
         });
-        // user.relation('account').query().find({
-        //   success: (account) => {
-        //     dispatch({
-        //       type: 'ACCOUNT_LOADED',
-        //       account: {...account[0].attributes, id: account[0].id}
-        //     });
-        //     resolve(dispatch({type: 'LOGGED_IN', user}));
-        //   }
-        // });
       },
       error: (user, error) => {
         reject(error);
