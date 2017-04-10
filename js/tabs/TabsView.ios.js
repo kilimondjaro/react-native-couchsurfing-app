@@ -9,6 +9,7 @@ import {switchTab} from '../redux/actions';
 import HostingScreen from './hosting/HostingScreen';
 import SearchScreen from './search/SearchScreen';
 import AccountScreen from './account/AccountScreen';
+import DashboardScreen from './dashboard/DashboardScreen';
 
 class TabsView extends Component {
   props: {
@@ -35,6 +36,16 @@ class TabsView extends Component {
         tintColor="#eb6648"
         style={{overflow: 'hidden'}}
       >
+        <TabBarIOS.Item
+          icon={null}
+          title="Dashboard"
+          selected={this.props.tab === 'dashboard'}
+          onPress={() => this.onTabPress('dashboard')}
+        >
+          <DashboardScreen
+            navigator={this.props.navigator}
+          />
+        </TabBarIOS.Item>
         <TabBarIOS.Item
           icon={require('./img/hosting.png')}
           selected={this.props.tab === 'hosting'}
