@@ -9,7 +9,7 @@ import {
   Navigator
 } from 'react-native';
 import {connect} from 'react-redux';
-import CalendarSegment from '../components/CalendarSegment';
+import CalendarSegment from '../../../components/CalendarSegment';
 import CSSegmentControl from '../../../components/CSSegmentControl';
 import CSCalendar from '../../../components/CSCalendar';
 import CSInputList from '../../../components/CSInputList';

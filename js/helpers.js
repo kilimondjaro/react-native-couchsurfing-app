@@ -111,14 +111,21 @@ export function getCalendarDates() {
 export const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 export const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat'];
 
-type Date = {
+type CustomDate = {
   year: number;
   month: number;
   day: number;
 }
 
-export function getDateString(date: Date) {
-  return date && `${monthNames[date.month]} ${date.day}`;
+export function getDateString(date: CustomDate | Date) {
+  if (!date) {
+    return null;
+  }
+
+  const month = date.month || date.getMonth();
+  const day = date.day || date.getDate();
+
+  return date && `${monthNames[month]} ${day}`;
 }
 
 export const statusMap = {
@@ -146,4 +153,31 @@ export const statusMap = {
 
 export function capitalizeFirstLetter(str: string) {
   return `${str[0].toUpperCase()}${str.slice(1)}`;
+}
+
+export function calendarSelectedDates(arrives: CustomDate, departs: CustomDate) {
+  const calendarDates = {};
+  for (let i = 0; i < 12; i++) {
+    calendarDates[i] = {};
+  }
+
+  if (arrives) {
+    calendarDates[arrives.month][arrives.day] = true;
+  }
+  if (departs) {
+    for (let i = arrives.month; i <= departs.month; i++) {
+      var start = 1;
+      var end = 31;
+      if (i === arrives.month) {
+        start = arrives.day;
+      }
+      if (i === departs.month) {
+        end = departs.day;
+      }
+      for (let j = start; j <= end; j++) {
+        calendarDates[i][j] = true;
+      }
+    }
+  }
+  return calendarDates;
 }
