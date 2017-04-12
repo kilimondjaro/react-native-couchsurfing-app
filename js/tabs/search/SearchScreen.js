@@ -151,7 +151,7 @@ class SearchScreen extends Component {
                              style={styles.searchItem}
                              onPress={() => {
                                this.props.dispatch(searchHosts(loc.id, this.props.filters));
-                               this.setState({onSearchFocus: false})
+                               this.setState({onSearchFocus: false});
                              }}
                            >
                              <Image

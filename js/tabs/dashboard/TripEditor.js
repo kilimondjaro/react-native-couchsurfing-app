@@ -34,11 +34,7 @@ function SettingsBlock(props) {
 
 type State = {
   showCalendar: boolean;
-  location: ?{
-    id: string;
-    description: string;
-  },
-  numberOfTravelers: number;
+  numberOfTravellers: number;
   tripDetail: string;
 }
 
@@ -53,10 +49,7 @@ class TripEditor extends Component {
     super(props);
 
     this.state = {
-      showCalendar: false,
-      location: null,
-      numberOfTravelers: 1,
-      tripDetail: ''
+      showCalendar: false
     };
   }
 
@@ -74,9 +67,18 @@ class TripEditor extends Component {
     this.setState({showCalendar: true});
   }
 
+  onSetState(name, value) {
+    this.props.dispatch({
+      type: 'SET_TRIP_DATA',
+      name,
+      value
+    });
+  }
+
   render() {
     const {
-      travelDates
+      travelDates,
+      trip
     } = this.props;
 
     var calendar;
@@ -105,10 +107,10 @@ class TripEditor extends Component {
         <ScrollView>
           <SettingsBlock title="Destination">
             <TouchableHighlight
-              onPress={() => {}}
+              onPress={() => this.props.navigator.push({screen: 'locationSearch'})}
               style={[styles.destination, styles.block]}
             >
-              <Text>{this.state.location || 'Enter Destination'}</Text>
+              <Text>{trip.location ? trip.location.description : 'Enter Destination'}</Text>
             </TouchableHighlight>
           </SettingsBlock>
           <SettingsBlock title="Travel Dates">
@@ -124,8 +126,8 @@ class TripEditor extends Component {
           </SettingsBlock>
           <SettingsBlock title="Number of Travellers">
             <GuestsCountPicker
-              value={this.state.numberOfTravelers}
-              onPress={(value) => this.setState({numberOfTravelers: value})}
+              value={trip.numberOfTravellers}
+              onPress={(value) => this.onSetState('numberOfTravellers', value)}
             />
           </SettingsBlock>
           <SettingsBlock title="Trip Detail">
@@ -135,8 +137,8 @@ class TripEditor extends Component {
               <CSTextInput
                 multiline
                 placeholder="Trip Detail"
-                onChangeText={(text) => this.setState({tripDetail: text})}
-                value={this.state.tripDetail}
+                onChangeText={(text) => this.onSetState('tripDetail', text)}
+                value={trip.tripDetail}
               />
             </CSInputList>
           </SettingsBlock>
@@ -186,5 +188,5 @@ const styles = StyleSheet.create({
 });
 
 export default connect(
-  state => ({travelDates: state.filter.dates})
+  state => ({travelDates: state.filter.dates, trip: state.trip})
 )(TripEditor);
