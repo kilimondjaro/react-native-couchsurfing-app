@@ -27,6 +27,7 @@ import SleepingArrangementsScreen from './profile/home/SleepingArrangementsScree
 import OverviewScreen from './profile/overview/OverviewScreen';
 import AddressEditorScreen from './profile/address/AddressEditorScreen';
 import TripEditor from './tabs/dashboard/TripEditor';
+import LocationPickerScreen from './tabs/dashboard/LocationPickerScreen';
 
 
 class CSNavigator extends Component {
@@ -89,7 +90,9 @@ class CSNavigator extends Component {
       case 'addressEditor':
         return <AddressEditorScreen navigator={navigator} />;
       case 'tripEditor':
-        return <TripEditor navigator={navigator} create={route.create}/>;
+        return <TripEditor navigator={navigator} create={route.create} />;
+      case 'locationSearch':
+        return <LocationPickerScreen navigator={navigator} />;
       default:
         return <TabsView navigator={navigator} />;
     }

@@ -32,7 +32,7 @@ function configureStore(onComplete: ?() => void) {
   const store = autoRehydrate()(createCustomStore)(combineReducers);
   persistStore(store, {
     storage: AsyncStorage,
-    blacklist: ['search', 'navigation', 'location', 'filter'],
+    blacklist: ['search', 'navigation', 'location', 'filter', 'trip'],
     transforms: [dateTransform]
   }, onComplete);
   if (isDebuggingInChrome) {
