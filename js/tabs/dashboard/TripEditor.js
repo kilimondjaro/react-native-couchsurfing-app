@@ -112,7 +112,6 @@ class TripEditor extends Component {
         <CSHeader
           style={styles.header}
           title="Edit public Trip"
-          rightItem={!this.props.create && [{text: 'Save', onPress: () => {}}]}
           leftItem={[{text: 'Cancel', onPress: () => this.props.navigator.pop()}]}
         />
         <ScrollView>
