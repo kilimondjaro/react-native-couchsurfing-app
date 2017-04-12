@@ -9,10 +9,10 @@ import {
   Navigator
 } from 'react-native';
 import {connect} from 'react-redux';
-import CalendarSegment from '../components/CalendarSegment';
+import CalendarSegment from '../../../components/CalendarSegment';
 import CSSegmentControl from '../../../components/CSSegmentControl';
 import CSCalendar from '../../../components/CSCalendar';
-import GuestsCountPicker from '../components/GuestsCountPicker';
+import GuestsCountPicker from '../../../components/GuestsCountPicker';
 import ModeSegment from '../components/ModeSegment';
 import CSInputList from '../../../components/CSInputList';
 import CSSearchBar from '../../../components/CSSearchBar';
@@ -22,7 +22,7 @@ import CheckCell from '../components/CheckCell';
 import {addDate, toggleFilter} from '../../../redux/actions/filter';
 import type {Dispatch} from '../../../redux/actions/types';
 import type {Filters} from '../../../redux/reducers/filter';
-import {getDateString} from '../../../helpers';
+import {getDateString, calendarSelectedDates} from '../../../helpers';
 
 function SettingsBlock(props) {
   return (
@@ -68,41 +68,18 @@ class HostsFilterScreen extends Component {
     this.setState({showCalendar: true});
   }
 
-  getCalendarDates() {
-    const {arrives, departs} = this.props.filters.dates;
-    const calendarDates = {};
-    for (let i = 0; i < 12; i++) {
-      calendarDates[i] = {};
-    }
-
-    if (arrives) {
-      calendarDates[arrives.month][arrives.day] = true;
-    }
-    if (departs) {
-      for (let i = arrives.month; i <= departs.month; i++) {
-        var start = 1;
-        var end = 31;
-        if (i === arrives.month) {
-          start = arrives.day;
-        }
-        if (i === departs.month) {
-          end = departs.day;
-        }
-        for (let j = start; j <= end; j++) {
-          calendarDates[i][j] = true;
-        }
-      }
-    }
-    return calendarDates;
-  }
-
   render() {
+    const {filters, dispatch} = this.props;
+    const {
+      dates
+    } = filters;
+
     var calendar;
     if (this.state.showCalendar) {
       calendar = (
         <View style={{height: 360}}>
           <CSCalendar
-            selectedDates={this.getCalendarDates()}
+            selectedDates={calendarSelectedDates(dates.arrives, dates.departs)}
             type="search"
             onPress={(year, month, day) => this.props.dispatch(addDate({
               year, month, day
@@ -111,11 +88,6 @@ class HostsFilterScreen extends Component {
         </View>
       );
     }
-
-    const {filters, dispatch} = this.props;
-    const {
-      dates
-    } = filters;
 
     return (
       <View style={{flex: 1, backgroundColor: '#f8f8f8'}}>
