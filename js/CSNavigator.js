@@ -90,7 +90,7 @@ class CSNavigator extends Component {
       case 'addressEditor':
         return <AddressEditorScreen navigator={navigator} />;
       case 'tripEditor':
-        return <TripEditor navigator={navigator} create={route.create} />;
+        return <TripEditor navigator={navigator} create={route.create} data={route.data} />;
       case 'locationSearch':
         return <LocationPickerScreen navigator={navigator} />;
       default:

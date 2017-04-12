@@ -6,6 +6,7 @@ import accountActions from './account';
 import loginActions from './login';
 import searchActions from './search';
 import statusActions from './status';
+import tripActions from './trip';
 
 module.exports = {
   ...navigationActions,
@@ -15,5 +16,6 @@ module.exports = {
   ...accountActions,
   ...loginActions,
   ...searchActions,
-  ...statusActions
+  ...statusActions,
+  ...tripActions
 };
