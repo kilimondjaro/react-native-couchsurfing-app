@@ -16,7 +16,7 @@ class DashboardScreen extends Component {
           style={styles.header}
           title="dashboard"
         />
-        <UpcomingTravel />
+        <UpcomingTravel navigator={this.props.navigator}/>
       </View>
     );
   }

@@ -8,11 +8,7 @@ import {
   StyleSheet
 } from 'react-native';
 import {connect} from 'react-redux';
-import {monthNames} from '../../helpers';
-
-function dateToString(date: Date) {
-  return `${date.getDate()} ${monthNames[date.getMonth()]}`;
-}
+import {getDateString} from '../../helpers';
 
 function UpcomingTravel(props) {
   const {
@@ -26,7 +22,7 @@ function UpcomingTravel(props) {
           <Text style={styles.title}>{'Upcoming Travel'.toUpperCase()}</Text>
         </View>
         <TouchableOpacity
-          onPress={() => {}}
+          onPress={() => props.navigator.push({screen: 'tripEditor', create: true})}
           style={styles.addButton}
         >
           <Image source={require('../search/img/plus.png')}/>
@@ -49,7 +45,7 @@ function UpcomingTravel(props) {
               <View style={styles.tripInfo}>
                 <Text style={{fontSize: 16}}>Public Trip</Text>
                 <Text>
-                  {`${dateToString(travel.from)} - ${dateToString(travel.to)}`}
+                  {`${getDateString(travel.from)} - ${getDateString(travel.to)}`}
                 </Text>
               </View>
             </TouchableOpacity>

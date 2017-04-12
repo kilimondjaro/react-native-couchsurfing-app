@@ -26,6 +26,7 @@ import PreferredGenderScreen from './profile/home/PreferredGenderScreen';
 import SleepingArrangementsScreen from './profile/home/SleepingArrangementsScreen';
 import OverviewScreen from './profile/overview/OverviewScreen';
 import AddressEditorScreen from './profile/address/AddressEditorScreen';
+import TripEditor from './tabs/dashboard/TripEditor';
 
 
 class CSNavigator extends Component {
@@ -87,6 +88,8 @@ class CSNavigator extends Component {
         return <OverviewScreen navigator={navigator} />;
       case 'addressEditor':
         return <AddressEditorScreen navigator={navigator} />;
+      case 'tripEditor':
+        return <TripEditor navigator={navigator} create={route.create}/>;
       default:
         return <TabsView navigator={navigator} />;
     }
