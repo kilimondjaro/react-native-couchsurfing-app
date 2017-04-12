@@ -18,6 +18,7 @@ import CSCalendar from '../../components/CSCalendar';
 import CSTextInput from '../../components/CSTextInput';
 import CSInputList from '../../components/CSInputList';
 import {addDate} from '../../redux/actions/filter';
+import {createTrip} from '../../redux/actions';
 
 function SettingsBlock(props) {
   return (
@@ -34,7 +35,7 @@ function SettingsBlock(props) {
 
 type State = {
   showCalendar: boolean;
-  numberOfTravellers: number;
+  numberOfTravelers: number;
   tripDetail: string;
 }
 
@@ -55,6 +56,7 @@ class TripEditor extends Component {
 
   componentWillMount() {
     this.props.dispatch({type: 'RESET_FILTER'});
+    this.props.dispatch({type: 'RESET_TRIP'});
   }
 
   componentWillReceiveProps(nextProps) {
@@ -76,10 +78,19 @@ class TripEditor extends Component {
   }
 
   render() {
-    const {
-      travelDates,
-      trip
-    } = this.props;
+    let travelDates, trip;
+
+    if (this.props.create) {
+      travelDates = this.props.travelDates;
+      trip = this.props.trip;
+    }
+    else {
+      travelDates = {
+        arrives: this.props.data.arrives,
+        departs: this.props.data.departs
+      };
+      trip = this.props.data;
+    }
 
     var calendar;
     if (this.state.showCalendar) {
@@ -124,10 +135,10 @@ class TripEditor extends Component {
             </CSSegmentControl>
             {calendar}
           </SettingsBlock>
-          <SettingsBlock title="Number of Travellers">
+          <SettingsBlock title="Number of Travelers">
             <GuestsCountPicker
-              value={trip.numberOfTravellers}
-              onPress={(value) => this.onSetState('numberOfTravellers', value)}
+              value={trip.numberOfTravelers}
+              onPress={(value) => this.onSetState('numberOfTravelers', value)}
             />
           </SettingsBlock>
           <SettingsBlock title="Trip Detail">
@@ -144,7 +155,10 @@ class TripEditor extends Component {
           </SettingsBlock>
           {this.props.create ? (
             <TouchableOpacity
-              onPress={() => {}}
+              onPress={() => {
+                this.props.dispatch(createTrip({...trip, ...travelDates}))
+                  .then(() => this.props.navigator.pop());
+              }}
               style={[styles.actionButton, {borderWidth: 0, backgroundColor: '#3482b5'}]}
             >
               <Text style={{color: 'white', fontSize: 18}}>{'Create Public Trip'}</Text>

@@ -2,6 +2,8 @@
 import React, {Component} from 'react';
 import {
   View,
+  ScrollView,
+  RefreshControl,
   TouchableOpacity,
   Text,
   Image,
@@ -9,54 +11,84 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {getDateString} from '../../helpers';
+import {loadTrips} from '../../redux/actions';
 
-function UpcomingTravel(props) {
-  const {
-    travels
-  } = props;
-  return (
-    <View style={[styles.container, props.style]}>
-      <View style={styles.header}>
-        <View style={styles.headerLeftSide}>
-          <Image source={require('./img/plane.png')}/>
-          <Text style={styles.title}>{'Upcoming Travel'.toUpperCase()}</Text>
-        </View>
-        <TouchableOpacity
-          onPress={() => props.navigator.push({screen: 'tripEditor', create: true})}
-          style={styles.addButton}
-        >
-          <Image source={require('../search/img/plus.png')}/>
-        </TouchableOpacity>
-      </View>
-      <View>
-        {travels.length > 0 ? props.travels.map((travel, i) => (
-          <View style={styles.travel} key={i}>
-            <View style={styles.locationArea}>
-              <Image
-                style={{tintColor: '#eb6547'}}
-                source={require('../../components/img/geopoint.png')}
-              />
-              <Text style={styles.location}>{travel.location.description}</Text>
-            </View>
-            <TouchableOpacity
-              style={styles.informationArea}
-            >
-              <Image source={require('./img/circlePlane.png')}/>
-              <View style={styles.tripInfo}>
-                <Text style={{fontSize: 16}}>Public Trip</Text>
-                <Text>
-                  {`${getDateString(travel.from)} - ${getDateString(travel.to)}`}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        )) : (
-          <Text>No Upcoming Trips or Hosts</Text>
-        )
+class UpcomingTravel extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      refreshing: false
+    };
+  }
+
+  render() {
+    const {
+      trips
+    } = this.props;
+
+    return (
+      <ScrollView
+        style={[styles.container, this.props.style]}
+        refreshControl={
+          <RefreshControl
+            title="Pull to refresh..."
+            refreshing={this.state.refreshing}
+            onRefresh={() => {
+              this.setState({refreshing: true});
+              this.props.dispatch(loadTrips())
+                .then(() => this.setState({refreshing: false}));
+            }}
+          />
         }
-      </View>
-    </View>
-  );
+      >
+        <View style={styles.header}>
+          <View style={styles.headerLeftSide}>
+            <Image source={require('./img/plane.png')}/>
+            <Text style={styles.title}>{'Upcoming Travel'.toUpperCase()}</Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => this.props.navigator.push({screen: 'tripEditor', create: true})}
+            style={styles.addButton}
+          >
+            <Image source={require('../search/img/plus.png')}/>
+          </TouchableOpacity>
+        </View>
+        <View>
+          {trips.length > 0 ? trips.map((trip, i) => (
+            <View style={styles.travel} key={i}>
+              <View style={styles.locationArea}>
+                <Image
+                  style={{tintColor: '#eb6547'}}
+                  source={require('../../components/img/geopoint.png')}
+                />
+                <Text style={styles.location}>{trip.location.description}</Text>
+              </View>
+              <TouchableOpacity
+                onPress={() => this.props.navigator.push({
+                  screen: 'tripEditor',
+                  create: false,
+                  data: trip
+                })}
+                style={styles.informationArea}
+              >
+                <Image source={require('./img/circlePlane.png')}/>
+                <View style={styles.tripInfo}>
+                  <Text style={{fontSize: 16}}>Public Trip</Text>
+                  <Text>
+                    {`${getDateString(trip.arrives)} - ${getDateString(trip.departs)}`}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          )) : (
+            <Text>No Upcoming Trips or Hosts</Text>
+          )
+          }
+        </View>
+      </ScrollView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -116,25 +148,6 @@ const styles = StyleSheet.create({
   }
 });
 
-UpcomingTravel.defaultProps = {
-  travels: [
-    {
-      description: 'Just new travel',
-      location: {
-        description: 'Russia, Moscow'
-      },
-      from: new Date(2017, 5, 6),
-      to: new Date(2017, 5, 9),
-    },
-    {
-      description: 'Just new travel',
-      location: {
-        description: 'England, London'
-      },
-      from: new Date(2017, 5, 14),
-      to: new Date(2017, 5, 19),
-    }
-  ]
-};
-
-export default connect()(UpcomingTravel);
+export default connect(
+  state => ({trips: state.trip.trips})
+)(UpcomingTravel);
