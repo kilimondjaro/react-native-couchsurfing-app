@@ -105,7 +105,13 @@ class ProfileScreen extends Component {
     var rightItem;
     if (type === 'host') {
       actionButton = (
-        <ActionButton title="Request to Stay"/>
+        <ActionButton
+          title="Request to Stay"
+          onPress={() => this.props.navigator.push({
+            screen: 'requestScreen',
+            data: account.parent
+          })}
+        />
       );
     }
     if (type === 'traveler') {
