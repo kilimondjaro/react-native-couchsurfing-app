@@ -27,6 +27,8 @@ function logIn(username, password) {
 function logOut() {
   return (dispatch) => new Promise((resolve, reject) => {
     Parse.User.logOut().then(() => {
+      dispatch({type: 'RESET_REQUESTS'});
+      dispatch({type: 'RESET_ACCOUNT'});
       resolve(dispatch({type: 'LOGGED_OUT'}));
     });
   });
