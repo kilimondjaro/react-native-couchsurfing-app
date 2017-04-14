@@ -31,6 +31,53 @@ function createRequest(data) : ThunkAction {
   });
 }
 
+function loadRequests() {
+  return (dispatch) => new Promise((resolve) => {
+    const user = Parse.User.current();
+
+    const Request = Parse.Object.extend('Request');
+
+    var travelerQuery = new Parse.Query(Request);
+    travelerQuery.equalTo('traveler', user);
+
+    var hostQuery = new Parse.Query(Request);
+    hostQuery.equalTo('host', user);
+
+    var query = Parse.Query.or(travelerQuery, hostQuery);
+    query.include('traveler.account');
+
+    query.find().then(result => Promise.all(result.map((req) => {
+      const Account = Parse.Object.extend('Account');
+      var accountQuery = new Parse.Query(Account);
+      let type;
+      if (user.id === req.get('traveler').id) {
+        accountQuery.equalTo('parent', req.get('host'));
+        type = 'traveler';
+      } else {
+        accountQuery.equalTo('parent', req.get('traveler'));
+        type = 'host';
+      }
+      return accountQuery.find().then(acc => {
+        console.log(acc);
+        if (type === 'traveler') {
+          return {
+            type,
+            ...req.attributes,
+            host: acc[0].attributes
+          };
+        }
+        return {
+          type,
+          ...req.attributes,
+          traveler: acc[0].attributes
+        };
+      });
+    })))
+    .then(res => resolve(dispatch({type: 'REQUESTS_LOADED', requests: res})));
+  });
+}
+
 module.exports = {
-  createRequest
+  createRequest,
+  loadRequests
 };

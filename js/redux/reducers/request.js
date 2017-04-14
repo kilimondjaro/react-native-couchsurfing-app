@@ -15,20 +15,23 @@ export default function request(state = initialState, action) {
     case 'REQUESTS_LOADED': {
       return {
         ...state,
-        trips: action.requests
+        requests: action.requests
       };
     }
     case 'ADD_REQUEST': {
       return {
         ...state,
-        trips: state.requests.concat(action.request)
+        requests: state.requests.concat(action.request)
       };
     }
     case 'RESET_REQUEST': {
       return {
         ...initialState,
-        trips: state.requests
+        requests: state.requests
       };
+    }
+    case 'RESET_REQUESTS': {
+      return initialState;
     }
     default:
       return state;
