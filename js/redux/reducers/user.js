@@ -1,7 +1,8 @@
 const initialState = {
   username: '',
   email: '',
-  loggedIn: false
+  loggedIn: false,
+  user: null
 };
 
 export default function user(state = initialState, action) {
@@ -10,18 +11,19 @@ export default function user(state = initialState, action) {
       return {
         ...state,
         loggedIn: true,
-        username: action.user.get('username')
+        username: action.user.get('username'),
+        user: action.user
       };
     }
     case 'LOGGED_OUT': {
       return {
         ...state,
         loggedIn: false,
-        username: ''
+        username: '',
+        user: null
       };
     }
     default:
-
+      return state;
   }
-  return state;
 }

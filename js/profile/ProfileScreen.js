@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Navigator
 } from 'react-native';
+var ImagePicker = require('react-native-image-picker');
 import {connect} from 'react-redux';
 import {CSHeader} from '../components/CSHeader';
 import CSAvatar from '../components/CSAvatar';
@@ -18,7 +19,7 @@ import CSInputList from '../components/CSInputList';
 import {statusMap} from '../helpers';
 import ProfileTabsView from './ProfileTabsView';
 import CSLoadingView from '../components/CSLoadingView';
-import {loadAccount} from '../redux/actions';
+import {loadAccount, setSetting, saveAccount} from '../redux/actions';
 
 const verifiedStatuses = {
   payment: 'Payment',
@@ -60,6 +61,17 @@ type State = {
   loading: boolean;
 }
 
+var options = {
+  title: 'Select Avatar',
+  customButtons: [
+    {name: 'fb', title: 'Choose Photo from Facebook'},
+  ],
+  storageOptions: {
+    skipBackup: true,
+    path: 'images'
+  }
+};
+
 class ProfileScreen extends Component {
   state: State;
 
@@ -87,7 +99,8 @@ class ProfileScreen extends Component {
       lastName,
       location,
       responseRate,
-      active
+      active,
+      avatar
     } = account;
 
     const type = this.props.data.type;
@@ -146,16 +159,38 @@ class ProfileScreen extends Component {
           <ProfileProgressBar completion={0.75} />
           <CSAvatar
             style={styles.avatarContainer}
-            image={require('../tabs/search/img/me.jpg')}
+            image={avatar || require('../components/img/blank_picture.png')}
             firstLine={`${firstName} ${lastName}`}
             secondLine={location.description}
           >
             <View style={styles.zoomAvatartButtonContainer}>
               <TouchableOpacity
-                onPress={() => {}}
+                onPress={() => {
+                  ImagePicker.showImagePicker(options, (response) => {
+                    console.log('Response = ', response);
+
+                    if (response.didCancel) {
+                      console.log('User cancelled image picker');
+                    }
+                    else if (response.error) {
+                      console.log('ImagePicker Error: ', response.error);
+                    }
+                    else if (response.customButton) {
+                      console.log('User tapped custom button: ', response.customButton);
+                    }
+                    else {
+                      let source = { uri: response.uri };
+
+                      // You can also display the image using data:
+                      source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+                      this.props.dispatch(setSetting('avatar', source));
+                      this.props.dispatch(saveAccount());
+                    }
+                  });
+                }}
                 activeOpacity={0.2}
-                style={styles.zoomAvatartButton}>
-              </TouchableOpacity>
+                style={styles.zoomAvatartButton}/>
             </View>
           </CSAvatar>
           <CSInputList

@@ -19,7 +19,7 @@ class AccountScreen extends Component {
   }
 
   render() {
-    const {firstName, lastName, location, verified} = this.props.account;
+    const {firstName, lastName, location, verified, avatar} = this.props.account;
 
     const isVerified = Object.keys(verified.parts)
       .findIndex(key => verified.parts[key] === true) >= 0;
@@ -40,7 +40,7 @@ class AccountScreen extends Component {
         >
           <CSAvatar
             style={styles.avatar}
-            image={require('../search/img/me.jpg')}
+            image={avatar || require('../../components/img/blank_picture.png')}
             firstLine={`${firstName} ${lastName}`}
             secondLine={location.description}
             verified={isVerified}

@@ -31,9 +31,12 @@ function checkSetting(name: string, key: string) : Action {
   };
 }
 
-function saveAccount(account): Promise {
-  return new Promise((resolve, reject) => {
+function saveAccount(): ThunkAction {
+  return (dispatch, getState) => new Promise((resolve, reject) => {
+    const account = getState().account;
+    console.log(account);
     const user = Parse.User.current();
+
     if (user) {
       const Account = Parse.Object.extend('Account');
       var query = new Parse.Query(Account);
@@ -92,7 +95,7 @@ function setSurferStatus(status: string) : ThunkAction {
       name: 'status',
       value: status
     });
-    saveAccount(getState().account).then(resolve);
+    saveAccount().then(resolve);
   });
 }
 

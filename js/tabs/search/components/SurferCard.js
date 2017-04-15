@@ -44,7 +44,8 @@ class SurferCard extends Component {
       languagesImFluentIn,
       active,
       responseRate,
-      verified
+      verified,
+      avatar
     } = this.props.account;
 
     const statusAreaStyle = {backgroundColor: statusMap[status].areaColor};
@@ -57,8 +58,8 @@ class SurferCard extends Component {
         onPress={this.props.onPress}
       >
         <CSAvatar
-          style={styles.avatar}
-          image={require('../img/me.jpg')}
+          style={styles.avatar || require('../../../components/img/blank_picture.png')}
+          image={avatar}
           firstLine={`${firstName} ${lastName}`}
           secondLine={`From ${location.description}`}
           verified={verified}
