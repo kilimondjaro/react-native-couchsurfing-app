@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {CSHeader} from '../../components/CSHeader';
-import {loadRequests} from '../../redux/actions';
+import {loadRequests, acceptRequest} from '../../redux/actions';
 import {getDateString, daysOfWeek} from '../../helpers';
 
 function getDateStringWithDay(date: Date) {
@@ -22,30 +22,60 @@ function RequestCell(props) {
     request
   } = props;
 
+  const isTraveler = request.type === 'traveler';
   const {
     firstName,
     lastName
-  } = request.type === 'traveler' ? request.host : request.traveler;
+  } = isTraveler ? request.host : request.traveler;
+
+  var acceptText;
+  var onPressIsWorking = false;
+  if (isTraveler) {
+    acceptText = request.hostAccepted
+     ? 'Accepted' : 'Wait for accept';
+  } else {
+    onPressIsWorking = !request.hostAccepted && true;
+    acceptText = request.hostAccepted
+      ? 'Accepted' : 'Press to accept';
+  }
 
   return (
-    <TouchableOpacity
-      onPress={props.onPress}
-      style={{height: 85, flexDirection: 'row', borderBottomWidth: 0.5}}
-    >
-      <View style={{width: 90}}/>
-      <View style={{flex: 1, justifyContent: 'space-around'}}>
-        <Text style={{fontSize: 17}}>{`${request.type === 'traveler' ? 'To' : 'From'} ${firstName} ${lastName}`}</Text>
-        <Text style={{color: '#b6c3cb'}}>
-          {
-            `${getDateStringWithDay(request.arrives)} - ${
-              getDateStringWithDay(request.departs)
-            }`
-          }
-        </Text>
-        <Text style={{color: '#00002b'}}>{request.tripDetail}</Text>
-        <Text style={{color: '#b3b3b3'}}>{getDateString(request.createdAt)}</Text>
+    <View style={{borderBottomWidth: 0.5}}>
+      <TouchableOpacity
+        onPress={props.onPress}
+        style={{height: 85, flexDirection: 'row'}}
+      >
+        <View style={{width: 90}}/>
+        <View style={{flex: 1, justifyContent: 'space-around'}}>
+          <Text style={{fontSize: 17}}>{`${isTraveler ? 'To' : 'From'} ${firstName} ${lastName}`}</Text>
+          <Text style={{color: '#b6c3cb'}}>
+            {
+              `${getDateStringWithDay(request.arrives)} - ${
+                getDateStringWithDay(request.departs)
+              }`
+            }
+          </Text>
+          <Text style={{color: '#00002b'}}>{request.tripDetail}</Text>
+          <Text style={{color: '#b3b3b3'}}>{getDateString(request.createdAt)}</Text>
+        </View>
+      </TouchableOpacity>
+      <View style={{height: 30, flexDirection: 'row', alignItems: 'center', marginLeft: 10}}>
+        <Text>Status: </Text>
+        <TouchableOpacity
+          disabled={!onPressIsWorking}
+          onPress={props.onAcceptPress}
+          style={{height: 22, width: 150, borderRadius: 2, alignItems: 'center', justifyContent: 'center', marginLeft: 28, backgroundColor: '#2f81b7'}}
+        >
+          <Text style={{color: 'white'}}>{acceptText}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={onPressIsWorking && props.onAcceptPress}
+          style={{height: 22, width: 80, borderRadius: 2, alignItems: 'center', justifyContent: 'center', marginLeft: 5, backgroundColor: '#b3b3b3'}}
+        >
+          <Text style={{color: 'white'}}>Remove</Text>
+        </TouchableOpacity>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 
@@ -85,6 +115,7 @@ class MessagesScreen extends Component {
               <RequestCell
                 key={i}
                 request={request}
+                onAcceptPress={() => this.props.dispatch(acceptRequest(request.id, request.type))}
                 onPress={() => this.props.navigator.push({
                   screen: 'profile',
                   data: {
