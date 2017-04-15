@@ -25,6 +25,7 @@ export const initialState = {
       address: false
     }
   },
+  avatar: null,
   reservedDates: getInitialDates(),
   status: 'accepting',
   birthday: null,
