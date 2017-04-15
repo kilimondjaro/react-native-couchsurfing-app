@@ -5,7 +5,8 @@ type State = {
 const initialState = {
   location: '',
   hosts: [],
-  members: []
+  members: [],
+  travelers: []
 };
 
 export default function search(state: State = initialState, action) {
@@ -15,6 +16,9 @@ export default function search(state: State = initialState, action) {
     }
     case 'FINDED_MEMBERS': {
       return {...state, members: action.members};
+    }
+    case 'FINDED_TRAVELERS': {
+      return {...state, travelers: action.travelers};
     }
     case 'SET_LOCATION_ID': {
       return {...state, locationId: action.locationId};

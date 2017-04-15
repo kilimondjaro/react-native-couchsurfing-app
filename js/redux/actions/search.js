@@ -160,8 +160,84 @@ function searchHosts(locationId: string, filter: Filter) {
   });
 }
 
+function setUpTravelersFilters(query, filter) {
+  const {
+    status,
+    verifiedMember,
+    gender,
+    ageRange
+  } = filter;
+
+
+  const genderFilter = Object.keys(gender)
+    .filter(key => gender[key] === true);
+  if (genderFilter.length > 0) {
+    query.containedIn('gender', genderFilter);
+  }
+
+  const statusFilter = Object.keys(status)
+    .filter(key => status[key] === true);
+  if (statusFilter.length > 0) {
+    query.containedIn('status', statusFilter);
+  }
+
+  if (ageRange !== 'Any') {
+    const startDate = new Date();
+    const endDate = new Date();
+    const range = ageRange.split('-');
+    startDate.setFullYear(startDate.getFullYear() - range[1]);
+    endDate.setFullYear(endDate.getFullYear() - range[0]);
+    query.greaterThanOrEqualTo('birthday', startDate);
+    query.lessThanOrEqualTo('birthday', endDate);
+  }
+
+  if (verifiedMember) {
+    query.equalTo('verified.status', 'Verified');
+  }
+}
+
+function searchTravelers(locationId: string, filter: Filter) {
+  return (dispatch) => new Promise((resolve) => {
+    dispatch({type: 'SET_LOCATION_ID', locationId });
+
+    var Trip = Parse.Object.extend('Trip');
+    var query = new Parse.Query(Trip);
+
+    query.equalTo('location.id', locationId);
+    query.include('traveler');
+    query.greaterThanOrEqualTo('arrives', new Date());
+
+    const {arrives, departs} = filter.dates;
+    if (arrives && departs) {
+      query.greaterThanOrEqualTo('arrives', new Date(arrives.year, arrives.month, arrives.day));
+      query.lessThanOrEqualTo('departs', new Date(departs.year, departs.month, departs.day));
+    }
+
+
+    query.find().then(travelers => Promise.all(travelers.map((traveler) => {
+      const Account = Parse.Object.extend('Account');
+      const accountQuery = new Parse.Query(Account);
+      console.log(traveler);
+      accountQuery.equalTo('parent', traveler.get('traveler'));
+      setUpTravelersFilters(accountQuery, filter);
+      return accountQuery.find().then(acc => {
+        if (acc.length === 0) {
+          return null;
+        }
+        return {
+          ...traveler.attributes,
+          traveler: acc[0].attributes
+        };
+      });
+    }))).then((travelers) => {
+      resolve(dispatch({type: 'FINDED_TRAVELERS', travelers: travelers.filter(t => t)}));
+    });
+  });
+}
+
 
 module.exports = {
   searchHosts,
-  searchMembers
+  searchMembers,
+  searchTravelers
 };
