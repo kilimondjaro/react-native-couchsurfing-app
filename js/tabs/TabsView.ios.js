@@ -10,6 +10,7 @@ import HostingScreen from './hosting/HostingScreen';
 import SearchScreen from './search/SearchScreen';
 import AccountScreen from './account/AccountScreen';
 import DashboardScreen from './dashboard/DashboardScreen';
+import MessagesScreen from './messages/MessagesScreen';
 
 class TabsView extends Component {
   props: {
@@ -63,6 +64,14 @@ class TabsView extends Component {
           navigator={this.props.navigator}
         />
       </TabBarIOS.Item>
+      <TabBarIOS.Item
+        title="Messages"
+        selected={this.props.tab === 'messages'}
+        onPress={() => this.onTabPress('messages')}>
+      <MessagesScreen
+        navigator={this.props.navigator}
+      />
+    </TabBarIOS.Item>
       <TabBarIOS.Item
         title="Account"
         selected={this.props.tab === 'account'}

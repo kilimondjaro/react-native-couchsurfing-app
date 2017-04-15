@@ -9,6 +9,7 @@ import user from './user';
 import account from './account';
 import status from './status';
 import trip from './trip';
+import request from './request';
 
 export default combineReducers({
   navigation,
@@ -20,5 +21,6 @@ export default combineReducers({
   user,
   account,
   status,
-  trip
+  trip,
+  request
 });

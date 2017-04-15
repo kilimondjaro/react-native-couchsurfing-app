@@ -28,6 +28,7 @@ import OverviewScreen from './profile/overview/OverviewScreen';
 import AddressEditorScreen from './profile/address/AddressEditorScreen';
 import TripEditor from './tabs/dashboard/TripEditor';
 import LocationPickerScreen from './tabs/dashboard/LocationPickerScreen';
+import RequestScreen from './containers/RequestScreen';
 
 
 class CSNavigator extends Component {
@@ -93,6 +94,8 @@ class CSNavigator extends Component {
         return <TripEditor navigator={navigator} create={route.create} data={route.data} />;
       case 'locationSearch':
         return <LocationPickerScreen navigator={navigator} />;
+      case 'requestScreen':
+        return <RequestScreen navigator={navigator} data={route.data} />;
       default:
         return <TabsView navigator={navigator} />;
     }

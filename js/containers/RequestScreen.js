@@ -9,16 +9,16 @@ import {
   StyleSheet
 } from 'react-native';
 import {connect} from 'react-redux';
-import {CSHeader} from '../../components/CSHeader';
-import CalendarSegment from '../../components/CalendarSegment';
-import GuestsCountPicker from '../../components/GuestsCountPicker';
-import CSSegmentControl from '../../components/CSSegmentControl';
-import {getDateString, calendarSelectedDates} from '../../helpers';
-import CSCalendar from '../../components/CSCalendar';
-import CSTextInput from '../../components/CSTextInput';
-import CSInputList from '../../components/CSInputList';
-import {addDate} from '../../redux/actions/filter';
-import {createTrip} from '../../redux/actions';
+import {CSHeader} from '../components/CSHeader';
+import CalendarSegment from '../components/CalendarSegment';
+import GuestsCountPicker from '../components/GuestsCountPicker';
+import CSSegmentControl from '../components/CSSegmentControl';
+import {getDateString, calendarSelectedDates} from '../helpers';
+import CSCalendar from '../components/CSCalendar';
+import CSTextInput from '../components/CSTextInput';
+import CSInputList from '../components/CSInputList';
+import {addDate} from '../redux/actions/filter';
+import {createRequest} from '../redux/actions';
 
 function SettingsBlock(props) {
   return (
@@ -39,12 +39,8 @@ type State = {
   tripDetail: string;
 }
 
-class TripEditor extends Component {
+class RequestScreen extends Component {
   state: State;
-
-  static defaultProps = {
-    create: true
-  };
 
   constructor(props) {
     super(props);
@@ -78,19 +74,8 @@ class TripEditor extends Component {
   }
 
   render() {
-    let travelDates, trip;
-
-    if (this.props.create) {
-      travelDates = this.props.travelDates;
-      trip = this.props.trip;
-    }
-    else {
-      travelDates = {
-        arrives: this.props.data.arrives,
-        departs: this.props.data.departs
-      };
-      trip = this.props.data;
-    }
+    const travelDates = this.props.travelDates;
+    const trip = this.props.trip;
 
     var calendar;
     if (this.state.showCalendar) {
@@ -115,14 +100,6 @@ class TripEditor extends Component {
           leftItem={[{text: 'Cancel', onPress: () => this.props.navigator.pop()}]}
         />
         <ScrollView>
-          <SettingsBlock title="Destination">
-            <TouchableHighlight
-              onPress={() => this.props.navigator.push({screen: 'locationSearch'})}
-              style={[styles.destination, styles.block]}
-            >
-              <Text>{trip.location ? trip.location.description : 'Enter Destination'}</Text>
-            </TouchableHighlight>
-          </SettingsBlock>
           <SettingsBlock title="Travel Dates">
             <CSSegmentControl
               onPress={() => this.onCalendarSegmentPress()}
@@ -152,24 +129,19 @@ class TripEditor extends Component {
               />
             </CSInputList>
           </SettingsBlock>
-          {this.props.create ? (
-            <TouchableOpacity
-              onPress={() => {
-                this.props.dispatch(createTrip({...trip, ...travelDates}))
-                  .then(() => this.props.navigator.pop());
-              }}
-              style={[styles.actionButton, {borderWidth: 0, backgroundColor: '#3482b5'}]}
-            >
-              <Text style={{color: 'white', fontSize: 18}}>{'Create Public Trip'}</Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              onPress={() => {}}
-              style={styles.actionButton}
-            >
-              <Text style={{fontSize: 18}}>{'Delete'}</Text>
-            </TouchableOpacity>
-          )}
+          <TouchableOpacity
+            onPress={() => {
+              this.props.dispatch(createRequest({
+                ...trip,
+                ...travelDates,
+                host: this.props.data
+              }))
+                .then(() => this.props.navigator.pop());
+            }}
+            style={[styles.actionButton, {borderWidth: 0, backgroundColor: '#3482b5'}]}
+          >
+            <Text style={{color: 'white', fontSize: 18}}>{'Request to Stay'}</Text>
+          </TouchableOpacity>
         </ScrollView>
       </View>
     );
@@ -185,11 +157,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#bcc8d0'
   },
-  destination: {
-    height: 50,
-    paddingLeft: 10,
-    justifyContent: 'center'
-  },
   actionButton: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -202,4 +169,4 @@ const styles = StyleSheet.create({
 
 export default connect(
   state => ({travelDates: state.filter.dates, trip: state.trip})
-)(TripEditor);
+)(RequestScreen);
