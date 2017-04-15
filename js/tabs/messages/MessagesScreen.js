@@ -6,6 +6,7 @@ import {
   RefreshControl,
   TouchableOpacity,
   Text,
+  Image,
   StyleSheet
 } from 'react-native';
 import {connect} from 'react-redux';
@@ -25,7 +26,8 @@ function RequestCell(props) {
   const isTraveler = request.type === 'traveler';
   const {
     firstName,
-    lastName
+    lastName,
+    avatar
   } = isTraveler ? request.host : request.traveler;
 
   var acceptText;
@@ -45,7 +47,9 @@ function RequestCell(props) {
         onPress={props.onPress}
         style={{height: 85, flexDirection: 'row'}}
       >
-        <View style={{width: 90}}/>
+        <View style={{width: 90, height: 90, alignItems: 'center', justifyContent: 'center'}}>
+          <Image source={avatar || require('../../components/img/blank_picture.png')} style={{width: 70, height: 70, borderRadius: 35}}/>
+        </View>
         <View style={{flex: 1, justifyContent: 'space-around'}}>
           <Text style={{fontSize: 17}}>{`${isTraveler ? 'To' : 'From'} ${firstName} ${lastName}`}</Text>
           <Text style={{color: '#b6c3cb'}}>
@@ -59,12 +63,12 @@ function RequestCell(props) {
           <Text style={{color: '#b3b3b3'}}>{getDateString(request.createdAt)}</Text>
         </View>
       </TouchableOpacity>
-      <View style={{height: 30, flexDirection: 'row', alignItems: 'center', marginLeft: 10}}>
+      <View style={{height: 30, flexDirection: 'row', alignItems: 'center', marginLeft: 20}}>
         <Text>Status: </Text>
         <TouchableOpacity
           disabled={!onPressIsWorking}
           onPress={props.onAcceptPress}
-          style={{height: 22, width: 150, borderRadius: 2, alignItems: 'center', justifyContent: 'center', marginLeft: 28, backgroundColor: '#2f81b7'}}
+          style={{height: 22, width: 150, borderRadius: 2, alignItems: 'center', justifyContent: 'center', marginLeft: 18, backgroundColor: '#2f81b7'}}
         >
           <Text style={{color: 'white'}}>{acceptText}</Text>
         </TouchableOpacity>

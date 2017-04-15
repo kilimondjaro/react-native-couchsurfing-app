@@ -56,7 +56,7 @@ class SurferCard extends Component {
       >
         <CSAvatar
           style={styles.avatar}
-          image={require('../img/me.jpg')}
+          image={traveler.avatar || require('../../../components/img/blank_picture.png')}
           firstLine={`${traveler.firstName} ${traveler.lastName}`}
           secondLine={`From ${traveler.location.description}`}
           verified={traveler.verified}

@@ -101,7 +101,7 @@ function setUpHostFilters(query, filter, type) {
 }
 
 function searchMembers(name: string) {
-  return (dispatch) => new Promise((resolve) => {
+  return (dispatch, getState) => new Promise((resolve) => {
     var Account = Parse.Object.extend('Account');
     var firstword = new Parse.Query(Account);
     var secondWord = new Parse.Query(Account);
@@ -121,6 +121,7 @@ function searchMembers(name: string) {
     }
 
     var mainQuery = Parse.Query.or(firstword, secondWord);
+    mainQuery.notEqualTo('parent', getState().user.user);
     mainQuery.find({
       success: (result) => {
         resolve(dispatch({type: 'FINDED_MEMBERS', members: result}));
@@ -134,7 +135,7 @@ function searchMembers(name: string) {
 }
 
 function searchHosts(locationId: string, filter: Filter) {
-  return (dispatch) => new Promise((resolve) => {
+  return (dispatch, getState) => new Promise((resolve) => {
     dispatch({type: 'SET_LOCATION_ID', locationId });
 
     var Account = Parse.Object.extend('Account');
@@ -144,6 +145,9 @@ function searchHosts(locationId: string, filter: Filter) {
     query.skip(0); //TODO Make it dynamic
 
     query.equalTo('location.id', locationId);
+
+    query.notEqualTo('parent', getState().user.user);
+
     setUpHostFilters(query, filter, 'host');
 
 
@@ -197,7 +201,7 @@ function setUpTravelersFilters(query, filter) {
 }
 
 function searchTravelers(locationId: string, filter: Filter) {
-  return (dispatch) => new Promise((resolve) => {
+  return (dispatch, getState) => new Promise((resolve) => {
     dispatch({type: 'SET_LOCATION_ID', locationId });
 
     var Trip = Parse.Object.extend('Trip');
@@ -206,6 +210,7 @@ function searchTravelers(locationId: string, filter: Filter) {
     query.equalTo('location.id', locationId);
     query.include('traveler');
     query.greaterThanOrEqualTo('arrives', new Date());
+    query.notEqualTo('traveler', getState().user.user);
 
     const {arrives, departs} = filter.dates;
     if (arrives && departs) {
@@ -217,7 +222,7 @@ function searchTravelers(locationId: string, filter: Filter) {
     query.find().then(travelers => Promise.all(travelers.map((traveler) => {
       const Account = Parse.Object.extend('Account');
       const accountQuery = new Parse.Query(Account);
-      console.log(traveler);
+
       accountQuery.equalTo('parent', traveler.get('traveler'));
       setUpTravelersFilters(accountQuery, filter);
       return accountQuery.find().then(acc => {

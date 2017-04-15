@@ -23,7 +23,7 @@ class ProfileEditorScreen extends Component {
           rightItem={[{
             text: 'Save',
             onPress: () => {
-              saveAccount(this.props.account)
+              this.props.dispatch(saveAccount())
                 .then(this.props.navigator.pop)
                 .catch((err) => console.log(err));
             }
