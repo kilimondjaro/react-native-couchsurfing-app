@@ -29,6 +29,7 @@ function logOut() {
     Parse.User.logOut().then(() => {
       dispatch({type: 'RESET_REQUESTS'});
       dispatch({type: 'RESET_ACCOUNT'});
+      dispatch({type: 'RESET_FILTER'});
       resolve(dispatch({type: 'LOGGED_OUT'}));
     });
   });

@@ -7,7 +7,9 @@ import {
   ScrollView,
   RefreshControl
 } from 'react-native';
+import {connect} from 'react-redux';
 import TravelerCard from './TravelerCard';
+import {searchTravelers} from '../../../redux/actions';
 
 class TravelersSearchScreen extends Component {
   constructor(props) {
@@ -18,6 +20,8 @@ class TravelersSearchScreen extends Component {
     };
   }
   render() {
+    const {travelers} = this.props.search;
+
     return (
       <View style={{flex: 1}}>
         <View style={{padding: 10, height: 40, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center'}}>
@@ -38,16 +42,28 @@ class TravelersSearchScreen extends Component {
               refreshing={this.state.refreshing}
               onRefresh={() => {
                 this.setState({refreshing: true});
-                setTimeout(() => this.setState({refreshing: false}), 1000);
+                this.props.dispatch(searchTravelers(this.props.search.locationId, this.props.filter))
+                  .then(() => this.setState({refreshing: false}));
               }}
             />
           }
         >
-          {[1,2,3,4,5].map(i => (<TravelerCard key={i} style={{marginBottom: 20}}/>))}
+          {travelers.map((traveler, i) => (
+            <TravelerCard
+              onPress={() => this.props.navigator.push({screen: 'profile', data: {
+                type: 'member',
+                account: traveler.traveler
+              }})}
+              traveler={traveler}
+              key={i}
+              style={{marginBottom: 20}}/>
+          ))}
         </ScrollView>
       </View>
     );
   }
 }
 
-export default TravelersSearchScreen;
+export default connect(
+  state => ({filter: state.filter, search: state.search})
+)(TravelersSearchScreen);

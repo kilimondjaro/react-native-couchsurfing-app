@@ -10,26 +10,25 @@ import {
 import {getDateString} from '../../../helpers';
 import CSAvatar from '../../../components/CSAvatar';
 
-type Date = {
-  year: number;
-  month: number;
-  day: number;
-}
-
 type Props = {
   traveler: {
-    name: string;
-    location: string;
-    references: number;
-    speaks: string;
-    verified: boolean;
-    visiting: string;
-    description: string;
-    count: number;
-    date: {
-      arrives: Date;
-      departs: Date;
+    traveler: {
+      firstName: string;
+      lastName: string;
+      location: {
+        description: string;
+      };
+      verified: boolean;
+      references: number;
+      speaks: string;
+    },
+    location: {
+      description: string;
     };
+    tripDetail: string;
+    numberOfTravelers: number;
+    arrives: Date;
+    departs: Date;
   },
   style?: any;
   onPress: () => void;
@@ -37,37 +36,18 @@ type Props = {
 
 class SurferCard extends Component {
   props: Props;
-  static defaultProps = {
-    traveler: {
-      name: 'Kirill Babich',
-      location: 'Moscow, Russia',
-      references: 8,
-      speaks: 'English',
-      verified: true,
-      visiting: 'Moscow, Russia',
-      date: {
-        arrives: {year: 2017, month: 2, day: 31},
-        departs: {year: 2017, month: 3, day: 10}
-      },
-      count: 1,
-      description: 'Hello, Rosa! We are Polly and Kirill, two funny friendly students from Russia! We are very glad to hear from you about your life feeling, we suppose that we may find a common ground!'
-    }
-  }
 
   render() {
     const {
-      name,
+      traveler,
       location,
-      date,
-      count,
-      references,
-      speaks,
-      description,
-      visiting,
-      verified
+      arrives,
+      departs,
+      numberOfTravelers,
+      tripDetail
     } = this.props.traveler;
 
-// 0.55 + 0.15 + 0.3
+
     return (
       <TouchableOpacity
         activeOpacity={1}
@@ -77,23 +57,23 @@ class SurferCard extends Component {
         <CSAvatar
           style={styles.avatar}
           image={require('../img/me.jpg')}
-          firstLine={name}
-          secondLine={`From ${location}`}
-          verified={verified}
+          firstLine={`${traveler.firstName} ${traveler.lastName}`}
+          secondLine={`From ${traveler.location.description}`}
+          verified={traveler.verified}
         />
         <View style={styles.visitingArea}>
-          <Text style={styles.visitingText}>{`Visiting ${visiting}`}</Text>
-          <Text style={styles.visitingDate}>{`${getDateString(date.arrives)} - ${getDateString(date.departs)} ${count} Traveler${count > 1 ? 's' : ''}`}</Text>
+          <Text style={styles.visitingText}>{`Visiting ${location.description}`}</Text>
+          <Text style={styles.visitingDate}>{`${getDateString(arrives)} - ${getDateString(departs)} ${numberOfTravelers} Traveler${numberOfTravelers > 1 ? 's' : ''}`}</Text>
         </View>
         <View style={styles.footer}>
           <View style={styles.footerBlock}>
             <View style={styles.statsLine}>
               <Image source={require('../img/references.png')}/>
-              <Text style={styles.statsText}>{`${references} References`}</Text>
+              <Text style={styles.statsText}>{`${traveler.experience.hosted.length + traveler.experience.stayedWith.length} References`}</Text>
             </View>
             <View style={styles.statsLine}>
               <Image source={require('../../../components/img/speaks.png')}/>
-              <Text style={styles.statsText}>{`Speaks ${speaks}`}</Text>
+              <Text style={styles.statsText}>{`Speaks ${Object.keys(traveler.languagesImFluentIn).filter(key => traveler.languagesImFluentIn[key] === true).join(', ')}`}</Text>
             </View>
           </View>
           <View style={styles.footerBlock}>
@@ -101,7 +81,7 @@ class SurferCard extends Component {
               style={styles.description}
               numberOfLines={3}
             >
-              {description}
+              {tripDetail}
           </Text>
           </View>
         </View>
