@@ -98,8 +98,21 @@ function acceptRequest(id: string, type: string) {
   });
 }
 
+function removeRequest(id: string) {
+  return (dispatch) => new Promise((resolve) => {
+    const Request = Parse.Object.extend('Request');
+    const request = new Request();
+    request.id = id;
+
+    request.destroy().then(() => {
+      dispatch({type: 'REMOVE_REQUEST', id});
+    });
+  });
+}
+
 module.exports = {
   createRequest,
   loadRequests,
-  acceptRequest
+  acceptRequest,
+  removeRequest
 };

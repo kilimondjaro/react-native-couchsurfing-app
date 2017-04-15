@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {CSHeader} from '../../components/CSHeader';
-import {loadRequests, acceptRequest} from '../../redux/actions';
+import {loadRequests, acceptRequest, removeRequest} from '../../redux/actions';
 import {getDateString, daysOfWeek} from '../../helpers';
 
 function getDateStringWithDay(date: Date) {
@@ -69,7 +69,7 @@ function RequestCell(props) {
           <Text style={{color: 'white'}}>{acceptText}</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={onPressIsWorking && props.onAcceptPress}
+          onPress={props.onRemovePress}
           style={{height: 22, width: 80, borderRadius: 2, alignItems: 'center', justifyContent: 'center', marginLeft: 5, backgroundColor: '#b3b3b3'}}
         >
           <Text style={{color: 'white'}}>Remove</Text>
@@ -115,6 +115,7 @@ class MessagesScreen extends Component {
               <RequestCell
                 key={i}
                 request={request}
+                onRemovePress={() => this.props.dispatch(removeRequest(request.id))}
                 onAcceptPress={() => this.props.dispatch(acceptRequest(request.id, request.type))}
                 onPress={() => this.props.navigator.push({
                   screen: 'profile',
