@@ -33,7 +33,10 @@ type Date = {
 }
 
 type Props = {
-  locations: Array<{description: string, id: string}>;
+  location: {
+    locations: Array<{description: string, id: string}>;
+    location: {description: string, id: string};
+  };
   dates: {arrives: ?Date, departs: ?Date};
   navigator: Navigator;
 };
@@ -145,7 +148,7 @@ class SearchScreen extends Component {
                    >
                      {
                        this.state.searchText
-                         ? this.props.locations.map((loc, i) => (
+                         ? this.props.location.locations.map((loc, i) => (
                            <TouchableOpacity
                              key={i}
                              style={styles.searchItem}
@@ -170,7 +173,18 @@ class SearchScreen extends Component {
                          ))
                          : (<TouchableOpacity
                            style={styles.searchItem}
-                           onPress={() => this.props.dispatch(loadLocationByCoordinates())}
+                           onPress={() => {
+                             this.props.dispatch(loadLocationByCoordinates())
+                              .then(() => {
+                                const loc = this.props.location.location;
+                                this.props.dispatch(
+                                  this.state.searchMode === 'host'
+                                   ? searchHosts(loc.id, this.props.filters)
+                                   : searchTravelers(loc.id, this.props.filters)
+                                );
+                                this.setState({onSearchFocus: false});
+                              })
+                           }}
                          >
                            <Image
                              source={require('../../components/img/geopoint.png')}
@@ -221,7 +235,7 @@ const styles = StyleSheet.create({
 
 export default connect(
   state => ({
-    locations: state.location.locations,
+    location: state.location,
     filters: state.filter,
     dates: state.filter.dates,
     search: state.search

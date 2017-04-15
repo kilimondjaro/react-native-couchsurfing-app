@@ -13,16 +13,16 @@ export function loadLocations(search: string) : ThunkAction {
 }
 
 export function loadLocationByCoordinates(): ThunkAction {
-  return (dispatch) => {
+  return (dispatch) => new Promise(resolve => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         getLocationByCoords(position.coords)
-          .then(res => dispatch(_loadedLocation(res)));
+          .then(res => resolve(dispatch(_loadedLocation(res))));
       },
       (error) => console.log(error),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
-  };
+  });
 }
 
 function _loadedLocations(locations) : Action {

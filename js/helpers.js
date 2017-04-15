@@ -33,7 +33,10 @@ export function getLocationByCoords(coords) {
         if (responseJson.status === 'OK') {
           const firstResult = responseJson.results[0];
           if (firstResult.types[0] === 'locality' && firstResult.types[1] === 'political') {
-            return firstResult.place_id;
+            return {
+              id: firstResult.place_id,
+              description: firstResult.description
+            };
           }
         }
         return null;
