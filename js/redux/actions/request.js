@@ -63,12 +63,14 @@ function loadRequests() {
           return {
             type,
             ...req.attributes,
+            id: req.id,
             host: acc[0].attributes
           };
         }
         return {
           type,
           ...req.attributes,
+          id: req.id,
           traveler: acc[0].attributes
         };
       });
@@ -77,7 +79,27 @@ function loadRequests() {
   });
 }
 
+function acceptRequest(id: string, type: string) {
+  return (dispatch) => new Promise((resolve) => {
+    const Request = Parse.Object.extend('Request');
+    const request = new Request();
+    request.id = id;
+
+    if (type === 'host') {
+      request.set('hostAccepted', true);
+    } else {
+      request.set('travelerAccepted', true);
+    }
+    console.log(request);
+
+    request.save().then(() => {
+      resolve(dispatch({type: 'ACCEPT_REQUEST', id}));
+    });
+  });
+}
+
 module.exports = {
   createRequest,
-  loadRequests
+  loadRequests,
+  acceptRequest
 };

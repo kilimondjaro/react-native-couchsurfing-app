@@ -33,6 +33,13 @@ export default function request(state = initialState, action) {
     case 'RESET_REQUESTS': {
       return initialState;
     }
+    case 'ACCEPT_REQUEST': {
+      return {
+        ...state,
+        requests: state.requests.map(req => req.id === action.id
+          ? {...req, hostAccepted: true} : req)
+      };
+    }
     default:
       return state;
   }
