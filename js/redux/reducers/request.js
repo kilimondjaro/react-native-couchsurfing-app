@@ -40,6 +40,12 @@ export default function request(state = initialState, action) {
           ? {...req, hostAccepted: true} : req)
       };
     }
+    case 'REMOVE_REQUEST': {
+      return {
+        ...state,
+        requests: state.requests.filter(req => req.id !== action.id)
+      };
+    }
     default:
       return state;
   }
