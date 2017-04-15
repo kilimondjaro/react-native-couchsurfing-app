@@ -38,7 +38,7 @@ class TabsView extends Component {
         style={{overflow: 'hidden'}}
       >
         <TabBarIOS.Item
-          icon={null}
+          icon={require('./img/dashboard.png')}
           title="Dashboard"
           selected={this.props.tab === 'dashboard'}
           onPress={() => this.onTabPress('dashboard')}
@@ -48,6 +48,7 @@ class TabsView extends Component {
           />
         </TabBarIOS.Item>
         <TabBarIOS.Item
+          title="Hosting"
           icon={require('./img/hosting.png')}
           selected={this.props.tab === 'hosting'}
           onPress={() => this.onTabPress('hosting')}
@@ -58,6 +59,7 @@ class TabsView extends Component {
         </TabBarIOS.Item>
         <TabBarIOS.Item
           icon={require('./img/search.png')}
+          title="Search"
           selected={this.props.tab === 'search'}
           onPress={() => this.onTabPress('search')}>
         <SearchScreen
@@ -65,6 +67,7 @@ class TabsView extends Component {
         />
       </TabBarIOS.Item>
       <TabBarIOS.Item
+        icon={require('./img/messages.png')}
         title="Messages"
         selected={this.props.tab === 'messages'}
         onPress={() => this.onTabPress('messages')}>
@@ -73,6 +76,7 @@ class TabsView extends Component {
       />
     </TabBarIOS.Item>
       <TabBarIOS.Item
+        icon={require('./img/account.png')}
         title="Account"
         selected={this.props.tab === 'account'}
         onPress={() => this.onTabPress('account')}>
