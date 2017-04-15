@@ -133,6 +133,9 @@ export default function account(state = initialState, action) {
         reservedDates: dates
       };
     }
+    case 'RESET_ACCOUNT': {
+      return initialState;
+    }
   }
   return state;
 }
