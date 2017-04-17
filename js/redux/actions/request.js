@@ -23,10 +23,8 @@ function createRequest(data) : ThunkAction {
     request.set('hostAccepted', false);
     request.set('travelerAccepted', false);
 
-    request.save(null, {
-      success: () => {
-        resolve(dispatch({type: 'ADD_REQUEST', request}));
-      }
+    request.save(null).then(() => {
+      resolve(dispatch({type: 'ADD_REQUEST', request}))
     });
   });
 }
